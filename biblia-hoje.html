@@ -468,6 +468,30 @@
   body.comav{overflow:hidden}
   body.comav :is(.busca-fab,.camadas-fab,.camadas){display:none}
   body.comav .glx{z-index:95}
+  .avalca{position:absolute; z-index:60; font-family:"IBM Plex Sans",sans-serif; font-size:9.5px; font-weight:600;
+    letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3); background:var(--surface);
+    border:1px solid var(--rule-2); border-radius:12px; padding:4px 9px; cursor:grab; user-select:none; touch-action:none}
+  .avalca:hover,.avalca.segurando{color:var(--mark); border-color:var(--mark)}
+  .avalca.segurando{cursor:grabbing}
+  .avalca span{font-size:13px; line-height:0; vertical-align:-1px}
+  .avalca[hidden]{display:none}
+  body.comav .avalca{display:none}
+  .avdica{position:fixed; z-index:84; left:12px; right:78px; bottom:max(16px, env(safe-area-inset-bottom));
+    display:flex; gap:12px; align-items:center; padding:11px 13px; max-width:460px;
+    background:var(--surface); border:1px solid var(--rule-2); border-left:3px solid var(--mark); border-radius:6px;
+    box-shadow:0 10px 30px rgba(0,0,0,.2); font-family:"IBM Plex Sans",sans-serif}
+  @media (min-width:1000px){ .avdica{left:auto; right:24px; bottom:24px} }
+  body.oferta .avdica{bottom:calc(max(16px, env(safe-area-inset-bottom)) + 92px)}
+  .avdica p{margin:0; flex:1; font-size:12.5px; line-height:1.5; color:var(--ink-2)}
+  .avdica b{color:var(--ink); font-weight:600}
+  .avdica-alca{font-size:9.5px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--mark);
+    border:1px solid var(--mark); border-radius:10px; padding:1px 6px; white-space:nowrap}
+  .avdica button{flex:none; font:inherit; font-size:12px; font-weight:600; color:var(--ground); background:var(--ink);
+    border:0; border-radius:5px; padding:7px 11px; cursor:pointer}
+  body.comav .avdica{display:none}
+  .temav.balanca{position:relative; animation:balanca 1.8s ease-in-out}
+  @keyframes balanca{0%,100%{transform:none} 30%,55%{transform:translateX(58px)}}
+  @media (prefers-reduced-motion:reduce){ .temav.balanca{animation:none} }
   .achado{animation:achado 2.6s ease-out}
   @keyframes achado{0%,35%{background:color-mix(in srgb, var(--mark) 22%, transparent)} 100%{background:transparent}}
   @media (prefers-reduced-motion:reduce){ .achado{animation:none; outline:2px solid var(--mark); outline-offset:3px} }
@@ -6696,6 +6720,7 @@
       folha.querySelectorAll('.avglx').forEach(function(b){ b.addEventListener('click', function(){ abrirGlx(b.dataset.w); }); });
     }
     function abrir(g){
+      dispensarDica();
       montar(g);
       fundo.hidden = false; folha.hidden = false;
       document.body.classList.add('comav');
@@ -6709,22 +6734,12 @@
     fundo.addEventListener('click', fechar);
     document.addEventListener('keydown', function(e){ if (e.key === 'Escape') fechar(); });
 
-    // ---- o gesto
+    // ---- o gesto: dedo no verso, ou mouse na alça da margem
     var arr = null, LIMIAR = 70;
-    function soltar(){
+    function comecar(g, x, y){ arr = { g: g, x: x, y: y, dx: 0, modo: null }; }
+    function mover(x, y){
       if (!arr) return;
-      arr.g.ps.forEach(function(p){ p.style.transform = ''; p.classList.remove('puxando', 'pronto', 'puxa1'); });
-      arr = null;
-    }
-    document.addEventListener('touchstart', function(e){
-      if (e.touches.length !== 1) return soltar();
-      var p = e.target.closest && e.target.closest('.temav');
-      if (!p || e.target.closest('.pop')) return;
-      arr = { g: p._av, x: e.touches[0].clientX, y: e.touches[0].clientY, dx: 0, modo: null };
-    }, { passive: true });
-    document.addEventListener('touchmove', function(e){
-      if (!arr) return;
-      var dx = e.touches[0].clientX - arr.x, dy = e.touches[0].clientY - arr.y;
+      var dx = x - arr.x, dy = y - arr.y;
       if (!arr.modo) {
         if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
         if (dx > 0 && Math.abs(dx) > Math.abs(dy) * 1.3) arr.modo = 'h';
@@ -6738,14 +6753,100 @@
         p.style.transform = 'translateX(' + t + 'px)';
         p.classList.toggle('pronto', arr.dx >= LIMIAR);
       });
-    }, { passive: true });
-    document.addEventListener('touchend', function(){
+    }
+    function soltar(){
       if (!arr) return;
+      arr.g.ps.forEach(function(p){ p.style.transform = ''; p.classList.remove('puxando', 'pronto', 'puxa1'); });
+      arr = null;
+    }
+    function terminar(){
+      if (!arr) return false;
       var g = arr.g, ok = arr.modo === 'h' && arr.dx >= LIMIAR;
       soltar();
       if (ok) abrir(g);
-    });
+      return ok;
+    }
+    document.addEventListener('touchstart', function(e){
+      if (e.touches.length !== 1) return soltar();
+      var p = e.target.closest && e.target.closest('.temav');
+      if (!p || e.target.closest('.pop')) return;
+      comecar(p._av, e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+    document.addEventListener('touchmove', function(e){ if (arr) mover(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
+    document.addEventListener('touchend', terminar);
     document.addEventListener('touchcancel', soltar);
+
+    // ---- aviso, uma vez só
+    var fino = window.matchMedia('(any-hover:hover) and (any-pointer:fine)').matches, dica = null;
+    function dispensarDica(){
+      try { localStorage.setItem('dica-aparato', '1'); } catch (e) {}
+      if (dica) { dica.remove(); dica = null; }
+    }
+    var jaViu = true;
+    try { jaViu = !!localStorage.getItem('dica-aparato'); } catch (e) {}
+    if (!jaViu && grupos.some(function(g){ return g.ps[0].classList.contains('temav'); })) setTimeout(function(){
+      if (!folha.hidden) return;
+      dica = document.createElement('div');
+      dica.className = 'avdica'; dica.setAttribute('role', 'status');
+      dica.innerHTML = '<p>' + (fino
+        ? '<b>Tudo sobre um verso, num gesto.</b> Passe o mouse num verso e arraste a alça <span class="avdica-alca">aparato ›</span> para a direita, ou clique nela.'
+        : '<b>Tudo sobre um verso, num gesto.</b> Arraste um verso para a direita para ver o aparato, o comentário e o original.')
+        + '</p><button type="button">Entendi</button>';
+      document.body.appendChild(dica);
+      dica.querySelector('button').addEventListener('click', dispensarDica);
+      var alvo = Array.prototype.filter.call(document.querySelectorAll('.page.on .temav'), function(p){
+        var r = p.getBoundingClientRect(); return r.top > 60 && r.bottom < window.innerHeight - 140;
+      })[0];
+      if (alvo) {
+        var g = alvo._av;
+        g.ps.forEach(function(p){ p.classList.add('balanca'); });
+        g.ps[0].classList.add('puxa1');
+        setTimeout(function(){ g.ps.forEach(function(p){ p.classList.remove('balanca', 'puxa1'); }); }, 1900);
+      }
+    }, 1200);
+
+    if (!fino) return;
+    var alca = document.createElement('button'), sobre = null, some;
+    alca.type = 'button'; alca.className = 'avalca'; alca.hidden = true;
+    alca.innerHTML = 'aparato <span aria-hidden="true">&rsaquo;</span>';
+    alca.title = 'Arraste para a direita, ou clique, para ver tudo sobre este verso';
+    document.body.appendChild(alca);
+    function por(g){
+      clearTimeout(some);
+      if (arr) return;
+      sobre = g;
+      var r = g.ps[0].getBoundingClientRect();
+      alca.style.top = (r.top + window.scrollY + 4) + 'px';
+      alca.style.left = Math.max(4, r.left + window.scrollX - 86) + 'px';
+      alca.hidden = false;
+    }
+    function tirar(){ some = setTimeout(function(){ if (!arr) alca.hidden = true; }, 250); }
+    document.addEventListener('mouseover', function(e){
+      var p = e.target.closest && e.target.closest('.temav');
+      if (p) por(p._av); else if (!alca.contains(e.target)) tirar();
+    });
+    alca.addEventListener('mouseenter', function(){ clearTimeout(some); });
+    alca.addEventListener('pointerdown', function(e){
+      if (e.button !== 0 || !sobre) return;
+      e.preventDefault();
+      alca.setPointerCapture(e.pointerId);
+      alca.classList.add('segurando');
+      comecar(sobre, e.clientX, e.clientY);
+    });
+    alca.addEventListener('pointermove', function(e){
+      if (!arr) return;
+      mover(e.clientX, e.clientY);
+      if (arr) alca.style.transform = 'translateX(' + Math.min(arr.dx * 0.6, 96) + 'px)';
+    });
+    alca.addEventListener('pointerup', function(){
+      var g = arr && arr.g, arrastou = arr && arr.modo === 'h';
+      alca.classList.remove('segurando'); alca.style.transform = '';
+      if (arrastou) { terminar(); alca.hidden = true; return; }
+      soltar();
+      if (g) { alca.hidden = true; abrir(g); }
+    });
+    alca.addEventListener('pointercancel', function(){ alca.classList.remove('segurando'); alca.style.transform = ''; soltar(); });
+    alca.addEventListener('keydown', function(e){ if ((e.key === 'Enter' || e.key === ' ') && sobre) { e.preventDefault(); abrir(sobre); } });
   })();
 
   // ---- no toque, dois toques numa palavra abrem o verbete
