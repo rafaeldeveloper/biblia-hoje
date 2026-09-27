@@ -396,12 +396,22 @@
   .bex button{font-family:"IBM Plex Sans",sans-serif; font-size:12px; color:var(--ink-2); background:var(--surface-2);
     border:1px solid var(--rule); border-radius:14px; padding:5px 11px; cursor:pointer}
   .bex button:hover{border-color:var(--rule-2); color:var(--ink)}
+  .busca-topo{display:none}
+  @media (max-width:999px){
+    .shell{display:flex; flex-direction:column}
+    .busca-topo{display:block; order:0; padding:16px 20px 0}
+    .busca-topo .busca-abre{margin:0}
+    main{order:1; padding-bottom:48px}
+    .rail{order:2; border-bottom:0; border-top:1px solid var(--rule); padding-bottom:96px}
+    .rail .busca-abre{display:none}
+  }
   .achado{animation:achado 2.6s ease-out}
   @keyframes achado{0%,35%{background:color-mix(in srgb, var(--mark) 22%, transparent)} 100%{background:transparent}}
   @media (prefers-reduced-motion:reduce){ .achado{animation:none; outline:2px solid var(--mark); outline-offset:3px} }
 </style>
 
 <div class="shell">
+  <div class="busca-topo"><button class="busca-abre" type="button" data-busca><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Buscar livro, história ou palavra</span></button></div>
   <nav class="rail">
     <p class="brand">Bíblia em português de hoje</p>
     <p class="brand-sub">Com as escolhas à vista</p>
