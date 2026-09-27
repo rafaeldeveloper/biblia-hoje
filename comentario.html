@@ -1,0 +1,840 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Comentário de João</title>
+<link rel="stylesheet" href="fontes/fontes.css">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="icones/favicon-32.png">
+<link rel="apple-touch-icon" href="icones/apple-touch-icon.png">
+<meta name="theme-color" content="#FAF9F6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14130F" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="João">
+<style>
+  :root{
+    --ground:#F7F6F2; --surface:#FFFFFF; --surface-2:#EEEDE7;
+    --ink:#17171A; --ink-2:#56565D; --ink-3:#8A8A90;
+    --rule:#E4E2DA; --rule-2:#D3D1C7; --rail:#F1F0EA;
+    --lingua:#1D4E6B; --variante:#7D3040; --seculo:#4C5A33;
+    --aspecto:#4A4668; --aberto:#8A5714; --prop:#9A9A92;
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --ground:#111214; --surface:#181A1D; --surface-2:#202226;
+    --ink:#EAE9E4; --ink-2:#A8A8AE; --ink-3:#77777E;
+    --rule:#292B30; --rule-2:#3A3C42; --rail:#151619;
+    --lingua:#84AFCB; --variante:#C98A98; --seculo:#9AAE78;
+    --aspecto:#A09BC4; --aberto:#CBA057; --prop:#6E6E76;
+  }}
+  :root[data-theme="dark"]{
+    --ground:#111214; --surface:#181A1D; --surface-2:#202226;
+    --ink:#EAE9E4; --ink-2:#A8A8AE; --ink-3:#77777E;
+    --rule:#292B30; --rule-2:#3A3C42; --rail:#151619;
+    --lingua:#84AFCB; --variante:#C98A98; --seculo:#9AAE78;
+    --aspecto:#A09BC4; --aberto:#CBA057; --prop:#6E6E76;
+  }
+
+  *{box-sizing:border-box}
+  body{background:var(--ground); color:var(--ink);
+    font-family:Newsreader,Georgia,serif; -webkit-font-smoothing:antialiased}
+  .heb{font-family:"Frank Ruhl Libre",serif}
+  .ui{font-family:Archivo,system-ui,sans-serif}
+
+  .shell{display:block}
+  @media (min-width:1000px){ .shell{display:grid; grid-template-columns:214px minmax(0,1fr)} }
+
+  /* ---------- rail ---------- */
+  .rail{background:var(--rail); border-bottom:1px solid var(--rule); padding:16px 20px}
+  @media (min-width:1000px){ .rail{border-bottom:0; border-right:1px solid var(--rule);
+    position:sticky; top:0; height:100vh; overflow-y:auto; padding:30px 20px} }
+  .brand{font-weight:600; font-size:18px; margin:0 0 2px; letter-spacing:-.01em}
+  .brand-sub{font-family:Archivo,sans-serif; font-size:10px; letter-spacing:.13em;
+    text-transform:uppercase; color:var(--ink-3); margin:0 0 20px}
+  .navgroup{font-family:Archivo,sans-serif; font-size:9.5px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--ink-3); margin:0 0 7px}
+  .navlist{list-style:none; margin:0 0 20px; padding:0; display:flex; flex-wrap:wrap; gap:5px}
+  @media (min-width:1000px){ .navlist{flex-direction:column; gap:1px} }
+  .navlist button{font-family:Archivo,sans-serif; font-size:12.5px; text-align:left; width:100%;
+    background:none; border:0; border-radius:3px; padding:6px 9px; color:var(--ink-2); cursor:pointer}
+  .navlist button:hover{background:var(--surface-2); color:var(--ink)}
+  .navlist button[aria-current="true"]{background:var(--ink); color:var(--ground); font-weight:500}
+  .ctrl{font-family:Archivo,sans-serif; font-size:11px; color:var(--ink-2); background:none;
+    border:1px solid var(--rule-2); border-radius:3px; padding:6px 9px; cursor:pointer;
+    margin-bottom:6px; display:block; width:100%; text-align:left}
+  .ctrl:hover{border-color:var(--ink-3); color:var(--ink)}
+  .ctrl[aria-pressed="true"]{background:var(--ink); color:var(--ground); border-color:var(--ink)}
+  button:focus-visible, summary:focus-visible, .tag-btn:focus-visible{outline:2px solid var(--lingua); outline-offset:2px}
+  .legend{margin-top:22px; padding-top:14px; border-top:1px solid var(--rule);
+    font-family:Archivo,sans-serif; font-size:10.5px; color:var(--ink-3); line-height:1.9}
+  .legend span{display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:6px;
+    vertical-align:baseline; position:relative; top:0}
+
+  /* ---------- main ---------- */
+  main{padding:30px 18px 100px}
+  @media (min-width:1000px){ main{padding:52px 40px 130px} }
+  .doc{max-width:39rem; margin:0 auto}
+  .chapter{display:none} .chapter.on{display:block}
+
+  .eyebrow{font-family:Archivo,sans-serif; font-size:10px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--ink-3); margin:0 0 9px}
+  h1{font-size:clamp(28px,5vw,40px); font-weight:600; line-height:1.08;
+    letter-spacing:-.02em; margin:0 0 26px}
+  .unit{margin-top:44px}
+  .unit:first-of-type{margin-top:0}
+  h2{font-family:Archivo,sans-serif; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase;
+    font-weight:600; color:var(--ink-3); margin:0 0 14px; padding-bottom:8px; border-bottom:1px solid var(--rule)}
+  h2 b{color:var(--ink); font-weight:600}
+
+  /* ---------- o texto: o foco ---------- */
+  .scripture{font-size:20.5px; line-height:1.8; color:var(--ink); max-width:34rem}
+  @media (max-width:520px){ .scripture{font-size:19px; line-height:1.75} }
+  .scripture p{margin:0 0 15px; text-indent:0}
+  .v{font-family:Archivo,sans-serif; font-size:10.5px; font-weight:600; color:var(--ink-3);
+    vertical-align:super; line-height:0; margin-right:4px; letter-spacing:0}
+
+  /* marcas no texto */
+  .tag-btn{font:inherit; background:none; border:0; padding:0; cursor:pointer; color:inherit;
+    border-bottom:1.5px solid var(--c); text-decoration:none}
+  .tag-btn:hover{background:color-mix(in srgb, var(--c) 14%, transparent)}
+  .tag-btn.l{--c:var(--lingua)} .tag-btn.v{--c:var(--variante)}
+  .tag-btn.s{--c:var(--seculo)} .tag-btn.a{--c:var(--aspecto)}
+  .tag-btn.e{--c:var(--ink-3)}
+  body.plain .tag-btn{border-bottom-color:transparent}
+  body.plain .tag-btn:hover{background:none}
+
+  /* ---------- diagramas ---------- */
+  .dg{color:var(--ink); margin:0 0 8px}
+  .dgw{overflow-x:auto; margin:26px 0 6px; padding-bottom:4px}
+  .dg svg{display:block; width:100%; min-width:560px; height:auto}
+  .dg text{font-family:Archivo,system-ui,sans-serif}
+  .dg .acc{stroke:var(--lingua)} .dg .accf{fill:var(--lingua)}
+  .dg .mut{fill:var(--ink-3)} .dg .rl{stroke:var(--rule-2)}
+  .dg .bx{fill:none; stroke:currentColor}
+  .dg .sf{fill:var(--surface-2); stroke:none}
+  .dg .tt{fill:currentColor}
+  figure{margin:0}
+  figcaption{font-family:Archivo,sans-serif; font-size:12.5px; color:var(--ink-3);
+    line-height:1.5; margin:10px 0 34px; max-width:34rem}
+  figcaption b{color:var(--ink-2); font-weight:600}
+  /* ---------- estudos ---------- */
+  .studies{margin:22px 0 0; display:flex; flex-direction:column; gap:7px}
+  details{border:1px solid var(--rule); border-left:3px solid var(--c,var(--rule-2));
+    border-radius:3px; background:var(--surface)}
+  details[open]{background:var(--surface)}
+  details.l{--c:var(--lingua)} details.v{--c:var(--variante)} details.s{--c:var(--seculo)}
+  details.a{--c:var(--aspecto)} details.e{--c:var(--aberto)} details.x{--c:var(--prop)}
+  summary{list-style:none; cursor:pointer; padding:10px 15px; display:flex; gap:10px;
+    align-items:baseline; font-family:Archivo,sans-serif; font-size:13px; color:var(--ink)}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+"; margin-left:auto; color:var(--ink-3); font-size:15px; line-height:1}
+  details[open] summary::after{content:"–"}
+  summary:hover{background:var(--surface-2)}
+  .kind{font-size:9.5px; letter-spacing:.11em; text-transform:uppercase; font-weight:600;
+    color:var(--c,var(--ink-3)); flex:none}
+  .body{padding:2px 15px 16px; font-size:16.5px; line-height:1.6; color:var(--ink-2)}
+  .body p{margin:0 0 12px} .body p:last-child{margin-bottom:0}
+  .body strong{color:var(--ink); font-weight:600}
+  .body h4{font-family:Archivo,sans-serif; font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--ink-3); font-weight:600; margin:18px 0 7px}
+  .body ul{margin:0 0 12px; padding-left:19px} .body li{margin-bottom:7px}
+  .body blockquote{margin:14px 0; padding-left:15px; border-left:2px solid var(--rule-2);
+    color:var(--ink); font-size:17px; line-height:1.5}
+  .tw{overflow-x:auto; margin:14px 0; border:1px solid var(--rule); border-radius:3px}
+  table{border-collapse:collapse; width:100%; font-size:15px; line-height:1.45}
+  th,td{text-align:left; vertical-align:top; padding:8px 12px; border-bottom:1px solid var(--rule)}
+  tr:last-child td{border-bottom:0}
+  th{font-family:Archivo,sans-serif; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--ink-3); font-weight:600; background:var(--surface-2)}
+  .prop{border-left:2px dashed var(--prop); padding-left:15px; margin:14px 0}
+  .prop::before{content:"proposta nossa · nível (c)"; display:block; font-family:Archivo,sans-serif;
+    font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); margin-bottom:5px}
+  body.mark-prop .prop{border-left-style:solid; border-left-color:var(--aspecto);
+    background:color-mix(in srgb, var(--aspecto) 8%, transparent); padding:10px 15px; border-radius:0 3px 3px 0}
+  details:target{box-shadow:0 0 0 2px var(--c)}
+
+  .frase{background:var(--ink); color:var(--ground); padding:22px 24px; border-radius:3px;
+    margin:40px 0 0; font-size:19px; line-height:1.45; font-weight:500; max-width:34rem}
+  .frase b{font-family:Archivo,sans-serif; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase;
+    opacity:.62; display:block; margin-bottom:8px; font-weight:600}
+  .foot{margin-top:40px; padding-top:16px; border-top:1px solid var(--rule);
+    font-family:Archivo,sans-serif; font-size:11px; color:var(--ink-3); line-height:1.6; max-width:34rem}
+  @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+</style>
+
+<div class="shell">
+  <nav class="rail">
+    <p class="brand">Comentário de João</p>
+    <p class="brand-sub">O texto, e o que estudamos nele</p>
+
+    <p class="navgroup">Capítulos</p>
+    <ul class="navlist">
+      <li><button data-go="j1" aria-current="true">1 · Prólogo e os quatro dias</button></li>
+      <li><button data-go="jmap" aria-current="false">1 · Mapa dos termos</button></li>
+      <li><button data-go="j2" aria-current="false">2:1-11 · Bodas de Caná</button></li>
+    </ul>
+
+    <button class="ctrl" id="toggleall" aria-pressed="false">Abrir todos os estudos</button>
+    <button class="ctrl" id="plain" aria-pressed="false">Texto limpo, sem marcas</button>
+    <button class="ctrl" id="markprop" aria-pressed="false">Destacar propostas nossas</button>
+
+    <p class="legend">
+      <span style="background:var(--lingua)"></span>língua e alusão<br>
+      <span style="background:var(--variante)"></span>variante textual<br>
+      <span style="background:var(--seculo)"></span>primeiro século<br>
+      <span style="background:var(--aspecto)"></span>aspecto verbal<br>
+      <span style="background:var(--ink-3)"></span>estrutura<br>
+      <span style="background:var(--aberto)"></span>em aberto
+    </p>
+  </nav>
+
+  <main>
+  <!-- =================== JOÃO 1 =================== -->
+  <article class="doc chapter on" id="j1">
+    <p class="eyebrow">Evangelho segundo João</p>
+    <h1>Capítulo 1</h1>
+
+    <!-- ---- Prólogo ---- -->
+    <section class="unit">
+      <h2><b>Prólogo</b> &nbsp;·&nbsp; 1:1-18</h2>
+      <div class="scripture">
+        <p><span class="v">1</span><button class="tag-btn s" data-open="e-lxx">No princípio</button> <button class="tag-btn l" data-open="e-verbos">era</button> o <button class="tag-btn l" data-open="e-logos">Verbo</button>, e o Verbo estava com Deus, e o Verbo era Deus. <span class="v">2</span>Ele estava no princípio com Deus. <span class="v">3</span>Todas as coisas <button class="tag-btn l" data-open="e-verbos">foram feitas</button> por ele, e sem ele <button class="tag-btn v" data-open="e-variantes">nada do que foi feito se fez.</button> <span class="v">4</span>Nele estava a vida, e a vida era a <button class="tag-btn l" data-open="e-luz">luz dos homens</button>. <span class="v">5</span>E a luz resplandece nas trevas, e as trevas <button class="tag-btn l" data-open="e-precisoes">não a compreenderam</button>.</p>
+        <p><span class="v">6</span><button class="tag-btn l" data-open="e-verbos">Houve</button> um homem enviado de Deus, cujo nome era João. <span class="v">7</span>Este veio para testemunho, para que testificasse da luz, para que todos cressem por ele. <span class="v">8</span><button class="tag-btn e" data-open="e-batista">Não era ele a luz</button>, mas para que testificasse da luz.</p>
+        <p><span class="v">9</span>Ali estava a luz verdadeira, <button class="tag-btn e" data-open="e-aberto1">que ilumina a todo o homem que vem ao mundo</button>. <span class="v">10</span>Estava no mundo, e o mundo foi feito por ele, e <button class="tag-btn e" data-open="e-tres">o mundo não o conheceu</button>. <span class="v">11</span>Veio para o que era seu, e <button class="tag-btn e" data-open="e-tres">os seus não o receberam</button>. <span class="v">12</span>Mas, <button class="tag-btn e" data-open="e-tres">a todos quantos o receberam</button>, deu-lhes o poder de serem feitos <button class="tag-btn l" data-open="e-precisoes">filhos</button> de Deus, aos que creem no seu nome; <span class="v">13</span><button class="tag-btn v" data-open="e-variantes">os quais não nasceram</button> do sangue, nem da vontade da carne, nem da vontade do homem, mas de Deus.</p>
+        <p><span class="v">14</span>E o Verbo <button class="tag-btn l" data-open="e-verbos">se fez carne</button>, e <button class="tag-btn l" data-open="e-exodo">habitou entre nós</button>, e vimos a sua <button class="tag-btn s" data-open="e-lxx">glória</button>, como a glória do <button class="tag-btn l" data-open="e-precisoes">unigênito</button> do Pai, cheio de <button class="tag-btn l" data-open="e-exodo">graça e de verdade</button>.</p>
+        <p><span class="v">15</span>João testificou dele, e clamou, dizendo: Este era aquele de quem eu dizia: O que vem após mim é antes de mim, porque foi primeiro do que eu. <span class="v">16</span>E todos nós recebemos também da sua plenitude, e graça por graça. <span class="v">17</span>Porque <button class="tag-btn l" data-open="e-exodo">a lei foi dada por Moisés</button>; a graça e a verdade vieram por Jesus Cristo. <span class="v">18</span><button class="tag-btn l" data-open="e-exodo">Deus nunca foi visto por alguém.</button> O <button class="tag-btn v" data-open="e-variantes">Filho unigênito</button>, que está no seio do Pai, esse o <button class="tag-btn l" data-open="e-precisoes">revelou</button>.</p>
+      </div>
+
+      <div class="studies">
+        <details class="l" id="e-verbos"><summary><span class="kind">língua</span>O Prólogo roda em dois verbos</summary><div class="body">
+          <div class="tw"><table>
+            <tr><th>ἦν — imperfeito de εἰμί: o Verbo</th><th>ἐγένετο — aoristo de γίνομαι: todo o resto</th></tr>
+            <tr><td>1:1 (três vezes), 1:2, 1:4, 1:9, 1:10</td><td>1:3 (duas vezes): "todas as coisas <strong>foram feitas</strong>"</td></tr>
+            <tr><td></td><td>1:6: "<strong>Houve</strong> um homem enviado de Deus"</td></tr>
+            <tr><td></td><td>1:17: a graça e a verdade <strong>vieram</strong></td></tr>
+          </table></div>
+          <p><strong>O Verbo "era". João Batista "veio a ser".</strong> A cristologia inteira do Prólogo cabe na escolha entre dois verbos.</p>
+          <p>E o eixo vira em 1:14: <em>καὶ ὁ λόγος <strong>σὰρξ ἐγένετο</strong></em>. <strong>Aquele que "era" passa a "vir a ser"</strong> — o verbo atravessa a linha que o Prólogo vinha traçando.</p>
+          <p>Checagem de aspecto: <strong>não é argumento morfológico.</strong> Não é escolha entre formas do mesmo verbo, é escolha entre <strong>dois verbos diferentes</strong>. Nota menor: εἰμί não tem aoristo, então ἦν é o único passado disponível — mas o peso está em γίνομαι ter sido escolhido para as criaturas, e isso é léxico.</p>
+          <p>E a forma reforça: 1:1-5 anda em escada, a última palavra de uma oração abrindo a seguinte — λόγος–λόγος, θεόν–θεός, ἐγένετο–γέγονεν, ζωή–ζωή, φῶς–φῶς.</p>
+        </div></details>
+
+        <details class="l" id="e-logos"><summary><span class="kind">língua</span>λόγος — os dois eixos, e o que decide</summary><div class="body">
+          <h4>a dicotomia é falsa, e é moderna</h4>
+          <p>"Eixo helênico × eixo hebraico" é construção dos séculos XIX-XX, e <strong>no primeiro século já não descrevia nada</strong>. A prova é <strong>Fílon de Alexandria</strong>: judeu praticante que lê Gênesis com categorias estoicas e platônicas sem sentir que trai uma coisa pela outra. <strong>A pergunta certa não é "grego ou hebraico?" — é "o que João faz com um termo que já era as duas coisas?"</strong></p>
+          <h4>e não são "duas portas para duas audiências"</h4>
+          <p>Leitura sedutora: <em>Ἐν ἀρχῇ</em> seria a porta judaica e <em>λόγος</em> a grega. <strong>Ela quebra dos dois lados.</strong></p>
+          <p><strong>Ἐν ἀρχῇ não é a porta judaica: é grega.</strong> É a Septuaginta — o judeu que reconhece a citação <strong>está lendo grego</strong>. <strong>E λόγος não é a porta grega:</strong> carrega Sl 33:6 LXX, Sabedoria 18:15, e Sabedoria 9:1-2, que põe <strong>λόγος e σοφία em paralelismo</strong>. <strong>As duas metades da suposta ponte estão do mesmo lado do rio.</strong></p>
+          <p>O que a intuição aponta é melhor: não são duas audiências, é <strong>um texto legível em duas profundidades</strong>.</p>
+          <div class="tw"><table>
+            <tr><th></th><th>sem Septuaginta</th><th>com Septuaginta, <em>também</em></th></tr>
+            <tr><td><strong>Ἐν ἀρχῇ</strong></td><td>"no começo de tudo"</td><td><strong>a citação de Gênesis 1:1</strong></td></tr>
+            <tr><td><strong>λόγος</strong></td><td>princípio ordenador</td><td>a <strong>palavra criadora</strong> de Sl 33:6, e Ben Sira</td></tr>
+            <tr><td><strong>ἐσκήνωσεν</strong></td><td>"morou entre nós"</td><td>o <strong>tabernáculo</strong>, e Eclesiástico 24:8</td></tr>
+            <tr><td><strong>δόξα</strong></td><td>esplendor</td><td>o <strong>kavod</strong> que enchia a tenda</td></tr>
+            <tr><td><strong>1:17</strong></td><td>contraste entre dois nomes</td><td><strong>o desfecho de uma comparação</strong> montada o Prólogo inteiro</td></tr>
+          </table></div>
+          <p><strong>Nada fica escondido do primeiro leitor. Mas o segundo recebe o argumento</strong> — e o argumento é uma comparação com a Torá, que só se vê tendo a Torá.</p>
+          <h4>e o texto diz que leitor supõe</h4>
+          <p><strong>João traduz aramaico</strong> — <em>rabi</em>, <em>messias</em>, <em>cefas</em>, <em>siloé</em>. Logo o leitor <strong>não sabe aramaico</strong>. <strong>E não traduz</strong> <em>Ἐν ἀρχῇ</em>, nem δόξα, nem σκηνόω, e não explica quem é Moisés nem Isaías.</p>
+          <p><strong>É um perfil só, não dois:</strong> leitor de língua grega, com formação na Septuaginta, sem hebraico nem aramaico — a sinagoga da diáspora e sua franja de tementes a Deus. <em>(E o evangelho tem os gregos em mente: 7:35, "irá ensinar os gregos?"; 12:20-23, em que "certos gregos" pedem para ver Jesus — e a resposta é <strong>a hora</strong>.)</em></p>
+          <div class="prop"><p><strong>Não</strong> "João queria capturar duas audiências" — isso é intenção, e não temos acesso a ela. <strong>Sim:</strong> abrir com esses dois termos <strong>torna o texto legível para quem não tem hebraico e recompensa quem tem a Septuaginta</strong>. <strong>Não é ponte entre dois públicos: é um público que já era os dois — e um texto com fundo falso para quem souber onde pisar.</strong></p></div>
+          <h4>o eixo grego</h4>
+          <p><strong>Heráclito:</strong> o λόγος como razão que ordena o cosmo e que os homens não entendem ainda que esteja diante deles. <strong>O estoicismo:</strong> princípio racional divino <strong>imanente</strong>, identificado com Deus e com o destino; e a distinção λόγος ἐνδιάθετος (razão interior) × λόγος προφορικός (razão proferida), que Fílon usa.</p>
+          <p>O que esse eixo dá: um público que, ao ouvir λόγος, pensa em <strong>princípio ordenador do mundo</strong> — não em "palavra pronunciada".</p>
+          <h4>o eixo judaico — e ele também é grego</h4>
+          <ul>
+            <li><strong>Salmo 33:6</strong> — "pela <strong>palavra</strong> do SENHOR foram feitos os céus". Na Septuaginta: <strong>τῷ λόγῳ τοῦ κυρίου</strong>. Texto de criação, com λόγος, em grego.</li>
+            <li><strong>Isaías 55:11</strong> — a palavra é <strong>enviada, executa e retorna</strong>. Agente, não som.</li>
+            <li><strong>Sabedoria 18:15</strong> — "a tua <strong>palavra</strong> onipotente <strong>saltou do céu</strong>, do trono real, como guerreiro implacável". Alexandria, século I a.C.</li>
+            <li><strong>Provérbios 8:30</strong> — a Sabedoria "<strong>estava com ele</strong>" no princípio. Compare 1:1-2.</li>
+            <li><strong>Sabedoria 9:1-2</strong> — "fizeste todas as coisas pela tua <strong>palavra</strong> (λόγῳ) e pela tua <strong>sabedoria</strong> (σοφίᾳ)". <strong>Os dois termos em paralelismo, antes de João.</strong></li>
+          </ul>
+          <h4>o paralelo decisivo: Eclesiástico 24</h4>
+          <p>Ben Sira 24, em grego desde c. 132 a.C., põe a Sabedoria falando:</p>
+          <div class="tw"><table>
+            <tr><td><strong>24:3</strong></td><td>"eu <strong>saí da boca</strong> do Altíssimo"</td></tr>
+            <tr><td><strong>24:8</strong></td><td>"o criador de tudo disse: <strong>arma tua tenda</strong> (κατασκήνωσον) em Jacó"</td></tr>
+            <tr><td><strong>24:23</strong></td><td>"tudo isto é o livro da aliança (...) <strong>a lei que Moisés nos prescreveu</strong>"</td></tr>
+          </table></div>
+          <p>A estrutura é: <strong>sai da boca de Deus → procura onde morar → arma tenda em Israel → e é a Torá.</strong></p>
+          <p>E João 1: o Verbo está com Deus → <strong>se fez carne</strong> → <strong>armou tenda</strong> (ἐσκήνωσεν, 1:14) entre nós → "<strong>a lei</strong> foi dada por Moisés; <strong>a graça e a verdade</strong> vieram por Jesus Cristo" (1:17).</p>
+          <p><strong>João roda a estrutura de Ben Sira 24 e substitui a Torá por uma pessoa.</strong></p>
+          <p>E há <strong>recorrência</strong>, que é o critério que decide: <strong>Eclesiástico 24:21</strong> diz "os que me <strong>comem</strong> ainda terão fome, e os que me <strong>bebem</strong> ainda terão sede". <strong>João 6:35</strong> diz "quem vem a mim <strong>nunca terá fome</strong>, e quem crê em mim <strong>nunca terá sede</strong>". <strong>João inverte Ben Sira ponto por ponto.</strong></p>
+          <p><strong>Veredicto pelos sete critérios de Hays: alusão clara, e em 1:14 provavelmente decalque.</strong></p>
+          <h4>Fílon — e o que ele não faz</h4>
+          <p>O λόγος nele é <strong>primogênito</strong>, <strong>imagem</strong> de Deus, <strong>instrumento</strong> da criação, e — na frase mais discutida — <strong>"segundo Deus"</strong>. <strong>Antes de João, um judeu já escrevia sobre um λόγος agente da criação e quase-divino.</strong> Isso desmonta a ideia de que João importou categoria pagã.</p>
+          <p>Mas três coisas Fílon não faz, e as três são o que João faz: <strong>o λόγος dele nunca se encarna</strong> (σὰρξ ἐγένετο seria repugnante a um sistema em que o incorpóreo é superior por definição); <strong>não é adorado</strong>, e "segundo Deus" é uma <em>qualificação</em>, enquanto João escreve θεὸς ἦν ὁ λόγος <strong>sem qualificar</strong>; e <strong>não tem nome nem biografia</strong> — não é "Jesus de Nazaré, filho de José" (1:45).</p>
+          <h4>Memra — o mais citado, e o mais fraco</h4>
+          <p>Os Targumins aramaicos substituem "o SENHOR" por <strong>Memra</strong>, "a Palavra", em contextos de ação divina. É tentador — e tem três problemas.</p>
+          <p><strong>(a) Datação.</strong> Que havia targumização antes de 70 está provado por Qumran; que a <strong>teologia da Memra como a temos</strong> seja do primeiro século, <strong>não está</strong>.</p>
+          <p><strong>(b) Pode não ser hipóstase nenhuma.</strong> Boa parte da erudição a lê como <strong>perífrase reverente</strong> — modo de não dizer "Deus" —, e não como ser intermediário. Se for só isso, não é paralelo de coisa alguma.</p>
+          <p><strong>(c) E aqui a nossa própria regra decide.</strong> O público de João <strong>não sabe aramaico</strong> — ele traduz <em>rabi</em>, <em>messias</em>, <em>cefas</em>, <em>siloé</em>. <strong>Um termo que só existe em aramaico é, por construção, o fundo mais fraco possível para esse público.</strong></p>
+          <p><strong>Veredicto: eco possível, sem demonstração. Não usar como argumento.</strong></p>
+          <h4>e então ele abandona a palavra</h4>
+          <p><strong>λόγος como título aparece em 1:1 e 1:14 — e nunca mais no evangelho.</strong> Depois disso ocorre dezenas de vezes com sentido comum, mas jamais como designação de Jesus.</p>
+          <div class="prop"><p>λόγος é a categoria mais carregada disponível no vocabulário do leitor — e João a usa exatamente o bastante para levar o leitor <strong>de uma categoria que ele tem até uma pessoa que ele não tem</strong>. Posta a pessoa em cena, a categoria deixa de ser necessária, e ele a larga.</p></div>
+        </div></details>
+
+        <details class="l" id="e-exodo"><summary><span class="kind">língua</span>O clímax é Êxodo 33-34 relido, na ordem</summary><div class="body">
+          <div class="tw"><table>
+            <tr><th>João</th><th>Êxodo</th></tr>
+            <tr><td>1:14 — "vimos a sua <strong>glória</strong>"</td><td>33:18 — "rogo-te que me mostres a tua <strong>glória</strong>"</td></tr>
+            <tr><td>1:14 — "cheio de <strong>graça e de verdade</strong>"</td><td>34:6 — "grande em <strong>beneficência e verdade</strong>" (<em>ḥesed we'emet</em>)</td></tr>
+            <tr><td>1:17 — "<strong>a lei</strong> foi dada por <strong>Moisés</strong>"</td><td>34:27-28 — as tábuas</td></tr>
+            <tr><td>1:18 — "<strong>Deus nunca foi visto</strong>"</td><td>33:20 — "<strong>ninguém</strong> verá a minha face e viverá"</td></tr>
+          </table></div>
+          <p>Os quatro versículos finais do Prólogo são releitura sustentada de Êxodo 33-34. <strong>Moisés pede ver a glória e não pode; o Prólogo diz <em>vimos</em>.</strong></p>
+          <p>Precisão: a Septuaginta costuma verter <em>ḥesed</em> por ἔλεος, não por χάρις. <strong>χάρις é escolha de João</strong>, não vocabulário herdado.</p>
+          <p>E ἐσκήνωσεν ("habitou") é literalmente <strong>armou tenda</strong>, de σκηνή — a palavra da Septuaginta para o <strong>tabernáculo</strong>, que é justamente o que a <strong>glória</strong> enche em Êxodo 40:34-35.</p>
+          <h4>rebaixado</h4>
+          <p>O trocadilho com <strong>shekiná</strong> (σκην- e <span class="heb">שכן</span>) é frequentemente alegado e deve ser rebaixado: σκηνή é palavra grega de etimologia própria, e <em>shekiná</em> como termo técnico é rabínico e posterior. <strong>Eco possível; não usar como argumento.</strong></p>
+        </div></details>
+
+        <details class="l" id="e-luz"><summary><span class="kind">língua</span>Por que "luz", para o mesmo referente?</summary><div class="body">
+          <p>A cadeia é <strong>λόγος → ζωή → φῶς</strong> (1:1-9), e só em <strong>1:14</strong> o λόγος volta. Quatro razões.</p>
+          <h4>a · Gênesis fornece a sequência</h4>
+          <p><strong>A primeira coisa que a palavra de Deus faz em Gênesis 1 é produzir luz.</strong> Quem abre com <em>No princípio... a Palavra</em> e diz que tudo veio a ser por meio dela está no ponto de Gênesis em que vem a luz. E a diferença já registrada: <strong>Gênesis separa; João põe em conflito.</strong></p>
+          <h4>b · a troca é onde o humano entra — e é o motivo real</h4>
+          <p>"E a vida era a luz <strong>dos homens</strong>" (1:4). <strong>"Homens" aparece pela primeira vez no Prólogo na mesma frase que "luz".</strong></p>
+          <p>Em 1:1-3 o λόγος <strong>é</strong> e <strong>faz</strong> — não há ninguém em cena para responder. No instante em que o Prólogo precisa de <strong>destinatário</strong>, ele troca de termo.</p>
+          <div class="prop"><p><strong>Uma palavra é ouvida ou não é; mas a luz, por natureza, cai sobre alguma coisa.</strong> φῶς é a categoria que torna a <strong>não-recepção descritível</strong> — e a prova é o que vem em seguida: a primeira coisa dita da luz é que <strong>as trevas não a apreenderam</strong> (1:5).</p></div>
+          <h4>c · a Septuaginta já emparelha os dois — e sobre a Torá</h4>
+          <p><strong>Salmo 119:105</strong> (118:105 na Septuaginta): <em>λύχνος τοῖς ποσίν μου <strong>ὁ λόγος</strong> σου καὶ <strong>φῶς</strong> ταῖς τρίβοις μου</em> — "lâmpada para os meus pés é a tua <strong>palavra</strong>, e <strong>luz</strong> para o meu caminho".</p>
+          <p><strong>As duas palavras que João usa estão no mesmo versículo de um salmo sobre a palavra de Deus.</strong> E Provérbios 6:23: "o mandamento é lâmpada, e <strong>a lei, luz</strong>". <strong>João não inventa o par — a Septuaginta já o faz, e a respeito da Torá</strong>, que é o que 1:17 vai tratar.</p>
+          <h4>d · e "luz" é o termo que sobrevive</h4>
+          <p><strong>λόγος some depois de 1:14. φῶς não:</strong> volta como autodesignação em 8:12 ("Eu sou a luz do mundo"), 9:5 e 12:46. <strong>Ele larga o termo que o leitor trouxe e fica com o termo que o texto pode usar.</strong></p>
+        </div></details>
+
+        <details class="x" id="e-tres"><summary><span class="kind">estrutura</span>1:10-13 — são três termos, não dois</summary><div class="body">
+          <div class="tw"><table>
+            <tr><td><strong>1:10</strong></td><td><strong>o mundo</strong> — o círculo mais largo</td><td>não o <strong>conheceu</strong> (ἔγνω)</td></tr>
+            <tr><td><strong>1:11</strong></td><td><strong>os seus</strong> — o círculo mais estreito</td><td>não o <strong>receberam</strong> (παρέλαβον)</td></tr>
+            <tr><td><strong>1:12</strong></td><td><strong>quantos o receberam</strong> — definido por outra coisa</td><td><strong>receberam</strong> (ἔλαβον)</td></tr>
+          </table></div>
+          <p><strong>O movimento não é oposição: é estreitamento e depois abertura.</strong> Mundo → os seus → <em>quantos</em>. E o terceiro grupo <strong>não é subconjunto de nenhum dos dois</strong>: é constituído por um <strong>critério diferente</strong>. A dobradiça é marcada — 1:12 abre com <strong>ὅσοι δέ</strong>, o único "mas" adversativo do Prólogo.</p>
+          <h4>e 1:13 nomeia o critério, por negação</h4>
+          <p>"não nasceram <strong>de sangue</strong>, nem de <strong>vontade da carne</strong>, nem de <strong>vontade de homem</strong>, mas de Deus". <strong>Descendência, desejo e decisão humana são os três excluídos.</strong> O que resta não é mérito nem pertencimento: é origem recebida.</p>
+          <p><strong>E é um fio que o projeto segue desde Mateus 1</strong> — Mt 3:9 ("não digais: temos por pai a Abraão"), Mt 8:11-12 ("os filhos do reino serão lançados fora"), Ap 2:9 ("os que se dizem judeus e não o são"). <strong>João 1:11-13 é a mesma tese na abertura de outro evangelho.</strong></p>
+          <h4>duas ressalvas</h4>
+          <p><strong>João troca o verbo entre 1:11 e 1:12</strong> — <em>παραλαμβάνω</em> (acolher, receber em casa) vira <em>λαμβάνω</em> (simples). O composto combina com "os seus", a quem ele veio <strong>em casa</strong>. <strong>Mas variação de composto é frequentemente convenção</strong> — registrar sem construir.</p>
+          <p><strong>Quem são "os seus"?</strong> A leitura corrente é <strong>Israel</strong>, e 1:17 a favorece. Mas 1:10 acabou de dizer que o mundo veio a ser por meio dele, o que permitiria ler <em>tà ídia</em> como a criação e <em>hoi ídioi</em> como a humanidade. <strong>As duas são defendidas, e mudam o alcance de 1:11.</strong> Em aberto.</p>
+        </div></details>
+
+        <details class="s" id="e-lxx"><summary><span class="kind">primeiro século</span>O que a Septuaginta entrega no Prólogo</summary><div class="body">
+          <h4>as duas primeiras palavras são citação</h4>
+          <p>Gênesis 1:1 na Septuaginta abre <strong>Ἐν ἀρχῇ ἐποίησεν ὁ θεός</strong>. <strong>João abre com as mesmas duas palavras gregas</strong> — não com o hebraico <em>bereshit</em>, com o <strong>grego</strong>. Para o leitor de língua grega, o reconhecimento é imediato e não precisa de mediação nenhuma.</p>
+          <h4>e o verbo do "resto" é o verbo de Gênesis 1</h4>
+          <p>O contraste ἦν × ἐγένετο não é distinção filosófica abstrata. <strong>ἐγένετο é a palavra de Gênesis 1 na Septuaginta:</strong> <em>καὶ ἐγένετο φῶς</em> ("e houve luz"), e o refrão <em>καὶ ἐγένετο οὕτως</em>.</p>
+          <p>Logo, 1:3 diz, em vocabulário reconhecível: <strong>tudo o que Gênesis 1 diz que "veio a ser" veio a ser por ele — e ele não estava entre essas coisas.</strong></p>
+          <p>E note a mudança: <strong>Gênesis 1 separa luz e trevas; João 1:5 as põe em conflito.</strong></p>
+          <h4>seis palavras cujo sentido é da Septuaginta, não do grego</h4>
+          <div class="tw"><table>
+            <tr><th>palavra</th><th>no grego clássico</th><th>na Septuaginta — e é o que João usa</th></tr>
+            <tr><td><strong>δόξα</strong></td><td>opinião, reputação, o que parece</td><td>traduz <strong>kavod</strong>, o <strong>peso e o esplendor</strong> de Deus. <strong>Sem a Septuaginta, "vimos a sua glória" significaria "vimos a sua reputação"</strong></td></tr>
+            <tr><td><strong>ἀλήθεια</strong></td><td>verdade como correspondência ou desvelamento</td><td>traduz <strong>emet</strong>: firmeza, lealdade, confiabilidade</td></tr>
+            <tr><td><strong>σκηνή / σκηνόω</strong></td><td>tenda; em Atenas, o fundo do palco</td><td>o <strong>tabernáculo</strong> — Êxodo 25:8; 40:34-35</td></tr>
+            <tr><td><strong>μονογενής</strong></td><td>de um só gênero</td><td>traduz <strong>yachid</strong>, "único" — a filha de Jefté, Juízes 11:34</td></tr>
+            <tr><td><strong>λόγος</strong></td><td>razão que ordena o cosmo</td><td>também a <strong>palavra criadora</strong>: <em>τῷ λόγῳ τοῦ κυρίου</em>, Salmo 33:6</td></tr>
+            <tr><td><strong>χάρις</strong></td><td>favor, graça</td><td><strong>aqui João se afasta</strong>: a Septuaginta verte <em>ḥesed</em> por <strong>ἔλεος</strong>. O <strong>par</strong> é dela; <strong>a palavra é escolha dele</strong></td></tr>
+          </table></div>
+          <h4>a conclusão</h4>
+          <p><strong>O Prólogo é escrito em grego, para leitores de grego — e o sentido de quase todas as suas palavras-chave é da Septuaginta, não do grego clássico.</strong></p>
+          <p>Isso resolve a falsa dicotomia por outro caminho: <strong>as palavras são gregas, os significados são da Septuaginta.</strong> O eixo helênico fornece a ressonância filosófica de <strong>um</strong> termo; a Septuaginta fornece praticamente todo o resto.</p>
+          <p>E fecha com o outro dado: João <strong>traduz aramaico</strong> para o leitor, mas <strong>não traduz nada disto</strong> — supõe que o público reconheça <em>Ἐν ἀρχῇ</em>, δόξα e σκηνόω sem ajuda. <strong>Público de língua grega com formação na Septuaginta</strong> é a hipótese que os dois fatos sustentam juntos.</p>
+        </div></details>
+
+        <details class="l" id="e-precisoes"><summary><span class="kind">língua</span>Quatro precisões de vocabulário</summary><div class="body">
+          <p><strong>τέκνα, não υἱός</strong> (1:12). "Filhos de Deus" usa τέκνα, criança. <strong>João reserva υἱός para Jesus</strong> — distinção consistente no evangelho, e apagada em traduções que usam "filhos" para os dois.</p>
+          <p><strong>μονογενής</strong> (1:14, 1:18) não é "unigênito" no sentido de geração. É μόνος + γένος: <strong>único no seu gênero</strong>. O "gerado" entra pelo latim <em>unigenitus</em>.</p>
+          <p><strong>κατέλαβεν</strong> (1:5) — "não a <em>compreenderam</em>" ou "não <em>prevaleceram</em> contra ela"? καταλαμβάνω é as duas coisas. Ambiguidade provavelmente deliberada.</p>
+          <p><strong>ἐξηγήσατο</strong> (1:18) — "o revelou" traduz o verbo de onde vem <strong>exegese</strong>. Literalmente: <strong>o Filho é a exposição de Deus.</strong> Depois de "Deus nunca foi visto", é o fecho exato.</p>
+        </div></details>
+
+        <details class="v" id="e-variantes"><summary><span class="kind">variante</span>O caso maior é de pontuação — e três variantes</summary><div class="body">
+          <h4>1:3-4 · onde termina a frase</h4>
+          <p>Os manuscritos antigos <strong>não têm pontuação</strong>. Onde 1:3 termina é <strong>decisão editorial</strong>, não leitura de manuscrito. E há duas:</p>
+          <div class="tw"><table>
+            <tr><td><strong>(a)</strong></td><td>"...nada <strong>do que foi feito</strong> se fez. <strong>Nele estava a vida.</strong>" — <em>ὃ γέγονεν</em> fecha 1:3</td></tr>
+            <tr><td><strong>(b)</strong></td><td>"...nada se fez. <strong>O que foi feito, nele era vida</strong>" — <em>ὃ γέγονεν</em> abre 1:4</td></tr>
+          </table></div>
+          <p>Almeida e a maioria das traduções modernas trazem <strong>(a)</strong>. <strong>Mas as testemunhas antigas que pontuam, e os Pais mais antigos, favorecem (b)</strong> — e as edições críticas modernas imprimem (b).</p>
+          <p><strong>E o motivo da troca é polêmica do século IV:</strong> a leitura (b) podia ser explorada por arianos, que a liam como se o Espírito estivesse entre "o que foi feito". Escritores ortodoxos deslocaram a pausa.</p>
+          <div class="prop"><p>É o melhor exemplo, em João, de <strong>decisão de quarta mão chegando até a nossa Bíblia por via de uma controvérsia</strong>. E a leitura (b) é a mais difícil e a mais antiga.</p></div>
+          <h4>as três variantes de manuscrito</h4>
+          <div class="tw"><table>
+            <tr><td><strong>1:13</strong></td><td>testemunhas <strong>latinas</strong> trazem o <strong>singular</strong> — "o qual <em>nasceu</em>" —, fazendo o verso falar do <strong>nascimento de Cristo</strong>. Atestada em Irineu e Tertuliano. <strong>Mas nenhum manuscrito grego a traz</strong> — o que a enfraquece muito mais do que costuma ser dito.</td></tr>
+            <tr><td><strong>1:16</strong></td><td>"<strong>porque</strong> (ὅτι) da sua plenitude recebemos" × "<strong>e</strong> (καί) todos nós recebemos". Os mais antigos trazem ὅτι; Almeida segue καί. Com ὅτι, <strong>1:16 passa a fundamentar-se em 1:14</strong>, e 1:15 fica claramente parentético.</td></tr>
+            <tr><td><strong>1:18</strong></td><td>μονογενὴς <strong>θεός</strong> × μονογενὴς <strong>υἱός</strong>. θεός tem os papiros antigos e os grandes unciais; υἱός tem a tradição majoritária, latina e siríaca. <strong>A favor de θεός:</strong> apoio externo antigo e leitura mais difícil. <strong>A favor de υἱός:</strong> <em>μονογενὴς υἱός</em> é idioma joanino corrente (3:16; 3:18; 1Jo 4:9). E nos <em>nomina sacra</em> <strong>ΘΣ e ΥΣ diferem por uma letra</strong>.</td></tr>
+            <tr><td><strong>1:34</strong></td><td>"o <strong>Filho</strong> de Deus" × "o <strong>escolhido</strong> de Deus" (ἐκλεκτός). ἐκλεκτός é a <strong>leitura mais difícil</strong> — copistas harmonizariam para "Filho", não o contrário.</td></tr>
+          </table></div>
+          <p>Nenhuma derruba as leituras acima, mas <strong>1:34 muda o que João Batista diz</strong> e <strong>1:18 muda a cristologia da última frase do Prólogo</strong>. Conferir em NA28 antes de qualquer uso publicado.</p>
+        </div></details>
+
+        <details class="a" id="e-aspecto1"><summary><span class="kind">aspecto</span>O que a forma verbal carrega — e o que não</summary><div class="body">
+          <ul>
+            <li><strong>ἦν × ἐγένετο</strong> — não é aspecto, é <strong>léxico</strong>. Passa.</li>
+            <li><strong>1:5 φαίνει</strong> — presente entre imperfeitos e aoristos. Presente gnômico, não escolha marcada. <strong>Convenção.</strong></li>
+            <li><strong>1:14 ἐσκήνωσεν, ἐθεασάμεθα</strong> — aoristos. Ponto de vista de conjunto. Nada a extrair.</li>
+            <li><strong>1:18 ἐξηγήσατο</strong> — aoristo. A leitura se apoia no <strong>lexema</strong>, não na forma.</li>
+            <li><strong>1:41 εὑρήκαμεν</strong> — "achamos o Messias", <strong>perfeito</strong>. Sob Porter seria destaque; sob Campbell, não. <strong>Registrar, não construir.</strong></li>
+          </ul>
+        </div></details>
+
+        <details class="x" id="e-prologo"><summary><span class="kind">estrutura</span>Por que um prólogo?</summary><div class="body">
+          <p><strong>Nenhum outro evangelho tem um.</strong> Mateus abre com genealogia, Marcos com João Batista, Lucas com prefácio historiográfico.</p>
+          <div class="prop">
+            <p>O efeito de 1:1-18 é que <strong>o leitor sabe quem Jesus é antes de qualquer personagem saber</strong>. E é isso que faz o resto do livro funcionar: toda ironia joanina depende dessa assimetria. Nicodemos tomando "nascer de novo" ao pé da letra (3:4), a samaritana e a água (4:11), o mestre-sala que não sabe de onde veio o vinho (2:9) — nenhuma dessas cenas funciona sem um leitor já informado.</p>
+            <p><strong>O Prólogo não é abertura teológica antes da narrativa: é a instalação do desnível que a narrativa vai explorar.</strong></p>
+          </div>
+        </div></details>
+
+        <details class="x" id="e-traducao"><summary><span class="kind">tradução</span>O que o método produz quando vira tradução</summary><div class="body">
+          <h4>as decisões, e a regra que manda em cada uma</h4>
+          <div class="tw"><table>
+            <tr><th>verso</th><th>decisão</th><th>regra</th></tr>
+            <tr><td>1:3-4</td><td>pontuação <strong>(b)</strong></td><td>crítica textual: mais antiga e mais difícil</td></tr>
+            <tr><td>1:1-17</td><td><strong>"era"</strong> para ἦν, <strong>"veio a ser"</strong> para ἐγένετο, sempre</td><td>consistência — a coluna do Prólogo tem de sobreviver em português</td></tr>
+            <tr><td>1:5</td><td>"as trevas não a <strong>apreenderam</strong>"</td><td>não completar silêncio: a palavra carrega <em>compreender</em> e <em>dominar</em></td></tr>
+            <tr><td>1:9</td><td>"<strong>vindo ao mundo</strong>" no fim</td><td>idem: a ordem preserva a ambiguidade do particípio</td></tr>
+            <tr><td>1:14</td><td>"<strong>armou tenda</strong>"</td><td>o sentido é da Septuaginta</td></tr>
+            <tr><td>1:14, 18</td><td>"o <strong>Único</strong>"</td><td>μονογενής é <em>único no gênero</em>; "unigênito" entra pelo latim</td></tr>
+            <tr><td>1:16</td><td>"<strong>porque</strong>", "graça <strong>em lugar de</strong> graça"</td><td>texto mais antigo; ἀντί é substituição, e liga 1:16 a 1:17</td></tr>
+            <tr><td>1:18</td><td>"<strong>ele mesmo Deus</strong>", "o <strong>expôs</strong>"</td><td>variante mais difícil; ἐξηγέομαι é o verbo de <em>exegese</em></td></tr>
+            <tr><td>1:14</td><td><strong>"verdade"</strong>, apesar de ἀλήθεια traduzir <em>emet</em></td><td><strong>consistência vence precisão local</strong>: se vira "fidelidade", morre o fio até 8:32 e 14:6</td></tr>
+          </table></div>
+          <h4>λόγος — resolvido por glosa, com uma condição</h4>
+          <p>Nenhuma palavra portuguesa carrega os dois eixos. <strong>"Palavra"</strong> empurra para <em>palavra pronunciada</em>, o polo <strong>menos</strong> ativo para o leitor grego. <strong>"Verbo"</strong> não engana, mas <strong>também não carrega nada</strong> — opacidade não é neutralidade, é perda.</p>
+          <p>A saída é <strong>glosar na primeira ocorrência e correr curto depois</strong> — que é como o grego funciona, já que <em>ὁ λόγος</em> com artigo, de 1:1b em diante, é anafórico.</p>
+          <div class="prop"><p><strong>Mas o método impõe uma condição:</strong> se a glosa entrar sem marca, estamos fazendo o que criticamos nas traduções — decisão interpretativa contrabandeada e invisível ao leitor. <strong>A glosa tem de ser marcada tipograficamente como voz do tradutor.</strong></p></div>
+          <h4>a tradução</h4>
+          <blockquote><p><strong>1</strong> No princípio <strong>era</strong> a Palavra — <em>aquela por quem tudo veio a ser, e em quem tudo se ordena</em> — e a Palavra estava com Deus, e a Palavra era Deus. <strong>2</strong> Ela estava no princípio com Deus.</p>
+          <p><strong>3</strong> Todas as coisas <strong>vieram a ser</strong> por meio dela, e sem ela nada veio a ser. <strong>4</strong> O que veio a ser, nela era vida — e a vida era a luz dos homens. <strong>5</strong> E a luz brilha nas trevas, e as trevas não a <strong>apreenderam</strong>.</p>
+          <p><strong>6</strong> <strong>Veio a ser</strong> um homem, enviado de Deus, cujo nome era João. <strong>7</strong> Este veio como testemunha, para dar testemunho da luz, a fim de que todos cressem por meio dele. <strong>8</strong> Não era ele a luz, mas veio para dar testemunho da luz.</p>
+          <p><strong>9</strong> Era a luz verdadeira, que ilumina todo homem, <strong>vindo ao mundo</strong>. <strong>10</strong> Estava no mundo, e o mundo veio a ser por meio dela, e o mundo não a conheceu. <strong>11</strong> Veio para o que era seu, e os seus não a receberam. <strong>12</strong> Mas a todos quantos a receberam, deu-lhes autoridade para se tornarem <strong>filhos</strong> de Deus — aos que creem no seu nome, <strong>13</strong> os quais não nasceram de sangue, nem de vontade da carne, nem de vontade de homem, mas de Deus.</p>
+          <p><strong>14</strong> E a Palavra <strong>veio a ser carne</strong> e <strong>armou tenda</strong> entre nós — e contemplamos a sua glória, glória como a do <strong>Único</strong> vindo do Pai, cheio de graça e de verdade.</p>
+          <p><strong>15</strong> João deu testemunho dele, e clamou: Este era aquele de quem eu disse: o que vem depois de mim <strong>passou adiante</strong> de mim, porque <strong>era</strong> antes de mim.</p>
+          <p><strong>16</strong> <strong>Porque</strong> da sua plenitude recebemos todos nós, e <strong>graça em lugar de graça</strong>. <strong>17</strong> Porque a lei foi dada por meio de Moisés; a graça e a verdade <strong>vieram a ser</strong> por meio de Jesus Cristo.</p>
+          <p><strong>18</strong> A Deus ninguém jamais viu. O <strong>Único</strong>, <strong>ele mesmo Deus</strong>, que está no seio do Pai, esse <strong>o expôs</strong>.</p></blockquote>
+          <h4>um achado que a tradução revelou</h4>
+          <p>Traduzir ἦν e ἐγένετο de forma consistente fez aparecer o que a leitura não tinha visto: <strong>1:15 usa os dois verbos, na boca de João Batista</strong> — "o que vem depois de mim <strong>passou adiante</strong> (γέγονεν) de mim, porque <strong>era</strong> (ἦν) antes de mim".</p>
+          <p><strong>A coluna do Prólogo não é só do narrador — o Batista a repete.</strong> E ela explica a frase, que de outro modo soa contraditória.</p>
+          <h4>o que não se pode salvar</h4>
+          <p><strong>τέκνα × υἱός</strong> — os dois viram "filho". Mas a distinção <strong>sobrevive por número e artigo</strong>: os crentes são sempre "filhos", no plural; Jesus é sempre "o Filho". Só a paráfrase solta a mata.</p>
+          <p><strong>δόξα</strong> — aqui o português tem sorte: "glória" herdou o sentido bíblico. <strong>O grego clássico não tinha.</strong> A palavra funciona por acidente histórico, não por correspondência.</p>
+        </div></details>
+
+        <details class="e" id="e-aberto1"><summary><span class="kind">em aberto</span>1:9 e 1:5</summary><div class="body">
+          <p><strong>1:9</strong> — "que ilumina todo homem <em>que vem ao mundo</em>" ou "a luz verdadeira, <em>vindo ao mundo</em>"? O particípio pode reger qualquer um dos dois. Muda o alcance do versículo.</p>
+          <p><strong>1:5 κατέλαβεν</strong> — compreender ou prevalecer? Provavelmente os dois, e provavelmente de propósito.</p>
+        </div></details>
+      </div>
+    </section>
+
+    <!-- ---- Dia 1 ---- -->
+    <section class="unit">
+      <h2><b>Dia 1</b> &nbsp;·&nbsp; O interrogatório &nbsp;·&nbsp; 1:19-28</h2>
+      <div class="scripture">
+        <p><span class="v">19</span>E este é o testemunho de João, quando os judeus mandaram de Jerusalém sacerdotes e levitas para que lhe perguntassem: Quem és tu? <span class="v">20</span>E <button class="tag-btn e" data-open="e-batista">confessou, e não negou; confessou: Eu não sou o Cristo</button>. <span class="v">21</span>E perguntaram-lhe: Então quê? És tu Elias? E disse: <button class="tag-btn e" data-open="e-batista">Não sou</button>. És tu o profeta? E respondeu: <button class="tag-btn e" data-open="e-batista">Não</button>.</p>
+        <p><span class="v">22</span>Disseram-lhe pois: Quem és? para que demos resposta àqueles que nos enviaram; que dizes de ti mesmo? <span class="v">23</span>Disse: <button class="tag-btn e" data-open="e-batista">Eu sou a voz do que clama no deserto</button>: Endireitai o caminho do Senhor, como disse o profeta Isaías.</p>
+        <p><span class="v">24</span>E os que tinham sido enviados eram dos fariseus. <span class="v">25</span>E perguntaram-lhe, e disseram-lhe: Por que batizas, pois, se tu não és o Cristo, nem Elias, nem o profeta? <span class="v">26</span>João respondeu-lhes, dizendo: Eu batizo com água; mas no meio de vós está um a quem vós não conheceis. <span class="v">27</span>Este é aquele que vem após mim, que é antes de mim, do qual eu não sou digno de desatar a correia da alparca. <span class="v">28</span>Estas coisas aconteceram em Betábara, além do Jordão, onde João estava batizando.</p>
+      </div>
+      <div class="studies">
+        <details class="x" id="e-batista"><summary><span class="kind">estrutura</span>João Batista só se define por negação</summary><div class="body">
+          <p>Três perguntas, três negativas: "eu <strong>não sou</strong> o Cristo", "<strong>não sou</strong>" (Elias), "<strong>não</strong>" (o profeta). E a introdução é enfática ao ponto da redundância: "<strong>confessou e não negou; e confessou</strong>".</p>
+          <p><strong>A única coisa positiva que ele diz de si é uma citação</strong> — Isaías 40:3. <strong>Ele não tem identidade fora de uma função tirada de um texto.</strong></p>
+          <h4>diferença sinótica · dependência declarada</h4>
+          <p>Nos sinóticos é <strong>o narrador</strong> que aplica Isaías 40:3 a João (Mt 3:3; Mc 1:3; Lc 3:4). Em João, <strong>ele o aplica a si mesmo</strong>.</p>
+          <p>E o Prólogo já havia fechado a porta em 1:8: "<strong>não era ele a luz</strong>".</p>
+          <div class="prop"><p>O efeito é <strong>excluir uma leitura rival antes que ela apareça</strong>.</p></div>
+        </div></details>
+      </div>
+    </section>
+
+    <!-- ---- Dia 2 ---- -->
+    <section class="unit">
+      <h2><b>Dia 2</b> &nbsp;·&nbsp; O Cordeiro &nbsp;·&nbsp; 1:29-34</h2>
+      <div class="scripture">
+        <p><span class="v">29</span>No dia seguinte João viu a Jesus, que vinha para ele, e disse: Eis o <button class="tag-btn s" data-open="e-cordeiro">Cordeiro de Deus</button>, que tira o pecado do mundo. <span class="v">30</span>Este é aquele do qual eu disse: Após mim vem um varão que é antes de mim, porque foi primeiro do que eu. <span class="v">31</span>E eu não o conhecia; mas, para que fosse manifestado a Israel, vim eu, por isso, batizando com água.</p>
+        <p><span class="v">32</span>E João testificou, dizendo: Eu vi o Espírito descer do céu como uma pomba, e repousar sobre ele. <span class="v">33</span>E eu não o conhecia, mas o que me mandou a batizar com água, esse me disse: Sobre aquele que vires descer o Espírito, e sobre ele repousar, esse é o que batiza com o Espírito Santo. <span class="v">34</span>E eu vi, e tenho testificado que este é o <button class="tag-btn v" data-open="e-variantes">Filho de Deus</button>.</p>
+      </div>
+      <div class="studies">
+        <details class="s" id="e-cordeiro"><summary><span class="kind">primeiro século</span>Qual cordeiro?</summary><div class="body">
+          <p>O pascal, o de Isaías 53:7, o <em>tamid</em> diário, o cordeiro apocalíptico — todos foram propostos.</p>
+          <p><strong>O próprio evangelho decide, e é evidência interna:</strong> em 19:14 Jesus é condenado "na preparação da páscoa, quase à hora sexta", e <strong>19:36 cita Êxodo 12:46</strong>, a regra do cordeiro pascal: "osso nenhum dele será quebrado".</p>
+          <p>A cronologia da paixão em João é montada para que ele morra quando os cordeiros são mortos. <strong>1:29 é a primeira peça disso.</strong></p>
+        </div></details>
+      </div>
+    </section>
+
+    <!-- ---- Dia 3 ---- -->
+    <section class="unit">
+      <h2><b>Dia 3</b> &nbsp;·&nbsp; Os dois primeiros &nbsp;·&nbsp; 1:35-42</h2>
+      <div class="scripture">
+        <p><span class="v">35</span>No dia seguinte João estava outra vez ali, e dois dos seus discípulos; <span class="v">36</span>e, vendo passar a Jesus, disse: Eis aqui o Cordeiro de Deus. <span class="v">37</span>E os dois discípulos ouviram-no dizer isto, e seguiram a Jesus.</p>
+        <p><span class="v">38</span>E Jesus, voltando-se e vendo que eles o seguiam, disse-lhes: <button class="tag-btn e" data-open="e-pergunta">Que buscais?</button> E eles lhe disseram: <button class="tag-btn s" data-open="e-traduz">Rabi (que, traduzido, quer dizer Mestre)</button>, onde moras? <span class="v">39</span>Ele lhes disse: <button class="tag-btn e" data-open="e-pergunta">Vinde, e vede</button>. Foram, e viram onde morava, e ficaram com ele aquele dia; e era já <button class="tag-btn e" data-open="e-pergunta">quase a hora décima</button>.</p>
+        <p><span class="v">40</span>Era André, irmão de Simão Pedro, um dos dois que ouviram aquilo de João, e o haviam seguido. <span class="v">41</span>Este achou primeiro a seu irmão Simão, e disse-lhe: <button class="tag-btn s" data-open="e-traduz">Achamos o Messias (que, traduzido, é o Cristo)</button>. <span class="v">42</span>E levou-o a Jesus. E, olhando Jesus para ele, disse: Tu és Simão, filho de Jonas; tu serás chamado <button class="tag-btn s" data-open="e-traduz">Cefas (que quer dizer Pedro)</button>.</p>
+      </div>
+      <div class="studies">
+        <details class="x" id="e-pergunta"><summary><span class="kind">estrutura</span>As primeiras palavras de Jesus são uma pergunta</summary><div class="body">
+          <blockquote>Τί ζητεῖτε; — "Que buscais?"</blockquote>
+          <p>Em Mateus, a primeira fala de Jesus é "cumprir toda a justiça". <strong>Em João, é uma pergunta feita a dois desconhecidos.</strong> E a segunda é um convite: "<strong>Vinde e vede</strong>".</p>
+          <p><strong>E a fórmula é repassada.</strong> Em 1:46 Filipe diz a Natanael exatamente "vem e vê". Quem foi convidado repete o convite.</p>
+          <p><strong>Não há pregação neste capítulo.</strong> André acha Simão; Filipe acha Natanael. A chamada anda de pessoa em pessoa, e o texto não registra um só argumento.</p>
+          <div class="prop"><p>1:39 marca "quase a hora décima". Reformulado como efeito: <strong>registrar a hora faz da cena um acontecimento lembrado, não um tipo.</strong></p></div>
+        </div></details>
+
+        <details class="s" id="e-traduz"><summary><span class="kind">primeiro século</span>João traduz — e isso aperta a nossa própria regra</summary><div class="body">
+          <p>Ele traduz os termos semíticos para o leitor: "Rabi (que quer dizer <strong>Mestre</strong>)"; "Messias (que é o <strong>Cristo</strong>)"; "Cefas (que quer dizer <strong>Pedro</strong>)"; e adiante "Siloé (que significa <strong>Enviado</strong>)", 9:7.</p>
+          <p><strong>Isso é informação dura sobre o público: eles não sabem aramaico.</strong></p>
+          <p>E portanto aperta a regra do método, <em>"o hebraico por trás"</em>: em João, argumentar por idioma hebraico <strong>como recurso do leitor</strong> é especialmente frágil, porque o próprio autor supõe que eles não têm a língua. O que sobra é o <strong>repertório do autor</strong> e a <strong>Septuaginta</strong> — corpus grego, que é onde as alusões do Prólogo se apoiam.</p>
+        </div></details>
+      </div>
+    </section>
+
+    <!-- ---- Dia 4 ---- -->
+    <section class="unit">
+      <h2><b>Dia 4</b> &nbsp;·&nbsp; Filipe e Natanael &nbsp;·&nbsp; 1:43-51</h2>
+      <div class="scripture">
+        <p><span class="v">43</span>No dia seguinte quis Jesus ir à Galileia, e achou a Filipe, e disse-lhe: Segue-me. <span class="v">44</span>E Filipe era de Betsaida, cidade de André e de Pedro. <span class="v">45</span>Filipe achou Natanael, e disse-lhe: Havemos achado aquele de quem Moisés escreveu na lei, e os profetas: Jesus de Nazaré, filho de José. <span class="v">46</span>E disse-lhe Natanael: Pode vir alguma coisa boa de Nazaré? Disse-lhe Filipe: <button class="tag-btn e" data-open="e-pergunta">Vem, e vê</button>.</p>
+        <p><span class="v">47</span>Jesus viu Natanael vir ter com ele, e disse dele: Eis aqui um verdadeiro <button class="tag-btn l" data-open="e-jaco">israelita, em quem não há dolo</button>. <span class="v">48</span>Disse-lhe Natanael: De onde me conheces tu? Jesus respondeu, e disse-lhe: Antes que Filipe te chamasse, te vi eu, estando tu debaixo da figueira. <span class="v">49</span>Natanael respondeu, e disse-lhe: Rabi, tu és o Filho de Deus, tu és o Rei de Israel. <span class="v">50</span>Jesus respondeu, e disse-lhe: Porque te disse: Vi-te debaixo da figueira, crês? Coisas maiores do que estas verás.</p>
+        <p><span class="v">51</span>E disse-lhe: Na verdade, na verdade vos digo que daqui em diante vereis <button class="tag-btn l" data-open="e-jaco">o céu aberto, e os anjos de Deus subindo e descendo sobre o Filho do Homem</button>.</p>
+      </div>
+      <div class="studies">
+        <details class="l" id="e-jaco"><summary><span class="kind">língua</span>Natanael é uma cena de Jacó — três sinais em cinco versículos</summary><div class="body">
+          <h4>a · o dolo</h4>
+          <p>1:47 — "um verdadeiro <strong>israelita</strong>, em quem não há <strong>dolo</strong> (δόλος)". <strong>δόλος é a palavra de Jacó:</strong> Gênesis 27:35 na Septuaginta diz "veio teu irmão <strong>com dolo</strong> (μετὰ δόλου) e tomou a tua bênção". Chamar alguém de <em>israelita sem dolo</em> é contrastá-lo com <strong>Israel</strong>.</p>
+          <h4>b · a escada</h4>
+          <p>1:51 é <strong>Gênesis 28:12</strong>, quase palavra por palavra.</p>
+          <h4>c · e João lê a ambiguidade do hebraico</h4>
+          <p>Em Gênesis 28:12 os anjos sobem e descem <span class="heb">בּוֹ</span> (<em>bo</em>) — que é "<strong>nela</strong>" (a escada) <strong>ou</strong> "<strong>nele</strong>" (Jacó). A tradição rabínica conhece as duas leituras. <strong>João toma a segunda e a aplica ao Filho do Homem:</strong> não é mais uma escada, é uma pessoa.</p>
+          <h4>d · e é anúncio de enredo</h4>
+          <p>"Vereis" — e <strong>o evangelho nunca narra céus abertos com anjos.</strong> O que entrega no lugar é o fio do ὑψόω, "levantar": "importa que o Filho do Homem seja <strong>levantado</strong>" (3:14); "quando eu for <strong>levantado</strong> da terra" (12:32). E "levantado" em João é <strong>a cruz</strong>.</p>
+          <p><strong>A escada é respondida pela cruz.</strong> Anúncio feito, cumprido por outro caminho.</p>
+        </div></details>
+
+        <details class="e" id="e-aberto2"><summary><span class="kind">em aberto</span>O que fica do capítulo</summary><div class="body">
+          <ul>
+            <li><strong>1:13, 1:18 e 1:34</strong> — conferir em NA28 antes de usar.</li>
+            <li><strong>O que ele supõe que o público saiba?</strong> Traduz aramaico, mas cita Isaías sem explicar e supõe conhecida a escada de Jacó. <strong>Público gentio com formação na Septuaginta</strong> é a hipótese que os dois dados sustentam.</li>
+            <li><strong>Gênesis 28:12 com <em>bo</em> = "nele"</strong> — confirmar a atestação rabínica antes de usar como mais que possibilidade.</li>
+          </ul>
+        </div></details>
+      </div>
+    </section>
+
+    <div class="frase"><b>Em uma frase</b>João abre dizendo ao leitor tudo o que os personagens levarão o livro inteiro para não entender — e, feito isso, mostra a chamada acontecendo sem um único argumento: uma pergunta, um convite, e gente buscando gente.</div>
+
+    <p class="foot">Texto bíblico: Almeida, texto tradicional (domínio público). Método em <code>biblia/METODO.md</code> — três níveis: (a) o que o texto faz · (b) o que a tradição leu · (c) o que propomos.</p>
+  </article>
+
+
+  <!-- =================== MAPA =================== -->
+  <article class="doc chapter" id="jmap">
+    <p class="eyebrow">João 1:1-18</p>
+    <h1>Mapa dos termos</h1>
+    <p style="font-size:18px;color:var(--ink-2);max-width:34rem;margin:0 0 10px">Três figuras, três afirmações. Cada uma mostra uma coisa que a prosa leva um parágrafo para montar.</p>
+
+    <figure class="dg">
+      <div class="dgw">
+      <svg viewBox="0 0 720 430" role="img" aria-label="Duas colunas: à esquerda o verbo era, usado só da Palavra; à direita veio a ser, usado de tudo o mais; em 1:14 uma seta cruza da esquerda para a direita.">
+        <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
+        <marker id="ara" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="accf"/></marker></defs>
+
+        <text x="340" y="26" text-anchor="end" font-size="14" font-weight="600" class="tt">ἦν · era</text>
+        <text x="340" y="44" text-anchor="end" font-size="11" class="mut">só da Palavra</text>
+        <text x="380" y="26" font-size="14" font-weight="600" class="tt">ἐγένετο · veio a ser</text>
+        <text x="380" y="44" font-size="11" class="mut">de tudo o mais</text>
+        <line x1="360" y1="56" x2="360" y2="272" class="rl" stroke-width="1"/>
+
+        <text x="340" y="88" text-anchor="end" font-size="13" class="tt">1:1  a Palavra era</text>
+        <text x="340" y="122" text-anchor="end" font-size="13" class="tt">1:1  estava com Deus · era Deus</text>
+        <text x="340" y="156" text-anchor="end" font-size="13" class="tt">1:4  nela era vida</text>
+        <text x="340" y="190" text-anchor="end" font-size="13" class="tt">1:9  era a luz verdadeira</text>
+        <text x="340" y="224" text-anchor="end" font-size="13" class="tt">1:10  estava no mundo</text>
+
+        <text x="380" y="88" font-size="13" class="tt">1:3  todas as coisas vieram a ser</text>
+        <text x="380" y="122" font-size="13" class="tt">1:3  sem ela, nada veio a ser</text>
+        <text x="380" y="156" font-size="13" class="tt">1:6  veio a ser um homem — João</text>
+        <text x="380" y="190" font-size="13" class="tt">1:10  o mundo veio a ser</text>
+        <text x="380" y="224" font-size="13" class="tt">1:17  graça e verdade vieram a ser</text>
+
+        <path d="M200 248 C 200 310, 330 322, 392 322" fill="none" class="acc" stroke-width="2" marker-end="url(#ara)"/>
+        <text x="206" y="300" font-size="12" font-weight="600" class="accf">1:14</text>
+        <rect x="398" y="303" width="300" height="34" rx="3" class="acc" fill="none" stroke-width="2"/>
+        <text x="412" y="325" font-size="13.5" font-weight="600" class="accf">a Palavra VEIO A SER carne</text>
+
+        <line x1="60" y1="366" x2="700" y2="366" class="rl" stroke-width="1" stroke-dasharray="3 3"/>
+        <text x="60" y="392" font-size="12.5" font-weight="600" class="tt">1:15 — e o Batista usa os dois:</text>
+        <text x="60" y="412" font-size="12.5" class="mut">“passou adiante (γέγονεν) de mim, porque era (ἦν) antes de mim”</text>
+      </svg>
+      </div>
+      <figcaption><b>A coluna do Prólogo.</b> Dois verbos que nunca se misturam por treze versículos — e em 1:14 o da esquerda atravessa para a direita. É a cristologia inteira do trecho, feita de escolha lexical.</figcaption>
+    </figure>
+
+    <figure class="dg">
+      <div class="dgw">
+      <svg viewBox="0 0 780 470" role="img" aria-label="Três termos entram em 1:4 — Palavra, Vida e Luz — com suas afirmações; à direita, o que acontece com cada um no resto do evangelho: a Palavra não volta, a Vida e a Luz atravessam.">
+        <defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+        <line x1="560" y1="20" x2="560" y2="440" class="rl" stroke-width="1" stroke-dasharray="3 3"/>
+        <text x="580" y="30" font-size="11" class="mut">depois de 1:14</text>
+
+        <rect x="20" y="44" width="150" height="34" rx="3" class="bx" stroke-width="1.6"/>
+        <text x="95" y="66" text-anchor="middle" font-size="14" font-weight="600" class="tt">A PALAVRA</text>
+        <text x="186" y="52" font-size="12.5" class="tt">era no princípio</text>
+        <text x="186" y="72" font-size="12.5" class="tt">estava com Deus · era Deus</text>
+        <text x="186" y="92" font-size="12.5" class="tt">tudo veio a ser por ela</text>
+        <text x="186" y="112" font-size="12.5" font-weight="600" class="accf">veio a ser carne · armou tenda</text>
+        <text x="580" y="66" font-size="12.5" font-weight="600" class="tt">não volta</text>
+        <text x="580" y="84" font-size="11" class="mut">título só em 1:1 e 1:14</text>
+
+        <line x1="95" y1="82" x2="95" y2="168" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar2)"/>
+        <rect x="20" y="172" width="150" height="34" rx="3" class="bx" stroke-width="1.6"/>
+        <text x="95" y="194" text-anchor="middle" font-size="14" font-weight="600" class="tt">A VIDA</text>
+        <text x="186" y="194" font-size="12.5" class="tt">nela era vida</text>
+        <text x="580" y="188" font-size="12.5" font-weight="600" class="tt">atravessa</text>
+        <text x="580" y="206" font-size="11" class="mut">3:16 · 5:24 · 6:35 · 11:25 · 14:6</text>
+        <text x="580" y="222" font-size="11" class="mut">e a tese do livro em 20:31</text>
+
+        <line x1="95" y1="210" x2="95" y2="290" stroke="currentColor" stroke-width="1.4" marker-end="url(#ar2)"/>
+        <rect x="20" y="294" width="150" height="34" rx="3" class="bx" stroke-width="1.6"/>
+        <text x="95" y="316" text-anchor="middle" font-size="14" font-weight="600" class="tt">A LUZ</text>
+        <text x="186" y="290" font-size="12.5" class="tt">era a luz dos homens</text>
+        <text x="186" y="310" font-size="12.5" class="tt">brilha nas trevas</text>
+        <text x="186" y="330" font-size="12.5" class="tt">as trevas não a apreenderam</text>
+        <text x="186" y="350" font-size="12.5" class="tt">ilumina todo homem</text>
+        <text x="580" y="310" font-size="12.5" font-weight="600" class="tt">atravessa</text>
+        <text x="580" y="328" font-size="11" class="mut">3:19 · 8:12 · 9:5 · 12:46</text>
+
+        <rect x="20" y="392" width="520" height="48" rx="3" class="sf"/>
+        <text x="36" y="412" font-size="12.5" font-weight="600" class="tt">λόγος é a única categoria de empréstimo.</text>
+        <text x="36" y="431" font-size="12.5" class="mut">O leitor a traz cheia; João não a explica, e some. Os outros dois o livro define por dentro.</text>
+      </svg>
+      </div>
+      <figcaption><b>Três termos entram em 1:4. Dois viram o vocabulário do evangelho; um é porta.</b> E a declaração de propósito do livro, em 20:31, é enunciada com <i>vida</i> — não com <i>palavra</i>.</figcaption>
+    </figure>
+
+    <figure class="dg">
+      <div class="dgw">
+      <svg viewBox="0 0 700 430" role="img" aria-label="Três faixas: o mundo, larga, não conheceu; os seus, estreita, não receberam; e quantos receberam, deslocada e ultrapassando a borda das outras, porque é definida por outro critério.">
+        <defs><marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="accf"/></marker></defs>
+
+        <rect x="30" y="40" width="480" height="40" rx="3" class="bx" stroke-width="1.4"/>
+        <text x="46" y="65" font-size="13.5" font-weight="600" class="tt">O MUNDO</text>
+        <text x="526" y="58" font-size="12" class="mut">veio a ser por ela —</text>
+        <text x="526" y="75" font-size="12.5" font-weight="600" class="tt">não a conheceu</text>
+
+        <rect x="110" y="110" width="320" height="40" rx="3" class="bx" stroke-width="1.4"/>
+        <text x="126" y="135" font-size="13.5" font-weight="600" class="tt">OS SEUS</text>
+        <text x="446" y="128" font-size="12" class="mut">veio para eles —</text>
+        <text x="446" y="145" font-size="12.5" font-weight="600" class="tt">não a receberam</text>
+
+        <line x1="30" y1="176" x2="670" y2="176" class="rl" stroke-width="1" stroke-dasharray="3 3"/>
+        <text x="30" y="196" font-size="11" class="mut">não é subconjunto dos de cima: outro critério</text>
+
+        <rect x="250" y="210" width="380" height="42" rx="3" class="acc" fill="none" stroke-width="2"/>
+        <text x="266" y="236" font-size="13.5" font-weight="600" class="accf">QUANTOS A RECEBERAM</text>
+        <text x="30" y="236" font-size="12.5" font-weight="600" class="tt">ὅσοι δέ</text>
+        <text x="30" y="253" font-size="11" class="mut">o único “mas” do Prólogo</text>
+
+        <line x1="440" y1="256" x2="440" y2="296" class="acc" stroke-width="2" marker-end="url(#ar3)"/>
+        <text x="456" y="282" font-size="12" class="mut">deu-lhes autoridade</text>
+
+        <rect x="250" y="300" width="380" height="40" rx="3" class="sf"/>
+        <text x="266" y="325" font-size="13.5" font-weight="600" class="accf">FILHOS DE DEUS</text>
+
+        <text x="30" y="376" font-size="12.5" font-weight="600" class="tt">1:13 — e o critério é dado por negação:</text>
+        <text x="30" y="398" font-size="12.5" class="mut">não de sangue  ·  não de vontade da carne  ·  não de vontade de homem  —  mas de Deus</text>
+      </svg>
+      </div>
+      <figcaption><b>A recepção estreita duas vezes e depois abre por outro critério.</b> O terceiro grupo não está contido nos dois primeiros: ultrapassa a borda deles porque não é definido por pertencimento, e sim por resposta. É o fio que o projeto segue desde Mateus 3:9.</figcaption>
+    </figure>
+
+    <p class="foot">Os três diagramas são leitura nossa da estrutura — nível (c). Os dados que eles organizam (as ocorrências, os verbos, a ordem) são (a).</p>
+  </article>
+
+  <!-- =================== JOÃO 2 =================== -->
+  <article class="doc chapter" id="j2">
+    <p class="eyebrow">Evangelho segundo João</p>
+    <h1>As bodas de Caná</h1>
+
+    <section class="unit">
+      <h2><b>O primeiro sinal</b> &nbsp;·&nbsp; 2:1-11</h2>
+      <div class="scripture">
+        <p><span class="v">1</span>E, <button class="tag-btn e" data-open="c-dias">ao terceiro dia</button>, fizeram-se umas bodas em Caná da Galileia; e estava ali a mãe de Jesus. <span class="v">2</span>E foi também convidado Jesus e os seus discípulos para as bodas. <span class="v">3</span>E, <button class="tag-btn s" data-open="c-honra">faltando o vinho</button>, a mãe de Jesus lhe disse: Não têm vinho.</p>
+        <p><span class="v">4</span>Disse-lhe Jesus: <button class="tag-btn l" data-open="c-24">Mulher, que tenho eu contigo? Ainda não é chegada a minha hora.</button> <span class="v">5</span>Sua mãe disse aos serventes: Fazei tudo quanto ele vos disser.</p>
+        <p><span class="v">6</span>E estavam ali postas <button class="tag-btn s" data-open="c-talhas">seis talhas de pedra, para as purificações dos judeus</button>, e em cada uma cabiam <button class="tag-btn s" data-open="c-talhas">duas ou três metretas</button>. <span class="v">7</span>Disse-lhes Jesus: Enchei de água essas talhas. E encheram-nas até em cima. <span class="v">8</span>E disse-lhes: <button class="tag-btn a" data-open="c-aspecto">Tirai agora, e levai</button> ao mestre-sala. E levaram.</p>
+        <p><span class="v">9</span>E, logo que o mestre-sala provou a água feita vinho (<button class="tag-btn e" data-open="c-cargo">não sabendo de onde viera, se bem que o sabiam os serventes que tinham tirado a água</button>), chamou o mestre-sala ao esposo, <span class="v">10</span>e disse-lhe: Todo o homem põe primeiro o vinho bom e, quando já têm bebido bem, então o inferior; mas <button class="tag-btn a" data-open="c-aspecto">tu guardaste até agora o bom vinho</button>.</p>
+        <p><span class="v">11</span>Jesus <button class="tag-btn e" data-open="c-ponto">principiou assim os seus sinais</button> em Caná da Galileia, e manifestou a sua glória; e os seus discípulos <button class="tag-btn a" data-open="c-aspecto">creram</button> nele.</p>
+      </div>
+
+      <div class="studies">
+        <details class="s" id="c-talhas"><summary><span class="kind">primeiro século</span>As seis talhas — é aqui que o sinal mora</summary><div class="body">
+          <p><strong>Pedra.</strong> Vasos de pedra não contraem impureza ritual, ao contrário da cerâmica, que precisa ser quebrada se contaminada (Levítico 11:33). Havia indústria de vasos de pedra na Judeia do século I, e eles são abundantes na arqueologia. O detalhe é técnico e realista.</p>
+          <p><strong>"Para as purificações dos judeus."</strong> João <em>diz para que serviam</em> — e com isso <strong>entrega a interpretação do sinal antes de o sinal acontecer</strong>.</p>
+          <p><strong>O volume.</strong> Uma metreta são cerca de 40 litros. Duas ou três por talha: 80 a 120 litros cada. <strong>Seis talhas: entre 480 e 720 litros</strong> — seiscentas a novecentas garrafas.</p>
+          <p>Quantidade absurda para um casamento de aldeia — <strong>e o absurdo é o conteúdo, não o meio</strong>. O sinal não resolve uma falta; resolve em escala que nenhuma festa consome.</p>
+          <p>Os vasos da purificação antiga são <strong>esvaziados de sua função e enchidos de outra coisa</strong>. E a outra coisa é a imagem profética da era messiânica: "os montes destilarão mosto" (Amós 9:13; Joel 3:18), "um banquete de vinhos velhos" <strong>para todos os povos</strong> (Isaías 25:6).</p>
+        </div></details>
+
+        <details class="s" id="c-honra"><summary><span class="kind">primeiro século</span>"Não têm vinho" não é inconveniência</summary><div class="body">
+          <ul>
+            <li><strong>A festa durava sete dias</strong> — Juízes 14:12, 17; Tobias 8:20. Não é um jantar.</li>
+            <li><strong>O mestre-sala tem função conhecida</strong> — Eclesiástico 32:1-2 descreve o encargo.</li>
+            <li><strong>Ficar sem vinho era desonra pública</strong>, com consequência social duradoura para a família do noivo.</li>
+          </ul>
+          <div class="prop"><p>Isso reposiciona 2:3. <strong>É notícia de humilhação em curso</strong>, no sexto ou sétimo dia de uma festa. O que a mãe traz é um problema de honra — e o que Jesus recusa é resolvê-lo <strong>como problema de honra da família</strong>.</p></div>
+        </div></details>
+
+        <details class="l" id="c-24"><summary><span class="kind">língua</span>2:4 — "Mulher, que tenho eu contigo?"</summary><div class="body">
+          <h4>τί ἐμοὶ καὶ σοί — o alcance real</h4>
+          <p>Decalque do hebraico <span class="heb">מַה־לִּי וָלָךְ</span>. <strong>Mas o texto é grego</strong>, e as passagens abaixo são citadas <strong>como estão na Septuaginta</strong> — distribuição da construção em grego, não "o hebraico diz X, logo João diz X".</p>
+          <div class="tw"><table>
+            <tr><td>Juízes 11:12</td><td>Jefté ao rei de Amom</td><td><strong>hostil</strong></td></tr>
+            <tr><td>2 Samuel 16:10</td><td>Davi a Abisai, que quer matar Simei</td><td><strong>recusa de uma intervenção proposta</strong></td></tr>
+            <tr><td>1 Reis 17:18</td><td>a viúva de Sarepta a Elias</td><td><strong>aflição</strong>, e ela é beneficiária</td></tr>
+            <tr><td>2 Crônicas 35:21</td><td>Neco a Josias</td><td>"esta guerra não é tua"</td></tr>
+          </table></div>
+          <p><strong>O constante não é hostilidade — é disjunção de assunto.</strong> <em>A tua matéria e a minha não são a mesma.</em> E é isso que a tradução perde: <strong>"que tenho eu contigo?" em português soa a ruptura de relação.</strong> O idioma fala do <strong>caso</strong>, não do vínculo.</p>
+          <p>Dado desconfortável: no Novo Testamento, fora de João, a fórmula está <strong>sempre na boca de demônios</strong> (Mc 1:24; 5:7; Mt 8:29; Lc 4:34; 8:28). Não determina o sentido, mas não se omite.</p>
+          <h4>γύναι, e o deflator honesto</h4>
+          <p><strong>Não é desrespeito em grego</strong> — Jesus o usa com a samaritana (4:21) e com Madalena (20:15); em Mateus 15:28 é elogio. <strong>Mas não há paralelo de um filho chamando a mãe assim.</strong> Não é rude; é sem precedente.</p>
+          <p>A explicação mais econômica: <strong>é estilo joanino</strong> — ele põe γύναι na boca de Jesus para toda mulher. Isso explica <strong>a palavra</strong>, não <strong>a moldura</strong>:</p>
+          <div class="tw"><table>
+            <tr><td><strong>2:4</strong></td><td>"<strong>Mulher</strong> (...) ainda não é chegada a minha <strong>hora</strong>"</td></tr>
+            <tr><td><strong>19:26-27</strong></td><td>"<strong>Mulher</strong>, eis aí o teu filho (...) e <strong>desde aquela hora</strong>"</td></tr>
+          </table></div>
+          <p>A mãe aparece <strong>duas vezes em João, e só duas</strong> — mesmo vocativo, mesma palavra ὥρα, negada na primeira e cumprida na segunda.</p>
+          <h4>o problema: ele recusa e faz — e João 7 resolve</h4>
+          <p>Os <strong>irmãos</strong> o instam a subir à festa. Ele responde "<strong>o meu tempo ainda não é chegado</strong>" (7:6) — e então "tendo os seus irmãos já subido, <strong>então subiu ele também, não manifestamente, mas como em oculto</strong>" (7:10).</p>
+          <div class="tw"><table>
+            <tr><th></th><th>João 2</th><th>João 7</th></tr>
+            <tr><td>quem pede</td><td>a mãe</td><td>os irmãos</td></tr>
+            <tr><td>a recusa</td><td>"minha <strong>hora</strong>"</td><td>"meu <strong>tempo</strong>"</td></tr>
+            <tr><td>e então</td><td><strong>ele faz</strong></td><td><strong>ele sobe</strong></td></tr>
+            <tr><td>o modo</td><td>só serventes e discípulos sabem</td><td>"como em oculto"</td></tr>
+          </table></div>
+          <p><strong>A recusa não é da ação. É da base da ação.</strong> Ele não age porque a família pede — e, quando age, o modo não é o proposto.</p>
+          <h4>e o que o narrador não faz</h4>
+          <p>Maria não se retrai: vira-se para os serventes e procede como se a resposta fosse sim. <strong>E o narrador não a corrige nem a endossa.</strong> Pela cláusula do endosso narrativo, o texto <strong>não autoriza</strong> ler 2:5 como modelo de intercessão nem 2:4 como repreensão bem-sucedida. <strong>Quem faz de 2:3-5 doutrina sobre o papel da mãe está preenchendo um silêncio deliberado.</strong></p>
+        </div></details>
+
+        <details class="v" id="c-variante"><summary><span class="kind">variante</span>Em 2:4 não há — e isso é dado</summary><div class="body">
+          <p>Copistas suavizavam textos difíceis com frequência, e este é dos mais difíceis do evangelho. <strong>Não o tocaram.</strong> A dificuldade é original, não produzida na transmissão.</p>
+          <p><strong>Em 2:3 há</strong>, e vai na direção esperada: a tradição ocidental traz leitura <strong>mais longa</strong>, explicando que o vinho acabara — expansão secundária. Copistas acrescentam explicação onde o texto é lacônico; onde é difícil, não acrescentaram nada.</p>
+          <h4>a variante que importa: João 7:8</h4>
+          <div class="tw"><table>
+            <tr><td>οὐκ ἀναβαίνω — "eu <strong>não</strong> subo"</td><td>recusa plana, e <strong>7:10 o mostra subindo</strong></td></tr>
+            <tr><td>οὔπω ἀναβαίνω — "eu <strong>ainda não</strong> subo"</td><td>adiamento, sem tensão</td></tr>
+          </table></div>
+          <p>οὐκ é a <strong>leitura mais difícil</strong>, e por isso a provavelmente original. οὔπω é o copista consertando. E a dificuldade foi notada na Antiguidade: <strong>Porfírio a usou como acusação de inconstância</strong>, ao que Jerônimo teve de responder.</p>
+          <div class="prop"><p>Em João 7:8 os copistas <strong>suavizaram a recusa</strong>. Em 2:4 <strong>não conseguiram</strong> — ali a recusa não está no verbo, está na cláusula da hora, que não se ameniza sem reescrever a frase. <strong>A tradição manuscrita registra o mesmo desconforto que o intérprete moderno sente</strong>, e mostra onde pôde agir e onde não pôde.</p></div>
+        </div></details>
+
+        <details class="a" id="c-aspecto"><summary><span class="kind">aspecto</span>Remove duas leituras, confirma uma</summary><div class="body">
+          <h4>confirma · ἥκει (2:4)</h4>
+          <p>ἥκω é verbo cujo <strong>presente já significa "cheguei e estou aqui"</strong>: a conclusão está no <strong>léxico</strong>, não na forma. E o "ainda não" está em <strong>οὔπω, advérbio</strong>. A tradução se apoia em léxico e advérbio, não em morfologia.</p>
+          <h4>remove · os dois imperativos de 2:8</h4>
+          <p><strong>ἀντλήσατε está no aoristo; φέρετε no presente.</strong> A gramática antiga produzia daí: <em>tirai uma vez</em> e <em>ide levando</em>, com o vinho jorrando. <strong>Sem base.</strong> O aoristo não significa "uma vez", o presente não significa "continuamente", e boa parte da escolha é convencional.</p>
+          <h4>remove · ἐπίστευσαν (2:11)</h4>
+          <p>A leitura corrente faz do aoristo uma fé <strong>decisiva, de uma vez por todas</strong>. <strong>O próprio João desmente:</strong> em 6:66 discípulos deixam de segui-lo; em 8:30-31 "muitos creram nele" e a conversa termina em tentativa de apedrejamento.</p>
+          <h4>os três perfeitos, e Porter</h4>
+          <p>São <strong>três</strong>, em 2:9-10: γεγενημένον ("a água feita vinho"), ἠντληκότες ("os que tinham tirado") — <em>ambos na voz do narrador</em> — e τετήρηκας ("guardaste"), em fala de personagem. Em Porter o perfeito é <strong>frontground</strong>, a forma mais marcada.</p>
+          <div class="prop"><p>Se a cadeia valer, <strong>a forma mais marcada do primeiro sinal está dentro do maior mal-entendido do primeiro sinal</strong> — dita por quem não sabe de onde veio, a quem não fez nada.</p></div>
+          <p>Três ressalvas: a cadeia marcação → proeminência é a parte mais atacada do sistema (Runge); τετήρηκας está em <strong>fala de personagem</strong>, e o esquema é de discurso narrativo; e τηρέω é "guardar", cujo perfeito exprime o estado resultante, com ἕως ἄρτι dizendo o mesmo em advérbio.</p>
+          <p><strong>Registrar, com a escola declarada.</strong> A leitura da ironia não depende disto — sustenta-se pelo que o texto <em>diz</em> em 2:9.</p>
+        </div></details>
+
+        <details class="x" id="c-cargo"><summary><span class="kind">estrutura</span>Quem tem o cargo não sabe</summary><div class="body">
+          <p>João escreve as duas metades de propósito. <strong>O mestre-sala, que tem o ofício, ignora; os que carregaram os baldes, sabem.</strong></p>
+          <p>É assinatura joanina — o cego de 9:25 ("uma coisa sei: eu era cego e agora vejo") contra os fariseus que têm o saber; e o desprezo de 7:49 ("esta multidão, que não sabe a lei, é maldita").</p>
+          <p><strong>E o crédito vai para o homem errado.</strong> "Tu guardaste até agora o bom vinho" é dito <strong>ao noivo</strong>, que não fez nada. O leitor sabe; a festa não.</p>
+          <p>Um capítulo adiante, João Batista dirá "aquele que tem a <strong>noiva</strong> é o <strong>noivo</strong>" (3:29). Ele <strong>não faz</strong> a identificação em 2:10 — a justaposição é dele.</p>
+        </div></details>
+
+        <details class="e" id="c-dias"><summary><span class="kind">em aberto</span>Sexto ou sétimo dia?</summary><div class="body">
+          <p>Com a sequência de dias do capítulo 1 atrás e <em>Ἐν ἀρχῇ</em> em 1:1, a moldura de semana inaugural é deliberada. <strong>Em que dia cai é disputado:</strong> se sete, o sinal cai no sábado da nova criação; se seis, no dia em que Gênesis faz o humano e institui o casamento. <strong>Não decidir.</strong> O que é firme é o esquema, não a casa.</p>
+          <p>E há outro "três dias" no mesmo capítulo: 2:19, "destruí este templo, e <strong>em três dias</strong> o levantarei". João põe os dois juntos.</p>
+        </div></details>
+
+        <details class="x" id="c-ponto"><summary><span class="kind">estrutura</span>Síntese: qual é o ponto</summary><div class="body">
+          <h4>o foco · este sinal ensina a ler os outros</h4>
+          <p>João o chama de <strong>princípio dos sinais</strong>. E não o põe primeiro por ser o mais impressionante: <strong>é o milagre menos público do evangelho.</strong> Ninguém na festa percebe. Não há multidão, não há doente curado, não há debate.</p>
+          <div class="tw"><table>
+            <tr><th>Traço</th><th>Por quê</th></tr>
+            <tr><td>480 a 720 litros</td><td>ninguém bebe isso. <strong>O excesso é valor de sinal, não valor de uso.</strong></td></tr>
+            <tr><td>ninguém sabe</td><td><strong>O sinal não é argumento que obrigue.</strong></td></tr>
+            <tr><td>o crédito vai para o noivo</td><td><strong>sinais são mal lidos por quem tem a credencial</strong></td></tr>
+            <tr><td>"ainda não é chegada a minha hora" + "manifestou a glória"</td><td><strong>não confundir o sinal com a coisa.</strong> Sinal <strong>aponta</strong>, não <strong>é</strong></td></tr>
+          </table></div>
+          <p>E a cena <strong>encena as três respostas possíveis</strong> a um sinal: <strong>atribuição errada</strong> (o mestre-sala), <strong>saber sem comentar</strong> (os serventes), <strong>crer</strong> (os discípulos). <strong>Por isso o primeiro sinal é o mais discreto: não está tentando convencer ninguém — está ensinando o leitor a olhar.</strong></p>
+          <h4>a era do preparo acaba nos vasos do preparo</h4>
+          <p>A troca é dupla: <strong>de purificação para celebração</strong>, e <strong>de preparo para consumação</strong>. <strong>Mas não ir rápido demais:</strong> o texto <strong>não destrói</strong> os vasos, enche-os. E o mestre-sala dá a forma exata — "tu guardaste o <strong>bom</strong> vinho <strong>até agora</strong>". <strong>Bom, depois melhor.</strong> Não ruim, depois bom. Não é substituição: é <strong>cumprimento em excesso, dentro dos recipientes do que veio antes</strong>, o que casa com 1:17.</p>
+          <h4>esta alegria custa aquela hora</h4>
+          <p>12:23 diz o que é a hora: "a hora em que o Filho do Homem há de ser <strong>glorificado</strong>" — o grão que morre. <strong>A glória é mostrada em Caná; a glorificação acontece na cruz</strong>, mesma raiz, com a mesma mulher presente nas duas pontas. Não é sentimental: é estrutural, e impede ler o primeiro sinal como milagre simpático de festa.</p>
+          <h4>o que o texto não diz</h4>
+          <ul>
+            <li><strong>Não</strong> diz que Jesus é o noivo — 3:29 diz, um capítulo depois.</li>
+            <li><strong>Não</strong> comenta as seis talhas num evangelho de sete sinais.</li>
+            <li><strong>Não</strong> interpreta o papel da mãe.</li>
+            <li><strong>Não</strong> diz nada sobre beber vinho.</li>
+            <li><strong>Não</strong> diz que o que veio antes era mau.</li>
+          </ul>
+        </div></details>
+      </div>
+    </section>
+
+    <div class="frase"><b>Em uma frase</b>João põe primeiro o sinal que ninguém viu, para ensinar que um sinal mostra antes da hora, é mal lido por quem tem o cargo, e custa a hora que ainda não veio — e o que ele mostra é a festa começando dentro dos vasos do preparo.</div>
+
+    <p class="foot">Texto bíblico: Almeida, texto tradicional (domínio público).</p>
+  </article>
+  </main>
+</div>
+
+<script>
+  var btns=document.querySelectorAll('.navlist button'), chaps=document.querySelectorAll('.chapter');
+  btns.forEach(function(b){ b.addEventListener('click',function(){
+    btns.forEach(function(o){o.setAttribute('aria-current',String(o===b));});
+    chaps.forEach(function(c){c.classList.toggle('on',c.id===b.dataset.go);});
+    window.scrollTo({top:0,behavior:'instant'});
+  });});
+
+  document.querySelectorAll('.tag-btn').forEach(function(t){
+    t.addEventListener('click',function(){
+      var d=document.getElementById(t.dataset.open);
+      if(!d) return;
+      d.open=true;
+      d.scrollIntoView({behavior:'smooth',block:'center'});
+      d.style.transition='none';
+      d.classList.add('flash');
+      setTimeout(function(){d.classList.remove('flash');},1400);
+    });
+  });
+
+  var ta=document.getElementById('toggleall');
+  ta.addEventListener('click',function(){
+    var on=ta.getAttribute('aria-pressed')!=='true';
+    ta.setAttribute('aria-pressed',String(on));
+    ta.textContent=on?'Fechar todos os estudos':'Abrir todos os estudos';
+    document.querySelectorAll('details').forEach(function(d){d.open=on;});
+  });
+  var pl=document.getElementById('plain');
+  pl.addEventListener('click',function(){
+    var on=pl.getAttribute('aria-pressed')!=='true';
+    pl.setAttribute('aria-pressed',String(on));
+    document.body.classList.toggle('plain',on);
+  });
+  var mp=document.getElementById('markprop');
+  mp.addEventListener('click',function(){
+    var on=mp.getAttribute('aria-pressed')!=='true';
+    mp.setAttribute('aria-pressed',String(on));
+    document.body.classList.toggle('mark-prop',on);
+  });
+</script>
+<style>details.flash{box-shadow:0 0 0 2px var(--c)}</style>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('sw.js').catch(function(){});
+    });
+  }
+</script>

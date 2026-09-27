@@ -1,0 +1,89 @@
+{
+  "id": "joao-hoje.html",
+  "name": "João — três edições",
+  "short_name": "João",
+  "description": "Três edições do Evangelho de João: português de hoje, tradução literal com aparato e comentário. Funciona sem rede.",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "browser"
+  ],
+  "orientation": "any",
+  "background_color": "#FAF9F6",
+  "theme_color": "#FAF9F6",
+  "categories": [
+    "books",
+    "education",
+    "reference"
+  ],
+  "icons": [
+    {
+      "src": "icones/icone-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icones/icone-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icones/icone-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "João em português de hoje",
+      "short_name": "Português de hoje",
+      "url": "joao-hoje.html",
+      "icons": [
+        {
+          "src": "icones/icone-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "A tradução literal",
+      "short_name": "Literal",
+      "url": "traducao.html",
+      "icons": [
+        {
+          "src": "icones/icone-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "O comentário",
+      "short_name": "Comentário",
+      "url": "comentario.html",
+      "icons": [
+        {
+          "src": "icones/icone-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Glossário",
+      "url": "joao-hoje.html?p=pg-gl",
+      "icons": [
+        {
+          "src": "icones/icone-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

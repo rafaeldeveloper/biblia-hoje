@@ -1,0 +1,757 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tradução de João</title>
+<link rel="stylesheet" href="fontes/fontes.css">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="icones/favicon-32.png">
+<link rel="apple-touch-icon" href="icones/apple-touch-icon.png">
+<meta name="theme-color" content="#FAF9F6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14130F" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="João">
+<style>
+  :root{
+    --ground:#FAF9F6; --surface:#FFFFFF; --surface-2:#F0EEE8;
+    --ink:#1C1A17; --ink-2:#575249; --ink-3:#8C867B;
+    --rule:#E2DFD6; --rule-2:#CFCBC0; --rail:#F3F1EB;
+    --texto:#7A2E3B; --lexico:#1D4E6B; --consist:#3F5B3A;
+    --ambig:#7A5A14; --glosa:#4A4668; --mark:#2C3E6B;
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --ground:#131210; --surface:#1B1A17; --surface-2:#232220;
+    --ink:#EDEAE3; --ink-2:#ABA79D; --ink-3:#7B766C;
+    --rule:#2C2A26; --rule-2:#3D3A34; --rail:#171614;
+    --texto:#C98A96; --lexico:#84AFCB; --consist:#94B08C;
+    --ambig:#CBA75C; --glosa:#A09BC4; --mark:#8FA3D6;
+  }}
+  :root[data-theme="dark"]{
+    --ground:#131210; --surface:#1B1A17; --surface-2:#232220;
+    --ink:#EDEAE3; --ink-2:#ABA79D; --ink-3:#7B766C;
+    --rule:#2C2A26; --rule-2:#3D3A34; --rail:#171614;
+    --texto:#C98A96; --lexico:#84AFCB; --consist:#94B08C;
+    --ambig:#CBA75C; --glosa:#A09BC4; --mark:#8FA3D6;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--ground); color:var(--ink);
+    font-family:"EB Garamond",Garamond,Georgia,serif; -webkit-font-smoothing:antialiased}
+  .heb{font-family:"Frank Ruhl Libre",serif}
+  .ui{font-family:"IBM Plex Sans",system-ui,sans-serif}
+
+  .shell{display:block}
+  @media (min-width:1020px){ .shell{display:grid; grid-template-columns:218px minmax(0,1fr)} }
+  .rail{background:var(--rail); border-bottom:1px solid var(--rule); padding:16px 20px}
+  @media (min-width:1020px){ .rail{border-bottom:0; border-right:1px solid var(--rule);
+    position:sticky; top:0; height:100vh; overflow-y:auto; padding:32px 20px} }
+  .brand{font-weight:600; font-size:20px; margin:0 0 2px; letter-spacing:-.01em}
+  .brand-sub{font-family:"IBM Plex Sans",sans-serif; font-size:10px; letter-spacing:.13em;
+    text-transform:uppercase; color:var(--ink-3); margin:0 0 20px}
+  .navgroup{font-family:"IBM Plex Sans",sans-serif; font-size:9.5px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--ink-3); margin:0 0 7px}
+  .navlist{list-style:none; margin:0 0 18px; padding:0; display:flex; flex-wrap:wrap; gap:5px}
+  @media (min-width:1020px){ .navlist{flex-direction:column; gap:1px} }
+  .navlist button{font-family:"IBM Plex Sans",sans-serif; font-size:12.5px; text-align:left;
+    width:100%; background:none; border:0; border-radius:3px; padding:6px 9px;
+    color:var(--ink-2); cursor:pointer}
+  .navlist button:hover{background:var(--surface-2); color:var(--ink)}
+  .navlist button[aria-current="true"]{background:var(--ink); color:var(--ground); font-weight:500}
+  .ctrl{font-family:"IBM Plex Sans",sans-serif; font-size:11px; color:var(--ink-2); background:none;
+    border:1px solid var(--rule-2); border-radius:3px; padding:6px 9px; cursor:pointer;
+    margin-bottom:6px; display:block; width:100%; text-align:left}
+  .ctrl:hover{border-color:var(--ink-3); color:var(--ink)}
+  .ctrl[aria-pressed="true"]{background:var(--ink); color:var(--ground); border-color:var(--ink)}
+  button:focus-visible, sup.n:focus-visible{outline:2px solid var(--mark); outline-offset:2px}
+  .legend{margin-top:20px; padding-top:14px; border-top:1px solid var(--rule);
+    font-family:"IBM Plex Sans",sans-serif; font-size:10.5px; color:var(--ink-3); line-height:1.95}
+  .legend i{display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:6px}
+
+  main{padding:30px 18px 100px}
+  @media (min-width:1020px){ main{padding:56px 44px 130px} }
+  .doc{max-width:40rem; margin:0 auto}
+  .page{display:none} .page.on{display:block}
+
+  .eyebrow{font-family:"IBM Plex Sans",sans-serif; font-size:10px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--ink-3); margin:0 0 8px}
+  h1{font-size:clamp(30px,5vw,42px); font-weight:600; line-height:1.06;
+    letter-spacing:-.015em; margin:0 0 10px}
+  .dek{font-size:18px; color:var(--ink-2); margin:0 0 30px; max-width:34rem; font-style:italic}
+
+  h2{font-family:"IBM Plex Sans",sans-serif; font-size:10.5px; letter-spacing:.14em;
+    text-transform:uppercase; font-weight:600; color:var(--ink-3);
+    margin:42px 0 16px; padding-bottom:8px; border-bottom:1px solid var(--rule)}
+  h2 b{color:var(--ink)}
+
+  /* ---- o texto traduzido ---- */
+  .t{font-size:22px; line-height:1.72; max-width:33rem}
+  @media (max-width:520px){ .t{font-size:20px; line-height:1.68} }
+  .t p{margin:0 0 17px}
+  .vn{font-family:"IBM Plex Sans",sans-serif; font-size:10.5px; font-weight:600;
+    color:var(--ink-3); vertical-align:super; line-height:0; margin-right:4px}
+  .glosa{font-style:italic; color:var(--glosa)}
+  sup.n{font-family:"IBM Plex Sans",sans-serif; font-size:9.5px; font-weight:600;
+    color:var(--mark); cursor:pointer; vertical-align:super; line-height:0;
+    padding:0 1px; margin-left:1px; background:none; border:0}
+  sup.n:hover{background:color-mix(in srgb, var(--mark) 18%, transparent); border-radius:2px}
+  .dif{background:color-mix(in srgb, var(--mark) 0%, transparent); border-radius:2px;
+    box-shadow:none; padding:0 1px}
+  body.showdif .dif{background:color-mix(in srgb, var(--mark) 13%, transparent)}
+
+  /* ---- aparato ---- */
+  .ap{margin:34px 0 0; border-top:2px solid var(--ink); padding-top:14px}
+  .ap h3{font-family:"IBM Plex Sans",sans-serif; font-size:10px; letter-spacing:.14em;
+    text-transform:uppercase; font-weight:600; color:var(--ink-3); margin:0 0 12px}
+  .note{display:grid; grid-template-columns:26px 1fr; gap:10px; padding:9px 0;
+    border-bottom:1px solid var(--rule); font-size:15.5px; line-height:1.55; color:var(--ink-2)}
+  .note:last-child{border-bottom:0}
+  .note.hit{background:color-mix(in srgb, var(--mark) 9%, transparent)}
+  .note > .num{font-family:"IBM Plex Sans",sans-serif; font-size:11px; font-weight:600;
+    color:var(--mark); padding-top:3px}
+  .note .kind{font-family:"IBM Plex Sans",sans-serif; font-size:9px; letter-spacing:.11em;
+    text-transform:uppercase; font-weight:600; color:var(--c); margin-right:7px}
+  .k-texto{--c:var(--texto)} .k-lexico{--c:var(--lexico)} .k-consist{--c:var(--consist)}
+  .k-ambig{--c:var(--ambig)} .k-glosa{--c:var(--glosa)}
+  .note strong{color:var(--ink); font-weight:600}
+  .note em{font-style:italic}
+  .note .was{font-family:"IBM Plex Sans",sans-serif; font-size:12.5px; color:var(--ink-3);
+    display:block; margin-top:4px}
+
+  .arg{background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--ink);
+    border-radius:3px; padding:20px 22px; margin:0 0 32px; font-size:16.5px; line-height:1.58; color:var(--ink-2)}
+  .arg h4{font-family:"IBM Plex Sans",sans-serif; font-size:9.5px; letter-spacing:.13em;
+    text-transform:uppercase; color:var(--ink-3); font-weight:600; margin:16px 0 6px}
+  .arg h4:first-child{margin-top:0}
+  .arg p{margin:0 0 10px} .arg p:last-child{margin-bottom:0}
+  .arg strong{color:var(--ink); font-weight:600}
+  .arg ul{margin:0 0 10px; padding-left:19px} .arg li{margin-bottom:6px}
+  .arg .tese{font-size:19px; line-height:1.42; color:var(--ink); font-weight:500;
+    border-top:1px solid var(--rule); padding-top:14px; margin-top:16px}
+  .princ{background:var(--surface); border:1px solid var(--rule); border-radius:3px;
+    padding:20px 22px; margin:0 0 34px; font-size:16px; line-height:1.58; color:var(--ink-2)}
+  .princ ol{margin:0; padding-left:20px}
+  .princ li{margin-bottom:9px}
+  .princ li:last-child{margin-bottom:0}
+  .princ strong{color:var(--ink); font-weight:600}
+  .foot{margin-top:40px; padding-top:14px; border-top:1px solid var(--rule);
+    font-family:"IBM Plex Sans",sans-serif; font-size:11px; color:var(--ink-3); line-height:1.6}
+  @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+</style>
+
+<div class="shell">
+  <nav class="rail">
+    <p class="brand">Tradução de João</p>
+    <p class="brand-sub">Com as escolhas à vista</p>
+    <p class="navgroup">Trechos</p>
+    <ul class="navlist">
+      <li><button data-go="p1" aria-current="true">1:1-18 · Prólogo</button></li>
+      <li><button data-go="p2" aria-current="false">1:19-51 · Os quatro dias</button></li>
+      <li><button data-go="p3" aria-current="false">2 · Caná e o templo</button></li>
+      <li><button data-go="p4" aria-current="false">3 · Nicodemos e o noivo</button></li>
+      <li><button data-go="p5" aria-current="false">4 · A samaritana</button></li>
+      <li><button data-go="p6" aria-current="false">5 · O tanque e o processo</button></li>
+      <li><button data-go="p0" aria-current="false">Princípios</button></li>
+    </ul>
+    <button class="ctrl" id="showdif" aria-pressed="false">Mostrar o que mudou</button>
+    <p class="legend">
+      <i style="background:var(--texto)"></i>texto e variante<br>
+      <i style="background:var(--lexico)"></i>léxico<br>
+      <i style="background:var(--consist)"></i>consistência<br>
+      <i style="background:var(--ambig)"></i>ambiguidade preservada<br>
+      <i style="background:var(--glosa)"></i>glosa do tradutor
+    </p>
+  </nav>
+
+  <main>
+  <!-- ============ PRÓLOGO ============ -->
+  <article class="doc page on" id="p1">
+    <p class="eyebrow">João 1:1-18</p>
+    <h1>Prólogo</h1>
+    <p class="dek">Cada escolha marcada tem nota. Toda glosa do tradutor vem em itálico e cor, para que não se confunda com o texto.</p>
+
+    <div class="arg">
+      <h4>com o que ele está interagindo</h4>
+      <p><strong>Com a tradição da Sabedoria.</strong> Eclesiástico 24 põe a Sabedoria saindo da boca de Deus, recebendo ordem de <em>armar tenda em Jacó</em> (24:8) — e a identifica com a <strong>Torá</strong> (24:23). O Prólogo roda a mesma estrutura: sai de Deus, <strong>arma tenda entre nós</strong> (1:14), e desemboca em 1:17. <strong>1:17 é a conclusão de uma comparação que o Prólogo inteiro montou.</strong></p>
+      <p><strong>Com o movimento que restou de João Batista.</strong> E aqui a evidência é a forma: <strong>um poema sobre o Logos se interrompe duas vezes</strong> (1:6-8 e 1:15) para dizer o que o Batista <em>não</em> é. Some-se 1:20, "confessou e não negou; e confessou: eu não sou o Cristo", e Atos 19:1-7, onde há discípulos em Éfeso que só conhecem o batismo de João.</p>
+      <p><strong>Com a pretensão de acesso visionário.</strong> "A Deus ninguém jamais viu" (1:18) é frase dirigida — contra a literatura de ascensão celeste e contra a leitura ingênua de Êxodo 24:10-11 e Isaías 6:1.</p>
+      <h4>e que leitor ele supõe</h4>
+      <p><strong>Ele traduz aramaico</strong> — <em>rabi</em>, <em>messias</em>, <em>cefas</em>, <em>siloé</em> —, logo o leitor não sabe aramaico. <strong>E não traduz</strong> <em>Ἐν ἀρχῇ</em>, δόξα nem σκηνόω, nem explica quem é Moisés. <strong>É um perfil só, não dois:</strong> leitor de grego com formação na Septuaginta. Não há "porta judaica" e "porta grega" — <em>Ἐν ἀρχῇ</em> é a Septuaginta, e λόγος também é dela (Salmo 33:6). <strong>O texto é legível em duas profundidades, não endereçado a duas audiências.</strong></p>
+      <h4>contra o que ele argumenta</h4>
+      <ul>
+        <li><strong>Contra o precursor como termo:</strong> "não era ele a luz" (1:8).</li>
+        <li><strong>Contra a Torá como a última coisa dita:</strong> não que seja má — <strong>1:17 é sequência, não recusa</strong> — mas que o que dela se dizia, uma pessoa é.</li>
+        <li><strong>Contra o acesso por visão:</strong> 1:18.</li>
+        <li><strong>Contra a filiação por sangue, carne ou vontade humana:</strong> 1:13.</li>
+        <li><strong>E contra qualquer esquema em que o divino não possa tocar a matéria.</strong> <em>σὰρξ ἐγένετο</em> é incompatível com a hierarquia do próprio Fílon e com o platonismo do período. <strong>Isso exclui uma família de posições sem nomear seita nenhuma</strong> — o docetismo explícito de 1João 4:2 é depois, e o gnosticismo desenvolvido é do século II.</li>
+      </ul>
+      <h4>o que ele parece afirmar</h4>
+      <ul>
+        <li>O Verbo <strong>era</strong> no princípio — anterioridade, não origem. É o que o contraste ἦν/ἐγένετο carrega.</li>
+        <li>O Verbo <strong>estava com</strong> Deus — distinção.</li>
+        <li>O Verbo <strong>era Deus</strong> — e a sintaxe entrega exatamente isto e nada mais: <em>θεὸς ἦν ὁ λόγος</em>, com θεός sem artigo e anteposto, é <strong>qualitativo</strong>. Não autoriza "um deus", e <strong>impede</strong> ler "o Verbo era o mesmo Deus com quem estava" — o que preserva a distinção de 1:1b.</li>
+        <li>Tudo veio a ser <strong>por meio dele</strong> — mediação da criação.</li>
+        <li><strong>Encarnação real</strong>, não aparência.</li>
+        <li>O acesso a Deus é <strong>exclusivo e por exposição</strong>: "esse o expôs".</li>
+        <li>A filiação é <strong>recebida</strong>, não conquistada nem herdada (1:12-13).</li>
+      </ul>
+      <h4>o que ele não afirma</h4>
+      <p>Não diz "Trindade", e <strong>não menciona o Espírito no Prólogo</strong>. <strong>Não explica como</strong> o Verbo é Deus e está com Deus. <strong>Não diz que a lei foi abolida.</strong> E — negativa útil, porque o projeto achou isso em Mateus e Apocalipse — <strong>não há polêmica imperial visível aqui</strong>: nenhum título de César é reatribuído.</p>
+      <p class="tese">O ponto: <strong>o acesso a Deus não é por visão, nem por lei, nem por precursor — é por uma pessoa que se pode nomear, e que estava lá antes de tudo.</strong> As três negações estão no texto: 1:18, 1:17, 1:8.</p>
+    </div>
+
+    <div class="t">
+      <p><span class="vn">1</span>No princípio <span class="dif">era</span><sup class="n" data-n="1">1</sup> a <span class="dif">Palavra</span><sup class="n" data-n="2">2</sup> — <span class="glosa">aquela por quem tudo veio a ser, e em quem tudo se ordena</span><sup class="n" data-n="3">3</sup> — e a Palavra estava com Deus, e a Palavra era Deus. <span class="vn">2</span>Ela estava no princípio com Deus.</p>
+      <p><span class="vn">3</span>Todas as coisas <span class="dif">vieram a ser</span><sup class="n" data-n="1">1</sup> por meio dela, e sem ela <span class="dif">nada veio a ser.</span><sup class="n" data-n="4">4</sup> <span class="vn">4</span><span class="dif">O que veio a ser, nela era vida</span><sup class="n" data-n="4">4</sup> — e a vida era a luz dos homens. <span class="vn">5</span>E a luz brilha nas trevas, e as trevas não a <span class="dif">apreenderam</span><sup class="n" data-n="5">5</sup>.</p>
+      <p><span class="vn">6</span><span class="dif">Veio a ser</span><sup class="n" data-n="1">1</sup> um homem, enviado de Deus, cujo nome era João. <span class="vn">7</span>Este veio como <span class="dif">testemunha, para dar testemunho</span><sup class="n" data-n="6">6</sup> da luz, a fim de que todos cressem por meio dele. <span class="vn">8</span>Não era ele a luz, mas veio para dar testemunho da luz.</p>
+      <p><span class="vn">9</span>Era a luz verdadeira, que ilumina todo homem, <span class="dif">vindo ao mundo</span><sup class="n" data-n="7">7</sup>. <span class="vn">10</span>Estava no mundo, e o mundo veio a ser por meio dela, e o mundo não a conheceu. <span class="vn">11</span>Veio para o que era seu, e os seus não a receberam. <span class="vn">12</span>Mas a todos quantos a receberam, deu-lhes <span class="dif">autoridade</span><sup class="n" data-n="8">8</sup> para se tornarem <span class="dif">filhos</span><sup class="n" data-n="9">9</sup> de Deus — aos que creem no seu nome, <span class="vn">13</span>os quais <span class="dif">não nasceram de sangue</span><sup class="n" data-n="10">10</sup>, nem de vontade da carne, nem de vontade de homem, mas de Deus.</p>
+      <p><span class="vn">14</span>E a Palavra <span class="dif">veio a ser carne</span><sup class="n" data-n="11">11</sup> e <span class="dif">armou tenda</span><sup class="n" data-n="12">12</sup> entre nós — e contemplamos a sua <span class="dif">glória</span><sup class="n" data-n="13">13</sup>, glória como a do <span class="dif">Único</span><sup class="n" data-n="14">14</sup> vindo do Pai, cheio de <span class="dif">graça e de verdade</span><sup class="n" data-n="15">15</sup>.</p>
+      <p><span class="vn">15</span>João deu testemunho dele, e clamou: Este era aquele de quem eu disse: o que vem depois de mim <span class="dif">passou adiante de mim, porque era antes de mim</span><sup class="n" data-n="16">16</sup>.</p>
+      <p><span class="vn">16</span><span class="dif">Porque</span><sup class="n" data-n="17">17</sup> da sua plenitude recebemos todos nós, e <span class="dif">graça em lugar de graça</span><sup class="n" data-n="18">18</sup>. <span class="vn">17</span>Porque a lei foi dada por meio de Moisés; a graça e a verdade <span class="dif">vieram a ser</span><sup class="n" data-n="1">1</sup> por meio de Jesus Cristo.</p>
+      <p><span class="vn">18</span>A Deus ninguém jamais viu. O Único, <span class="dif">ele mesmo Deus</span><sup class="n" data-n="19">19</sup>, que está no seio do Pai, esse <span class="dif">o expôs</span><sup class="n" data-n="20">20</sup>.</p>
+    </div>
+
+    <div class="ap">
+      <h3>Aparato · vinte escolhas</h3>
+      <div class="note" id="n-1"><span class="num">1</span><div><span class="kind k-consist">consistência</span>O Prólogo roda em dois verbos: <strong>ἦν</strong> (imperfeito de <em>εἰμί</em>), sempre da Palavra, e <strong>ἐγένετο</strong> (aoristo de <em>γίνομαι</em>), sempre de tudo o mais — inclusive de João Batista em 1:6. <strong>O Verbo "era"; João "veio a ser".</strong> A coluna só sobrevive em português se os dois forem vertidos de modo constante: <strong>"era"</strong> e <strong>"veio a ser"</strong>, em 1:1, 3, 6, 10, 14 e 17. <span class="was">Almeida alterna: "era", "foram feitas", "houve", "se fez", "vieram" — e a coluna desaparece.</span></div></div>
+      <div class="note" id="n-2"><span class="num">2</span><div><span class="kind k-lexico">léxico</span><strong>λόγος</strong> não tem equivalente. "Verbo" não engana, mas <strong>também não carrega nada</strong> — opacidade não é neutralidade. "Palavra" é transparente, mas sozinha empurra para <em>palavra pronunciada</em>, que é o polo <strong>menos</strong> ativo para o leitor grego, o qual ouviria <em>princípio ordenador</em>. Adotou-se <strong>"Palavra" com glosa na primeira ocorrência</strong> (nota 3). <span class="was">Almeida: "o Verbo".</span></div></div>
+      <div class="note" id="n-3"><span class="num">3</span><div><span class="kind k-glosa">glosa</span>Glosa do tradutor, não do texto — por isso em itálico e cor. Cobre os dois eixos que λόγος carrega no primeiro século: a <strong>palavra criadora</strong> da Septuaginta (Salmo 33:6, <em>τῷ λόγῳ τοῦ κυρίου</em>) e o <strong>princípio ordenador</strong> da filosofia grega. Depois de 1:1a o grego usa <em>ὁ λόγος</em> com artigo, anafórico; a tradução faz o mesmo e corre com "a Palavra".</div></div>
+      <div class="note" id="n-4"><span class="num">4</span><div><span class="kind k-texto">texto</span><strong>Onde termina a frase é decisão editorial, não de manuscrito</strong> — os antigos não pontuam. Duas opções: <em>(a)</em> "nada <strong>do que foi feito</strong> se fez. Nele estava a vida"; <em>(b)</em> "nada se fez. <strong>O que veio a ser, nela era vida</strong>". <strong>Adotou-se (b):</strong> é a pontuação das testemunhas antigas e dos Pais mais antigos, e é o que as edições críticas imprimem. A leitura (a) se firmou a partir do século IV, por <strong>polêmica antiariana</strong>. <span class="was">Almeida traz (a).</span></div></div>
+      <div class="note" id="n-5"><span class="num">5</span><div><span class="kind k-ambig">ambiguidade</span><strong>καταλαμβάνω</strong> significa <em>compreender</em> <strong>e</strong> <em>dominar, alcançar</em>. A ambiguidade é provavelmente deliberada, e escolher um dos sentidos fecha o que o texto deixou aberto. <strong>"Apreender"</strong> é a única palavra portuguesa que carrega os dois. <span class="was">Almeida: "não a compreenderam" — resolve por um lado.</span></div></div>
+      <div class="note" id="n-6"><span class="num">6</span><div><span class="kind k-consist">consistência</span><strong>μαρτυρία</strong> e <strong>μαρτυρέω</strong> percorrem o evangelho inteiro e terminam em <em>mártir</em>. Vertidos sempre por <strong>"testemunho"</strong> e <strong>"dar testemunho"</strong>, nunca por "testificar" ou "declarar", para que o fio se veja.</div></div>
+      <div class="note" id="n-7"><span class="num">7</span><div><span class="kind k-ambig">ambiguidade</span>O particípio <strong>ἐρχόμενον</strong> pode reger "todo homem" (que vem ao mundo) ou "a luz" (vindo ao mundo). <strong>A ordem adotada preserva a indecisão</strong>, como no grego. <span class="was">Almeida: "a todo o homem que vem ao mundo" — resolve.</span></div></div>
+      <div class="note" id="n-8"><span class="num">8</span><div><span class="kind k-lexico">léxico</span><strong>ἐξουσία</strong> é <em>autoridade, direito conferido</em> — não força. "Poder" em português puxa para capacidade; o grego fala de <strong>prerrogativa dada por outro</strong>, que é o ponto do versículo. <span class="was">Almeida: "o poder".</span></div></div>
+      <div class="note" id="n-9"><span class="num">9</span><div><span class="kind k-consist">consistência</span><strong>João nunca chama os crentes de υἱός</strong> — reserva a palavra para Jesus e usa <strong>τέκνα</strong> ("rebentos") para os demais. O português não tem dois termos, <strong>mas a distinção sobrevive por número e artigo</strong>: os crentes são sempre "filhos", no plural; Jesus é sempre "o Filho". Não se deve romper isso em paráfrase.</div></div>
+      <div class="note" id="n-10"><span class="num">10</span><div><span class="kind k-texto">texto</span>Algumas testemunhas <strong>latinas</strong> leem o <strong>singular</strong> — "o qual nasceu" —, fazendo o verso falar do nascimento de Cristo e não dos crentes; atestada em Irineu e Tertuliano. <strong>Nenhum manuscrito grego a traz</strong>, e por isso não foi adotada. Registrada por ser antiga e teologicamente consequente.</div></div>
+      <div class="note" id="n-11"><span class="num">11</span><div><span class="kind k-consist">consistência</span>Mesmo verbo da nota 1, e <strong>é aqui que o Prólogo vira</strong>: aquele que "era" passa a "vir a ser". <em>"Veio a ser carne"</em> é mais fiel e mais duro que "se fez carne". Para leitura em voz alta, <strong>"se fez carne"</strong> preserva o verbo com menos ruído e continua sendo escolha legítima.</div></div>
+      <div class="note" id="n-12"><span class="num">12</span><div><span class="kind k-lexico">léxico</span><strong>ἐσκήνωσεν</strong> é literalmente <em>armou tenda</em>, de <strong>σκηνή</strong> — a palavra da Septuaginta para o <strong>tabernáculo</strong> (Êxodo 25:8; 40:34-35), que é justamente o que a <strong>glória</strong> enche. E ecoa <strong>Eclesiástico 24:8</strong>, onde a Sabedoria recebe ordem de <em>armar tenda em Jacó</em> — e em 24:23 é identificada com a Torá, o que prepara 1:17. <span class="was">Almeida: "habitou entre nós" — perde o tabernáculo e o eco.</span></div></div>
+      <div class="note" id="n-13"><span class="num">13</span><div><span class="kind k-lexico">léxico</span>Mantido, mas com aviso: <strong>no grego clássico δόξα é "opinião, reputação"</strong>. É a Septuaginta que a reaproveita para <em>kavod</em>, o peso e o esplendor de Deus. <strong>Sem ela, "vimos a sua glória" significaria "vimos a sua reputação".</strong> O português funciona aqui por acidente histórico, não por correspondência.</div></div>
+      <div class="note" id="n-14"><span class="num">14</span><div><span class="kind k-lexico">léxico</span><strong>μονογενής</strong> é <em>μόνος + γένος</em>: <strong>único no seu gênero</strong>. O "gerado" de "unigênito" entra pelo latim <em>unigenitus</em> e sugere geração, que a palavra grega não diz. Na Septuaginta ela verte <em>yachid</em>, "único" — a filha de Jefté, Juízes 11:34. <span class="was">Almeida: "unigênito".</span></div></div>
+      <div class="note" id="n-15"><span class="num">15</span><div><span class="kind k-consist">consistência</span>O par traduz <strong>ḥesed we'emet</strong> de Êxodo 34:6, a proclamação do Nome — e ali <em>emet</em> é <strong>firmeza, lealdade</strong>, não verdade-correspondência. <strong>"Fidelidade" seria mais preciso aqui e erraria o conjunto:</strong> romperia o fio de ἀλήθεια que vai até 8:32 e 14:6. <strong>Consistência vence precisão local.</strong> Nota: a Septuaginta verte <em>ḥesed</em> por ἔλεος, não por χάρις — <strong>o par é dela, a palavra "graça" é escolha de João</strong>.</div></div>
+      <div class="note" id="n-16"><span class="num">16</span><div><span class="kind k-consist">consistência</span><strong>Achado da tradução:</strong> 1:15 usa os <strong>dois verbos da nota 1</strong>, agora na boca de João Batista — <em>ἔμπροσθέν μου <strong>γέγονεν</strong>, ὅτι πρῶτός μου <strong>ἦν</strong></em>. "Passou adiante (veio a ser) de mim, porque era antes de mim." <strong>A coluna do Prólogo não é só do narrador: o Batista a repete</strong> — e ela explica a frase, que de outro modo soa contraditória.</div></div>
+      <div class="note" id="n-17"><span class="num">17</span><div><span class="kind k-texto">texto</span><strong>ὅτι</strong> ("porque") nos manuscritos mais antigos; <strong>καί</strong> ("e") na tradição posterior, que Almeida segue. Com <strong>ὅτι</strong>, 1:16 <strong>fundamenta-se em 1:14</strong> e o versículo 15 fica claramente parentético.</div></div>
+      <div class="note" id="n-18"><span class="num">18</span><div><span class="kind k-lexico">léxico</span><strong>ἀντί</strong> é <em>em lugar de, em troca de</em> — substituição, não acúmulo. Assim lido, 1:16 <strong>prepara 1:17</strong>: uma graça no lugar de outra, a lei e depois a graça e a verdade. <span class="was">"Graça sobre graça" é a leitura majoritária e tem o uso helenístico a favor. As duas ficam registradas.</span></div></div>
+      <div class="note" id="n-19"><span class="num">19</span><div><span class="kind k-texto">texto</span><strong>μονογενὴς θεός</strong> ("Deus unigênito") nos papiros antigos e nos grandes unciais; <strong>μονογενὴς υἱός</strong> ("Filho unigênito") na tradição majoritária, latina e siríaca. <strong>Adotou-se θεός:</strong> apoio externo mais antigo e leitura mais difícil. <strong>Contra:</strong> <em>μονογενὴς υἱός</em> é idioma joanino corrente (3:16; 3:18; 1Jo 4:9), logo θεός poderia ser alteração teológica — e nos <em>nomina sacra</em> <strong>ΘΣ e ΥΣ diferem por uma letra</strong>. É a variante mais consequente do capítulo.</div></div>
+      <div class="note" id="n-20"><span class="num">20</span><div><span class="kind k-lexico">léxico</span><strong>ἐξηγήσατο</strong> é o verbo de que vem <strong>exegese</strong>: <em>expor, conduzir para fora</em>. Depois de "a Deus ninguém jamais viu", o fecho é exato — <strong>o Filho é a exposição de Deus</strong>. <span class="was">Almeida: "esse o revelou" — correto, e apaga o verbo.</span></div></div>
+    </div>
+    <p class="foot">Base: edição crítica do texto grego. Toda variante que muda o argumento está declarada. Almeida citada como referência de contraste, não como base.</p>
+  </article>
+
+  <!-- ============ 1:19-51 ============ -->
+  <article class="doc page" id="p2">
+    <p class="eyebrow">João 1:19-51</p>
+    <h1>Os quatro dias</h1>
+    <p class="dek">Aqui há menos decisões contestadas: as notas marcam só onde houve escolha real.</p>
+
+    <div class="arg">
+      <h4>com o que ele está interagindo</h4>
+      <p><strong>Com uma expectativa messiânica plural.</strong> As três perguntas de 1:20-21 — <em>o Cristo? Elias? o profeta?</em> — não são sinônimos: são <strong>três figuras distintas que se esperavam</strong>. Qumran atesta o mesmo conjunto na Regra da Comunidade (1QS 9:11): os ungidos de Arão e de Israel, <strong>e o profeta</strong>. <strong>A cena pressupõe um público que sabia que eram três.</strong></p>
+      <p><strong>E outra vez com o movimento do Batista</strong> — agora pela boca dele: três negativas seguidas, e a única coisa positiva que diz de si é <strong>uma citação</strong> (1:23).</p>
+      <h4>contra o que ele argumenta</h4>
+      <ul>
+        <li><strong>Contra a adesão por argumento.</strong> Não há um só argumento no capítulo. Há uma pergunta ("que buscais?"), um convite ("vinde e vede") — e o convite é <strong>repassado</strong> por quem o recebeu (1:39 → 1:46).</li>
+        <li><strong>Contra a credencial de origem:</strong> "de Nazaré pode sair coisa boa?" (1:46) é objeção de procedência, e a resposta não é um argumento — é "vem e vê".</li>
+      </ul>
+      <h4>o que ele parece afirmar</h4>
+      <ul>
+        <li>Que <strong>ele conhece antes de ser conhecido</strong> — Simão é nomeado antes de falar (1:42); Natanael é visto debaixo da figueira antes de ser chamado (1:48).</li>
+        <li>Que a expectativa de Israel se cumpre <strong>em alguém com endereço</strong>: "Jesus, filho de José, de Nazaré" (1:45).</li>
+        <li>Que <strong>ver é o verbo</strong>: "vinde e vede", "eu te vi", "verás coisas maiores", "vereis o céu aberto".</li>
+      </ul>
+      <h4>o que ele não afirma</h4>
+      <p>Não explica por que o Batista batizava. <strong>Não narra o batismo de Jesus</strong> — só o testemunho sobre ele. E <strong>nunca cumpre, na letra, a promessa de 1:51</strong>: não há céus abertos com anjos no evangelho.</p>
+      <p class="tese">O ponto: <strong>a adesão não começa por prova nem por credencial — começa por alguém que já te viu, e se transmite de pessoa em pessoa.</strong></p>
+    </div>
+
+    <div class="t">
+      <h2><b>Dia 1</b> · o interrogatório</h2>
+      <p><span class="vn">19</span>E este é o <span class="dif">testemunho</span><sup class="n" data-n="21">21</sup> de João, quando os judeus lhe enviaram de Jerusalém sacerdotes e levitas para lhe perguntarem: Tu, quem és? <span class="vn">20</span>E ele <span class="dif">confessou — e não negou; e confessou</span><sup class="n" data-n="22">22</sup>: Eu não sou o Cristo. <span class="vn">21</span>E perguntaram-lhe: Então o quê? És Elias? E diz: Não sou. És o profeta? E respondeu: Não.</p>
+      <p><span class="vn">22</span>Disseram-lhe então: Quem és? — para que demos resposta aos que nos enviaram. Que dizes de ti mesmo? <span class="vn">23</span>Disse: <span class="dif">Eu sou voz de quem clama no deserto</span><sup class="n" data-n="23">23</sup>: endireitai o caminho do Senhor — como disse o profeta Isaías.</p>
+      <p><span class="vn">24</span>Ora, os enviados eram dos fariseus. <span class="vn">25</span>E perguntaram-lhe: Por que batizas, então, se não és o Cristo, nem Elias, nem o profeta? <span class="vn">26</span>João respondeu-lhes: Eu batizo em água. <span class="dif">No meio de vós está alguém que não conheceis</span><sup class="n" data-n="24">24</sup> — <span class="vn">27</span>aquele que vem depois de mim, do qual não sou digno de desatar a correia da sandália. <span class="vn">28</span>Isto <span class="dif">aconteceu</span><sup class="n" data-n="35">35</sup> em Betânia, além do Jordão, onde João estava batizando.</p>
+
+      <h2><b>Dia 2</b> · o Cordeiro</h2>
+      <p><span class="vn">29</span>No dia seguinte vê a Jesus vindo a ele, e diz: Eis o <span class="dif">Cordeiro de Deus</span><sup class="n" data-n="25">25</sup>, que tira o pecado do mundo. <span class="vn">30</span>Este é aquele de quem eu disse: depois de mim vem um homem que passou adiante de mim, porque era antes de mim. <span class="vn">31</span>E eu não o conhecia; mas foi para que ele fosse manifestado a Israel que eu vim batizando em água.</p>
+      <p><span class="vn">32</span>E João deu testemunho, dizendo: <span class="dif">Contemplei</span><sup class="n" data-n="33">33</sup> o Espírito descer do céu como pomba, e <span class="dif">permanecer</span><sup class="n" data-n="34">34</sup> sobre ele. <span class="vn">33</span>E eu não o conhecia; mas aquele que me enviou a batizar em água, esse me disse: Sobre quem vires descer o Espírito e sobre ele permanecer, esse é o que batiza no Espírito Santo. <span class="vn">34</span>E eu vi, e dei testemunho de que este é <span class="dif">o Filho de Deus</span><sup class="n" data-n="26">26</sup>.</p>
+
+      <h2><b>Dia 3</b> · os dois primeiros</h2>
+      <p><span class="vn">35</span>No dia seguinte João estava outra vez ali, com dois dos seus discípulos; <span class="vn">36</span>e, olhando para Jesus que passava, diz: Eis o Cordeiro de Deus. <span class="vn">37</span>E os dois discípulos ouviram-no falar, e seguiram Jesus.</p>
+      <p><span class="vn">38</span>E Jesus, voltando-se e vendo que o seguiam, diz-lhes: <span class="dif">Que buscais?</span><sup class="n" data-n="27">27</sup> E eles lhe disseram: Rabi (que, traduzido, quer dizer Mestre), onde <span class="dif">ficas</span><sup class="n" data-n="34">34</sup>? <span class="vn">39</span>Diz-lhes: <span class="dif">Vinde e vede.</span><sup class="n" data-n="28">28</sup> Foram, então, e viram onde ficava, e naquele dia ficaram com ele. <span class="dif">Era por volta da hora décima.</span><sup class="n" data-n="29">29</sup></p>
+      <p><span class="vn">40</span>André, irmão de Simão Pedro, era um dos dois que tinham ouvido João e o haviam seguido. <span class="vn">41</span>Ele acha primeiro o seu próprio irmão Simão, e diz-lhe: <span class="dif">Achamos o Messias</span><sup class="n" data-n="30">30</sup> (que, traduzido, é o Cristo). <span class="vn">42</span>E levou-o a Jesus. Olhando para ele, Jesus disse: Tu és Simão, filho de João; tu serás chamado Cefas (que se traduz Pedro).</p>
+
+      <h2><b>Dia 4</b> · Filipe e Natanael</h2>
+      <p><span class="vn">43</span>No dia seguinte quis partir para a Galileia, e acha Filipe. E diz-lhe Jesus: Segue-me. <span class="vn">44</span>Filipe era de Betsaida, da cidade de André e de Pedro. <span class="vn">45</span>Filipe acha Natanael, e diz-lhe: Achamos aquele de quem Moisés escreveu na lei, e também os profetas: Jesus, filho de José, de Nazaré. <span class="vn">46</span>E disse-lhe Natanael: De Nazaré pode sair coisa boa? Diz-lhe Filipe: <span class="dif">Vem e vê.</span><sup class="n" data-n="28">28</sup></p>
+      <p><span class="vn">47</span>Jesus viu Natanael vindo até ele, e diz dele: Eis um verdadeiro israelita, <span class="dif">em quem não há dolo</span><sup class="n" data-n="31">31</sup>. <span class="vn">48</span>Diz-lhe Natanael: De onde me conheces? Respondeu Jesus e disse-lhe: Antes que Filipe te chamasse, quando estavas debaixo da figueira, eu te vi. <span class="vn">49</span>Respondeu-lhe Natanael: Rabi, tu és o Filho de Deus, tu és o Rei de Israel. <span class="vn">50</span>Respondeu Jesus e disse-lhe: Porque te disse que te vi debaixo da figueira, crês? Verás coisas maiores do que estas.</p>
+      <p><span class="vn">51</span>E diz-lhe: Em verdade, em verdade vos digo: <span class="dif">vereis o céu aberto, e os anjos de Deus subindo e descendo sobre o Filho do Homem</span><sup class="n" data-n="32">32</sup>.</p>
+    </div>
+
+    <div class="ap">
+      <h3>Aparato · dezessete escolhas</h3>
+      <div class="note" id="n-21"><span class="num">21</span><div><span class="kind k-consist">consistência</span>Mesma decisão da nota 6: <strong>μαρτυρία / μαρτυρέω</strong> sempre por <strong>"testemunho" / "dar testemunho"</strong>. O fio atravessa o evangelho e chega a 19:35 e 21:24.</div></div>
+      <div class="note" id="n-22"><span class="num">22</span><div><span class="kind k-consist">consistência</span>A redundância é do grego — <em>ὡμολόγησεν καὶ οὐκ ἠρνήσατο, καὶ ὡμολόγησεν</em>, "confessou e não negou, e confessou". <strong>Não se deve aparar.</strong> A ênfase prepara as três negativas seguintes, que são a única forma pela qual o Batista se define.</div></div>
+      <div class="note" id="n-23"><span class="num">23</span><div><span class="kind k-lexico">léxico</span>Sem artigo no grego: <strong>"voz de quem clama"</strong>, não "a voz do que clama". <strong>A única coisa positiva que ele diz de si é uma citação</strong> (Isaías 40:3) — ele não tem identidade fora de uma função tirada de um texto. Note a diferença: nos sinóticos é <strong>o narrador</strong> que lhe aplica o versículo; aqui <strong>ele o aplica a si mesmo</strong>.</div></div>
+      <div class="note" id="n-24"><span class="num">24</span><div><span class="kind k-lexico">léxico</span><strong>μέσος ὑμῶν ἕστηκεν</strong> — "está de pé no meio de vós". O presente é enfático: <strong>ele já está ali enquanto eles perguntam</strong>. A tradução evita "a quem vós não conheceis", que soa a acusação; o grego é constatação.</div></div>
+      <div class="note" id="n-25"><span class="num">25</span><div><span class="kind k-lexico">léxico</span>Qual cordeiro — o pascal, o de Isaías 53:7, o diário, o apocalíptico? <strong>O próprio evangelho decide:</strong> em 19:14 Jesus é condenado "na preparação da páscoa", e <strong>19:36 cita Êxodo 12:46</strong>, a regra do cordeiro pascal: "osso nenhum dele será quebrado". <strong>A cronologia da paixão em João é montada para que ele morra quando os cordeiros são mortos</strong>, e 1:29 é a primeira peça disso.</div></div>
+      <div class="note" id="n-26"><span class="num">26</span><div><span class="kind k-texto">texto</span>Variante consequente: <strong>ὁ υἱὸς</strong> ("o Filho") × <strong>ὁ ἐκλεκτὸς</strong> ("o escolhido"). <strong>ἐκλεκτός é a leitura mais difícil</strong> — copistas harmonizariam para "Filho", não o contrário —, e tem apoio antigo. <strong>Mantivemos "Filho" por seguir a edição crítica como base</strong>, conforme a regra do método; mas a variante é forte e muda o que o Batista diz. <span class="was">Se adotada: "este é o escolhido de Deus".</span></div></div>
+      <div class="note" id="n-27"><span class="num">27</span><div><span class="kind k-lexico">léxico</span><strong>As primeiras palavras de Jesus em João são uma pergunta</strong> — <em>Τί ζητεῖτε;</em> Em Mateus, a primeira fala é "cumprir toda a justiça". Aqui é uma pergunta a dois desconhecidos, e a tradução a mantém curta e nua.</div></div>
+      <div class="note" id="n-28"><span class="num">28</span><div><span class="kind k-consist">consistência</span><strong>A mesma fórmula tem de aparecer igual nos dois lugares.</strong> Jesus diz "vinde e vede" a dois discípulos (1:39); Filipe repete "vem e vê" a Natanael (1:46) — só muda o número. <strong>Quem foi convidado repassa o convite</strong>, e o capítulo inteiro funciona assim: não há pregação, há gente achando gente. Traduzir os dois de formas diferentes apaga isso.</div></div>
+      <div class="note" id="n-29"><span class="num">29</span><div><span class="kind k-lexico">léxico</span>João registra horas (aqui, e em 4:6; 4:52; 19:14). <strong>Mantido sem conversão para o relógio moderno</strong>: converter para "quatro da tarde" entrega uma precisão que o "por volta de" do grego não tem, e apaga a contagem de horas a partir do amanhecer.</div></div>
+      <div class="note" id="n-30"><span class="num">30</span><div><span class="kind k-lexico">léxico</span><strong>As traduções entre parênteses são de João, não nossas</strong> — ele verte <em>rabi</em>, <em>messias</em>, <em>cefas</em> e, adiante, <em>siloé</em> (9:7). Mantidas como estão, porque são <strong>dado sobre o público</strong>: ele supõe leitores que não sabem aramaico — e que, ao mesmo tempo, reconhecem <em>Ἐν ἀρχῇ</em> e δόξα sem ajuda nenhuma.</div></div>
+      <div class="note" id="n-31"><span class="num">31</span><div><span class="kind k-lexico">léxico</span><strong>δόλος</strong> é a palavra de Jacó: Gênesis 27:35 na Septuaginta diz que "veio teu irmão <strong>com dolo</strong> (μετὰ δόλου) e tomou a tua bênção". <strong>"Dolo" foi mantido</strong>, e não trocado por "engano" ou "fingimento", para que o eco sobreviva — chamar alguém de <em>israelita sem dolo</em> é contrastá-lo com <strong>Israel</strong>.</div></div>
+      <div class="note" id="n-32"><span class="num">32</span><div><span class="kind k-lexico">léxico</span>É <strong>Gênesis 28:12</strong>, a escada de Jacó, quase palavra por palavra — e o terceiro sinal jacóbico em cinco versículos. No hebraico os anjos sobem e descem <span class="heb">בּוֹ</span> (<em>bo</em>), que é <strong>"nela"</strong> (a escada) <strong>ou "nele"</strong> (Jacó); a tradição rabínica conhece as duas. <strong>João toma a segunda e a aplica ao Filho do Homem:</strong> não é mais uma escada, é uma pessoa. E o evangelho <strong>nunca narra céus abertos com anjos</strong> — entrega no lugar o fio de <strong>ὑψόω</strong>, "levantar" (3:14; 12:32), que em João é a cruz.</div></div>
+      <div class="note" id="n-33"><span class="num">33</span><div><span class="kind k-consist">consistência</span><strong>Correção de coerência.</strong> O verbo é <strong>θεάομαι</strong> — "contemplar, fitar" —, o <strong>mesmo</strong> de 1:14, "<em>contemplamos</em> a sua glória". Numa versão anterior estava "vi" aqui e "contemplamos" lá, o que rompia o fio. <strong>São duas declarações de testemunha ocular com o mesmo verbo</strong>: o Prólogo diz "contemplamos a sua glória"; o Batista diz "contemplei o Espírito descer". Corrigido. João tem três verbos de ver em uso (<em>ὁράω</em>, <em>βλέπω</em>, <em>θεάομαι</em>) e não os usa ao acaso.</div></div>
+      <div class="note" id="n-34"><span class="num">34</span><div><span class="kind k-consist">consistência</span><strong>Aqui a coerência é declarada, e não aplicada</strong> — e vale explicar por quê. É <strong>μένω</strong>, "permanecer", <strong>quatro vezes em oito versículos</strong>: o Espírito <em>permanece</em> sobre ele (1:32, 1:33), e os discípulos perguntam onde ele <em>fica</em> e <em>ficam</em> com ele (1:38, 1:39).<br><br><strong>É a mesma palavra, e é das mais importantes de João</strong> — o capítulo 15 a repete onze vezes ("permanecei em mim"), e <strong>as "moradas" de 14:2 (μοναί) vêm dela</strong>. Ou seja: <strong>a primeira pergunta dos discípulos é "onde permaneces?", e o evangelho responde em 14:2.</strong><br><br>Ainda assim <strong>não se traduziu igual</strong>: em 1:38 a pergunta é sobre pousada, e "onde permaneces?" seria stiff ao ponto de falsear a cena. <strong>Traduzido por sentido, com o fio declarado aqui</strong> — que é o que a regra permite quando o sentido genuinamente difere.</div></div>
+      <div class="note" id="n-35"><span class="num">35</span><div><span class="kind k-consist">consistência</span><strong>Este ἐγένετο não vira "veio a ser", e é preciso dizer por quê.</strong> A regra da nota 1 vale para o <strong>contraste do Prólogo</strong> — o verbo das criaturas contra o verbo da Palavra. Aqui <em>ἐγένετο</em> tem o sentido corrente de "sucedeu, deu-se". <strong>Consistência é de argumento, não de dicionário:</strong> aplicar a regra fora do contraste produziria fidelidade falsa.</div></div>
+      <div class="note" id="n-36"><span class="num">36</span><div><span class="kind k-consist">consistência</span><strong>ἴδε</strong> — "eis", imperativo de ver — aparece <strong>três vezes no capítulo</strong>, sempre apontando alguém: "Eis o Cordeiro de Deus" (1:29), de novo em 1:36, e "Eis um verdadeiro israelita" (1:47). <strong>Traduzido igual nas três</strong>, para que se veja que é a mesma operação.<br><br>E ele pertence ao fio maior do capítulo: <strong>ver é o verbo de João 1</strong> — "vinde e <em>vede</em>", "eu te <em>vi</em>", "<em>verás</em> coisas maiores", "<em>vereis</em> o céu aberto".</div></div>
+      <div class="note" id="n-37"><span class="num">37</span><div><span class="kind k-consist">consistência</span><strong>Fio que sai do capítulo:</strong> <em>ἀρχή</em> abre o evangelho ("No <strong>princípio</strong>", 1:1) e volta em <strong>2:11</strong>, "este <strong>princípio</strong> dos sinais". <strong>Traduzido igual nos dois</strong>, e não por "primeiro milagre" — o que apagaria a rima entre o princípio da criação e o princípio dos sinais.</div></div>
+    </div>
+  </article>
+
+  <!-- ============ CANÁ ============ -->
+  <article class="doc page" id="p3">
+    <p class="eyebrow">João 2</p>
+    <h1>Caná e o templo</h1>
+    <p class="dek">Três posturas diante de sinais, em ordem — e o capítulo fecha desqualificando a terceira.</p>
+    <div class="arg" style="border-left-color:var(--lexico)">
+      <h4>o capítulo é uma unidade, e o eixo é uma palavra</h4>
+      <p><strong>πιστεύω εἰς</strong> — "crer em" — aparece duas vezes no capítulo, <strong>na mesma construção</strong>, com avaliações opostas:</p>
+      <div class="tw"><table>
+        <tr><td><strong>2:11</strong></td><td>"os seus discípulos <strong>creram nele</strong>"</td><td>depois de um sinal que <strong>ninguém na festa percebeu</strong></td></tr>
+        <tr><td><strong>2:23</strong></td><td>"muitos <strong>creram no seu nome</strong>, vendo os sinais"</td><td>e 2:24 diz que <strong>ele não se confiava a eles</strong></td></tr>
+      </table></div>
+      <p><strong>Três posturas diante de sinais, em ordem.</strong> Em Caná, um sinal que ninguém pediu e quase ninguém viu — e a fé é aprovada. No templo, <strong>um sinal exigido como credencial</strong> (2:18, "que sinal nos mostras?") — e recusado. Em Jerusalém, <strong>sinais vistos por muitos</strong> — e a fé resultante é desqualificada na frase seguinte.</p>
+      <p><strong>O que separa a primeira da terceira não é sinceridade: é o que se viu.</strong> Quem creu em Caná viu um sinal que não provava nada. Quem creu em Jerusalém viu sinais, e queria mais.</p>
+      <p class="tese">O capítulo ensina a ler sinais em 2:1-11 — e em 2:23-25 mostra o que acontece com quem não aprendeu.</p>
+    </div>
+
+    <div class="arg">
+      <h4>com o que ele está interagindo</h4>
+      <p><strong>Com a expectativa profética da era messiânica</strong>, cuja imagem corrente é <strong>vinho em excesso</strong>: "os montes destilarão mosto" (Amós 9:13; Joel 3:18), "um banquete de vinhos velhos <strong>para todos os povos</strong>" (Isaías 25:6).</p>
+      <p><strong>E com o sistema de purificação</strong> — que o texto nomeia, em vez de deixar inferir: "postas para a purificação dos judeus" (2:6).</p>
+      <h4>contra o que ele argumenta</h4>
+      <ul>
+        <li><strong>Contra o sinal como prova.</strong> Ninguém na festa percebe. Quem tem o ofício não sabe; quem carregou os baldes sabe; e o elogio vai para o noivo, que não fez nada. <strong>Um sinal que fosse feito a pedido e creditado corretamente seria prova</strong> — e este não é nenhuma das duas coisas.</li>
+        <li><strong>Contra a ação sob reivindicação.</strong> Ele recusa a base do pedido (2:4) e faz assim mesmo, escondido — exatamente como em 7:6-10, com os irmãos.</li>
+        <li><strong>E não contra o que veio antes:</strong> o texto <strong>não destrói</strong> as talhas, enche-as. E o mestre-sala dá a forma — "guardaste o vinho <strong>bom</strong> até agora": <strong>bom, depois melhor</strong>, não ruim depois bom.</li>
+      </ul>
+      <h4>o que ele parece afirmar</h4>
+      <ul>
+        <li>Que <strong>a era do preparo terminou — e terminou dentro dos vasos do preparo</strong>.</li>
+        <li>Que a glória pode ser <strong>mostrada antes da hora</strong>, porque <strong>sinal aponta, não é</strong>.</li>
+        <li>Que <strong>esta alegria custa aquela hora</strong>: 12:23 diz que a hora é a glorificação, o grão que morre — e a mãe está nas duas pontas (2:4; 19:26-27).</li>
+      </ul>
+      <h4>o que ele não afirma</h4>
+      <p><strong>Não</strong> diz que Jesus é o noivo (3:29 diz, um capítulo depois). <strong>Não</strong> comenta as seis talhas num evangelho de sete sinais. <strong>Não</strong> interpreta o papel da mãe, nem a favor nem contra. <strong>Não</strong> diz nada sobre beber vinho.</p>
+      <p class="tese">O ponto: <strong>João põe primeiro o sinal que ninguém viu, para ensinar que um sinal mostra antes da hora, é mal lido por quem tem o cargo, e custa a hora que ainda não veio.</strong></p>
+    </div>
+
+    <div class="t">
+      <p><span class="vn">1</span>E ao terceiro dia houve um casamento em Caná da Galileia, e a mãe de Jesus estava ali. <span class="vn">2</span>Foram convidados ao casamento também Jesus e os seus discípulos. <span class="vn">3</span>E, <span class="dif">tendo faltado o vinho</span><sup class="n" data-n="38">38</sup>, a mãe de Jesus diz-lhe: Não têm vinho.</p>
+      <p><span class="vn">4</span>E diz-lhe Jesus: <span class="dif">Mulher, que temos nós com isso?</span><sup class="n" data-n="39">39</sup> <span class="dif">A minha hora ainda não chegou.</span><sup class="n" data-n="40">40</sup> <span class="vn">5</span>Diz a sua mãe aos que serviam: Fazei tudo o que ele vos disser.</p>
+      <p><span class="vn">6</span>Estavam ali <span class="dif">seis talhas de pedra, postas para a purificação dos judeus</span><sup class="n" data-n="41">41</sup>, com capacidade de <span class="dif">duas ou três metretas cada uma</span><sup class="n" data-n="42">42</sup>. <span class="vn">7</span>Diz-lhes Jesus: Enchei de água as talhas. E encheram-nas até a boca. <span class="vn">8</span>E diz-lhes: <span class="dif">Tirai agora e levai</span><sup class="n" data-n="43">43</sup> ao mestre-sala. E levaram.</p>
+      <p><span class="vn">9</span>Quando o mestre-sala provou a água <span class="dif">que se tornara vinho</span><sup class="n" data-n="44">44</sup> — <span class="dif">e não sabia de onde vinha, mas os que serviam sabiam, os que tinham tirado a água</span><sup class="n" data-n="45">45</sup> — chama o noivo <span class="vn">10</span>e diz-lhe: Todo homem serve primeiro o vinho bom e, quando já beberam bem, o inferior. <span class="dif">Tu guardaste o vinho bom até agora.</span><sup class="n" data-n="46">46</sup></p>
+      <p><span class="vn">11</span><span class="dif">Este princípio dos sinais</span><sup class="n" data-n="47">47</sup> fez Jesus em Caná da Galileia, e manifestou a sua glória; e os seus discípulos <span class="dif">creram</span><sup class="n" data-n="48">48</sup> nele.</p>
+    
+
+      <h2><b>O templo</b> · 2:12-25</h2>
+      <p><span class="vn">12</span>Depois disto <span class="dif">desceu</span><sup class="n" data-n="49">49</sup> a Cafarnaum — ele, sua mãe, os irmãos e os discípulos — e ali <span class="dif">ficaram</span><sup class="n" data-n="50">50</sup> não muitos dias.</p>
+      <p><span class="vn">13</span>E estava próxima <span class="dif">a páscoa dos judeus</span><sup class="n" data-n="51">51</sup>, e Jesus <span class="dif">subiu</span><sup class="n" data-n="49">49</sup> a Jerusalém. <span class="vn">14</span>E encontrou no <span class="dif">templo</span><sup class="n" data-n="54">54</sup> os que vendiam bois, ovelhas e pombas, e os cambistas sentados. <span class="vn">15</span>E, tendo feito um azorrague de cordas, <span class="dif">expulsou todos</span><sup class="n" data-n="52">52</sup> do templo — e as ovelhas e os bois; e espalhou o dinheiro dos cambistas e virou as mesas. <span class="vn">16</span>E aos que vendiam as pombas disse: Tirai isto daqui! Não façais da casa de meu Pai casa de negócio.</p>
+      <p><span class="vn">17</span>Lembraram-se os seus discípulos de que está escrito: <span class="dif">O zelo da tua casa me devorará.</span><sup class="n" data-n="53">53</sup></p>
+      <p><span class="vn">18</span>Responderam então os judeus e lhe disseram: <span class="dif">Que sinal nos mostras</span><sup class="n" data-n="55">55</sup>, para fazeres isto? <span class="vn">19</span>Respondeu Jesus e disse-lhes: Destruí este <span class="dif">santuário</span><sup class="n" data-n="54">54</sup>, e em três dias o levantarei. <span class="vn">20</span>Disseram então os judeus: <span class="dif">Em quarenta e seis anos</span><sup class="n" data-n="56">56</sup> foi construído este santuário, e tu o levantarás em três dias? <span class="vn">21</span>Mas ele falava do <span class="dif">santuário do seu corpo</span><sup class="n" data-n="54">54</sup>.</p>
+      <p><span class="vn">22</span>Quando, pois, ressuscitou dentre os mortos, lembraram-se os seus discípulos de que dissera isto, e creram na Escritura e <span class="dif">na palavra que Jesus dissera</span><sup class="n" data-n="57">57</sup>.</p>
+      <p><span class="vn">23</span>E, estando ele em Jerusalém na páscoa, na festa, muitos <span class="dif">creram no seu nome</span><sup class="n" data-n="58">58</sup>, vendo os sinais que fazia. <span class="vn">24</span>Mas o próprio Jesus <span class="dif">não se confiava a eles</span><sup class="n" data-n="58">58</sup>, porque <span class="dif">conhecia</span><sup class="n" data-n="59">59</sup> a todos, <span class="vn">25</span>e porque não precisava de que alguém <span class="dif">desse testemunho</span><sup class="n" data-n="60">60</sup> sobre o homem — pois ele mesmo conhecia o que havia no homem.</p>
+    </div>
+    <div class="ap">
+      <h3>Aparato · vinte e três escolhas</h3>
+      <div class="note" id="n-38"><span class="num">38</span><div><span class="kind k-texto">texto</span>A tradição ocidental traz aqui leitura <strong>mais longa</strong>, explicando que o vinho da festa se acabara. Julgada <strong>expansão secundária</strong> — e o padrão é instrutivo: <strong>copistas acrescentam explicação onde o texto é lacônico e não tocam onde ele é difícil</strong> (ver nota 34).</div></div>
+      <div class="note" id="n-39"><span class="num">39</span><div><span class="kind k-lexico">léxico</span><strong>τί ἐμοὶ καὶ σοί</strong> é decalque de um idioma semítico, e as ocorrências <strong>na Septuaginta</strong> — que é o grego que o público de João lia — dão a faixa: hostil entre adversários (Juízes 11:12), <strong>recusa de intervenção proposta por alguém próximo</strong> (2 Samuel 16:10), aflição de quem é beneficiário (1 Reis 17:18), "esta guerra não é tua" (2 Crônicas 35:21). <strong>O constante não é hostilidade: é disjunção de assunto.</strong><br><br>Por isso <strong>"que tenho eu contigo?" está errado em português</strong> — soa a ruptura de relação, e o idioma fala do <em>caso</em>, não do vínculo. <strong>"Que temos nós com isso"</strong> localiza a disjunção onde ela está. <br><br><strong>Não há variante em 2:4</strong> — e isso é dado: copistas suavizavam textos difíceis, e este é dos mais difíceis do evangelho. <strong>Não o tocaram.</strong> A dificuldade é original.<span class="was">Almeida: "Mulher, que tenho eu contigo?"</span></div></div>
+      <div class="note" id="n-40"><span class="num">40</span><div><span class="kind k-lexico">léxico</span><strong>ἥκω</strong> é verbo cujo presente já significa <em>cheguei e estou aqui</em>: a conclusão está no <strong>léxico</strong>, não na forma verbal. E o "ainda não" está em <strong>οὔπω, advérbio</strong>. A tradução se apoia em léxico e advérbio, não em morfologia.<br><br><strong>"A hora"</strong> é a coluna do evangelho: ainda não em 2:4, 7:30, 8:20; chegada em 12:23, 12:27, 13:1, 17:1 — e <strong>12:23 diz o que ela é: a glorificação, o grão que morre</strong>. E ela volta na única outra cena em que a mãe aparece: "Mulher, eis aí o teu filho (...) <strong>e desde aquela hora</strong>" (19:26-27). <strong>"Mulher" tem de ser a mesma palavra nos dois lugares, ou a moldura morre na tradução.</strong></div></div>
+      <div class="note" id="n-41"><span class="num">41</span><div><span class="kind k-lexico">léxico</span><strong>João diz para que serviam</strong> — e com isso <strong>entrega a interpretação do sinal antes de o sinal acontecer</strong>. Mantido em posição de aposto, como no grego, e não reduzido a parêntese. Vasos de <strong>pedra</strong> não contraem impureza ritual, ao contrário da cerâmica (Levítico 11:33); o detalhe é técnico e a arqueologia da Judeia do século I o confirma.</div></div>
+      <div class="note" id="n-42"><span class="num">42</span><div><span class="kind k-lexico">léxico</span><strong>Não convertido.</strong> Uma metreta são cerca de 40 litros — <strong>entre 480 e 720 litros no total</strong>, seiscentas a novecentas garrafas. A quantidade é o conteúdo do sinal, não o meio. Mas converter no corpo do texto entrega em número o que o texto entrega em medida antiga; <strong>a conversão fica na nota, que é onde o leitor pode decidir se quer a conta</strong>.</div></div>
+      <div class="note" id="n-43"><span class="num">43</span><div><span class="kind k-consist">consistência</span><strong>Deliberadamente plano.</strong> No grego, "tirai" está no <strong>aoristo</strong> e "levai" no <strong>presente</strong>, e a gramática antiga produzia daí uma leitura de púlpito — <em>tirai uma vez, ide levando</em>, com o vinho jorrando. <strong>Sem base:</strong> o aoristo não significa "uma vez", o presente não significa "continuamente", e boa parte da escolha é convencional em koiné. <strong>A tradução não deve encenar uma distinção que o verbo não faz.</strong></div></div>
+      <div class="note" id="n-44"><span class="num">44</span><div><span class="kind k-lexico">léxico</span><strong>γεγενημένον</strong> é particípio perfeito — e é um dos três perfeitos que se concentram em 2:9-10, os outros sendo "os que tinham tirado" e "guardaste". Em Porter, o perfeito é a forma <strong>mais marcada</strong>: se a tese valer, <strong>o destaque do primeiro sinal cai sobre a transformação, sobre os serventes que sabiam e sobre o elogio mal endereçado</strong>. A tradução não força nada disso; registra-se porque a leitura depende de escola e Campbell discorda.</div></div>
+      <div class="note" id="n-45"><span class="num">45</span><div><span class="kind k-consist">consistência</span><strong>As duas metades são de João, e nenhuma pode ser aparada.</strong> O que tem o ofício ignora; os que carregaram os baldes sabem. É assinatura do evangelho — o cego de 9:25 contra os fariseus; "esta multidão, que não sabe a lei, é maldita" (7:49). A ordem da frase foi mantida para que <strong>"os que tinham tirado a água" caia no fim</strong>, como no grego.</div></div>
+      <div class="note" id="n-46"><span class="num">46</span><div><span class="kind k-lexico">léxico</span><strong>Dito ao noivo, que não fez nada.</strong> A tradução não acrescenta nenhuma marca de ironia: o leitor sabe, e a festa não — e é assim que o texto quer. Um capítulo adiante o Batista dirá "aquele que tem a <strong>noiva</strong> é o <strong>noivo</strong>" (3:29); <strong>a identificação não é feita aqui</strong>, e não se deve antecipá-la.</div></div>
+      <div class="note" id="n-47"><span class="num">47</span><div><span class="kind k-lexico">léxico</span><strong>ἀρχὴ τῶν σημείων</strong> — "princípio dos sinais", não "primeiro milagre". Os sinóticos chamam milagre de <strong>δύναμις</strong>, "obra poderosa"; <strong>João nunca usa a palavra</strong>. Usa <strong>σημεῖον</strong>, sinal — que por definição aponta além de si. E declara o gênero em 20:30-31. <strong>Traduzir por "milagre" apaga a tese do livro.</strong></div></div>
+      <div class="note" id="n-48"><span class="num">48</span><div><span class="kind k-consist">consistência</span><strong>ἐπίστευσαν</strong> é aoristo, e a leitura corrente faz dele uma fé <strong>decisiva, de uma vez por todas</strong>. Não é o que o aoristo diz — e <strong>o próprio João desmente</strong>: em 6:66 discípulos deixam de segui-lo; em 8:30-31 "muitos creram nele" e a conversa termina em tentativa de apedrejamento. <strong>"Creram" simples, sem reforço.</strong></div></div>
+      <div class="note" id="n-49"><span class="num">49</span><div><span class="kind k-lexico">léxico</span><strong>Mantidos os verbos de altitude.</strong> Caná fica nos montes; Cafarnaum à beira do lago, <strong>duzentos metros abaixo do nível do mar</strong>; Jerusalém no alto. <em>κατέβη</em> e <em>ἀνέβη</em> são geograficamente exatos <strong>e</strong> são o idioma fixo para Jerusalém: sobe-se a ela, desce-se dela. "Foi" e "chegou" apagam as duas coisas.</div></div>
+      <div class="note" id="n-50"><span class="num">50</span><div><span class="kind k-consist">consistência</span><strong>μένω pela quinta vez em duas páginas</strong> — 1:32, 1:33, 1:38, 1:39, e aqui. Ver nota 34: é a palavra que o capítulo 15 repete onze vezes, e de onde vêm as "moradas" de 14:2.<span class="was">Variante: parte da tradição traz o singular, "<em>ele</em> ficou", o que restringiria a permanência a Jesus. Conferir em NA28.</span></div></div>
+      <div class="note" id="n-51"><span class="num">51</span><div><span class="kind k-lexico">léxico</span><strong>"Dos judeus" é do texto</strong>, e João repete a fórmula (6:4; 11:55). <strong>É distância de narrador:</strong> descreve a festa como pertencente a um grupo — o que diz algo sobre o público, que não se supõe que a guarde.<br><br><strong>E há um dado fino:</strong> João <strong>não traduz</strong> <em>páscoa</em>, embora traduza <em>rabi</em>, <em>messias</em>, <em>cefas</em> e <em>siloé</em>. Porque <em>πάσχα</em> já era empréstimo corrente no grego. <strong>Isso afina a nossa conclusão sobre o leitor:</strong> ele não sabe aramaico — mas conhece o calendário.</div></div>
+      <div class="note" id="n-52"><span class="num">52</span><div><span class="kind k-ambig">ambiguidade</span><strong>πάντας</strong> é masculino plural, e a pergunta é se inclui <strong>as pessoas</strong> ou só os animais — o que decide <strong>se o azorrague foi usado em gente</strong>. O que vem em seguida ("<em>e</em> as ovelhas e os bois") sugere que πάντας é mais largo; outros leem esse "e" como explicativo, e então só os animais saem. <strong>A tradução mantém a indecisão</strong>, com travessão no lugar da vírgula.</div></div>
+      <div class="note" id="n-53"><span class="num">53</span><div><span class="kind k-texto">texto</span><strong>João muda o tempo do salmo.</strong> Salmo 69:9 na Septuaginta traz <strong>κατέφαγέν με</strong> — aoristo, "<em>devorou</em>-me". João escreve <strong>καταφάγεταί με</strong> — <strong>futuro</strong>, "<em>devorará</em>-me".<br><br><strong>A alteração aponta para a cruz</strong>, e é a mesma operação que Mateus faz com Miqueias 5:2. Pela cláusula do leitor inspirado, mudar o <strong>tempo</strong> desloca a referência sem reescrever o sentido — fica do lado permitido, e por pouco. <strong>Traduzido no futuro, como João escreveu, e não como o salmo diz.</strong></div></div>
+      <div class="note" id="n-54"><span class="num">54</span><div><span class="kind k-lexico">léxico</span><strong>São duas palavras, e usar "templo" para as duas faz o diálogo perder o pé.</strong><br><br><strong>ἱερόν</strong> (2:14-15) é <strong>o complexo inteiro</strong>, com seus pátios — é onde os vendedores estão. <strong>ναός</strong> (2:19-21) é <strong>o santuário</strong>, a casa propriamente dita.<br><br><strong>Jesus está no ἱερόν e diz "destruí este ναός".</strong> A troca é dele, e é o que torna possível o mal-entendido de 2:20 e a explicação de 2:21 — <strong>"o santuário do seu corpo" só funciona com a palavra estreita</strong>. Traduzidos "templo" e "santuário".</div></div>
+      <div class="note" id="n-55"><span class="num">55</span><div><span class="kind k-consist">consistência</span><strong>σημεῖον</strong> outra vez — a palavra de 2:11 e de 20:30-31. E aqui na forma que o evangelho recusa: <strong>sinal exigido como credencial</strong>, para autorizar um ato. Caná já havia ensinado que sinal não é prova; 2:18 é a demanda oposta — e <strong>a resposta não é um sinal</strong>, é uma frase que ninguém entende até 2:22.</div></div>
+      <div class="note" id="n-56"><span class="num">56</span><div><span class="kind k-lexico">léxico</span><strong>Dos poucos dados datáveis do evangelho.</strong> A reforma herodiana do santuário começou por volta de 20-19 a.C.; quarenta e seis anos depois cai em torno de 27-28 d.C. Mantido por extenso, como no grego, sem conversão no corpo do texto.</div></div>
+      <div class="note" id="n-57"><span class="num">57</span><div><span class="kind k-consist">consistência</span><strong>λόγος aparece aqui — e confirma o que o Prólogo fez.</strong> "Creram na Escritura e na <strong>palavra</strong> (λόγῳ) que Jesus dissera." É <strong>substantivo comum</strong>, não título. <strong>Como título, λόγος não volta depois de 1:14</strong> — e esta ocorrência prova que ele não sumiu do vocabulário: sumiu da função.<br><br>E note o que a frase faz: <strong>põe a Escritura e a palavra de Jesus no mesmo nível de crença.</strong></div></div>
+      <div class="note" id="n-58"><span class="num">58</span><div><span class="kind k-lexico">léxico</span><strong>É o mesmo verbo nas duas frases, e o português não o segura.</strong><br><br>2:23 — <em>ἐπίστευσαν</em> εἰς τὸ ὄνομα αὐτοῦ: "creram no seu nome".<br>2:24 — <em>οὐκ ἐπίστευεν</em> αὐτὸν αὐτοῖς: "não <strong>se</strong> confiava a eles".<br><br><strong>πιστεύω dos dois lados.</strong> Muda a construção, não a palavra: <strong>"muitos creram nele; mas ele não creu neles."</strong><br><br>Como o português não tem um verbo que faça as duas coisas, <strong>traduziu-se por sentido e declara-se o trocadilho aqui</strong> — mesma decisão de μένω, nota 34. <strong>Alternativa que o preserva</strong>, ao custo de enfraquecer "crer no nome": <em>"muitos confiaram no seu nome (...) mas Jesus não confiava neles"</em>.</div></div>
+      <div class="note" id="n-59"><span class="num">59</span><div><span class="kind k-consist">consistência</span><strong>γινώσκω — e é a inversão exata de 1:10.</strong> Lá: "o mundo <strong>não o conheceu</strong>" (οὐκ ἔγνω). Aqui: "<strong>conhecia</strong> a todos (...) conhecia o que havia no homem".<br><br><strong>O Prólogo abriu com o mundo não conhecendo; o capítulo 2 fecha com ele conhecendo o mundo.</strong> Mesmo verbo, direção invertida — traduzido igual nos dois para que se veja.</div></div>
+      <div class="note" id="n-60"><span class="num">60</span><div><span class="kind k-consist">consistência</span><strong>μαρτυρήσῃ</strong> — o mesmo "dar testemunho" das notas 6 e 21, que percorre o evangelho de 1:7 a 21:24. <strong>Com efeito irônico aqui:</strong> o Batista deu testemunho, os discípulos darão, o evangelho inteiro é testemunho — e este é o único lugar em que se diz que <strong>a Jesus o testemunho não faz falta</strong>.</div></div>
+    </div>
+  </article>
+
+
+  <!-- ============ JOÃO 3 ============ -->
+  <article class="doc page" id="p4">
+    <p class="eyebrow">João 3</p>
+    <h1>Nicodemos e o noivo</h1>
+    <p class="dek">O capítulo em que duas palavras gregas fazem o que nenhuma palavra portuguesa faz — e em que ninguém sabe onde Jesus para de falar.</p>
+
+    <div class="arg">
+      <h4>com o que ele está interagindo</h4>
+      <p><strong>Com um mestre credenciado, e o texto empilha as credenciais de propósito:</strong> "dentre os <strong>fariseus</strong>", "<strong>príncipe</strong> dos judeus" (3:1), "<strong>o mestre</strong> de Israel" (3:10, com artigo). Três títulos — e o homem não entende a primeira frase.</p>
+      <p><strong>Com Ezequiel 36:25-27</strong> — "aspergirei sobre vós <strong>água</strong> pura (...) e porei dentro de vós o meu <strong>espírito</strong>". É o único texto que emparelha água e espírito num oráculo de renovação, <strong>e 3:10 pressupõe que o mestre de Israel deveria conhecê-lo</strong>: "e não sabes isto?"</p>
+      <p><strong>Com Números 21:8-9</strong>, a serpente levantada no deserto (3:14).</p>
+      <p><strong>E com o movimento do Batista, pela terceira vez no evangelho</strong> (3:22-30) — agora com os discípulos dele reclamando: "todos vão a ele".</p>
+      <h4>contra o que ele argumenta</h4>
+      <ul>
+        <li><strong>Contra a credencial como acesso.</strong> Nicodemos tem todas, e vem <strong>de noite</strong> (3:2) — e o discurso termina em quem <strong>vem para a luz</strong> (3:21). O arco é do texto.</li>
+        <li><strong>Contra o nascimento como pertencimento</strong> — o mesmo fio de 1:13: "não de sangue, nem de vontade da carne". <strong>Nascer de novo não é repetir o nascimento que se teve.</strong></li>
+        <li><strong>Contra a rivalidade</strong> entre o Batista e Jesus (3:26-30), encerrada com "é preciso que ele cresça e que eu diminua".</li>
+      </ul>
+      <h4>o que ele parece afirmar</h4>
+      <ul>
+        <li>Que <strong>ver e entrar no reino dependem de um nascimento que não se produz</strong>.</li>
+        <li>Que <strong>o Espírito é incontrolável</strong>: "sopra onde quer (...) não sabes de onde vem nem para onde vai".</li>
+        <li>Que <strong>a cruz é elevação</strong> — ὑψόω, a mesma palavra para levantar a serpente e para o Filho do Homem.</li>
+        <li>Que <strong>o juízo já está em curso</strong>: "quem não crê <strong>já está julgado</strong>" (3:18), e o julgamento <strong>é</strong> a preferência pelas trevas (3:19).</li>
+      </ul>
+      <h4>o que ele não afirma</h4>
+      <p><strong>Não diz que a água é o batismo</strong> — e não explica. <strong>Não diz o que aconteceu com Nicodemos</strong>: ele sai de cena sem resposta, e só volta em 7:50 e 19:39. E <strong>não marca onde a fala de Jesus termina</strong> (ver nota 66).</p>
+      <p class="tese">O ponto: <strong>as credenciais não dão acesso, e o acesso é um nascimento — não o que se tem, o que se recebe.</strong> Nicodemos vem de noite com três títulos; o discurso acaba em quem vem para a luz.</p>
+    </div>
+
+    <div class="t">
+      <h2><b>Nicodemos</b> · 3:1-21</h2>
+      <p><span class="vn">1</span>Havia um homem dentre os fariseus, chamado Nicodemos, príncipe dos judeus. <span class="vn">2</span>Este veio a Jesus <span class="dif">de noite</span><sup class="n" data-n="61">61</sup> e disse-lhe: Rabi, sabemos que vieste de Deus como mestre, porque ninguém pode fazer estes sinais que tu fazes, se Deus não estiver com ele.</p>
+      <p><span class="vn">3</span>Respondeu Jesus e disse-lhe: Em verdade, em verdade te digo: se alguém não nascer <span class="dif">do alto</span><sup class="n" data-n="62">62</sup> — <span class="glosa">e a palavra também quer dizer «de novo»</span> —, não pode <strong>ver</strong> o reino de Deus.</p>
+      <p><span class="vn">4</span>Diz-lhe Nicodemos: Como pode um homem nascer, sendo velho? Pode acaso entrar <span class="dif">segunda vez</span><sup class="n" data-n="62">62</sup> no ventre de sua mãe, e nascer?</p>
+      <p><span class="vn">5</span>Respondeu Jesus: Em verdade, em verdade te digo: se alguém não nascer <span class="dif">da água e do Espírito</span><sup class="n" data-n="63">63</sup>, não pode <strong>entrar</strong> no reino de Deus. <span class="vn">6</span>O que é nascido da carne é carne; e o que é nascido do Espírito é espírito. <span class="vn">7</span>Não te admires de eu te haver dito: importa-vos nascer do alto.</p>
+      <p><span class="vn">8</span><span class="dif">O vento sopra onde quer</span><sup class="n" data-n="64">64</sup>, e ouves a sua voz, mas não sabes de onde vem nem para onde vai. Assim é todo o que é nascido do Espírito.</p>
+      <p><span class="vn">9</span>Respondeu Nicodemos: Como pode isto acontecer? <span class="vn">10</span>Respondeu Jesus e disse-lhe: <span class="dif">Tu és o mestre de Israel</span><sup class="n" data-n="65">65</sup>, e não sabes isto?</p>
+      <p><span class="vn">11</span>Em verdade, em verdade te digo: falamos do que sabemos e damos testemunho do que vimos — e não recebeis o nosso testemunho. <span class="vn">12</span>Se vos falei das coisas terrenas e não credes, como crereis se vos falar das celestiais?</p>
+      <p><span class="vn">13</span>E ninguém subiu ao céu senão <span class="dif">o que desceu do céu: o Filho do Homem</span><sup class="n" data-n="66">66</sup>. <span class="vn">14</span>E como Moisés <span class="dif">levantou</span><sup class="n" data-n="67">67</sup> a serpente no deserto, assim importa que o Filho do Homem seja <span class="dif">levantado</span><sup class="n" data-n="67">67</sup>, <span class="vn">15</span>para que todo o que nele crê tenha vida eterna.</p>
+      <p><span class="vn">16</span><span class="dif">Porque Deus amou o mundo assim</span><sup class="n" data-n="68">68</sup>: deu o seu <span class="dif">Filho único</span><sup class="n" data-n="69">69</sup>, para que todo o que nele crê não pereça, mas tenha vida eterna.<sup class="n" data-n="70">70</sup> <span class="vn">17</span>Porque Deus não enviou o Filho ao mundo para julgar o mundo, mas para que o mundo seja salvo por meio dele.</p>
+      <p><span class="vn">18</span>Quem nele crê não é julgado; quem não crê <span class="dif">já está julgado</span><sup class="n" data-n="71">71</sup>, porque não creu no nome do Filho único de Deus. <span class="vn">19</span>E <span class="dif">o julgamento é este</span><sup class="n" data-n="71">71</sup>: a <span class="dif">luz</span><sup class="n" data-n="72">72</sup> veio ao mundo, e os homens amaram mais as trevas do que a luz, porque as suas obras eram más. <span class="vn">20</span>Pois todo o que faz o mal odeia a luz e não vem para a luz, para que as suas obras não sejam repreendidas. <span class="vn">21</span>Mas quem pratica a verdade vem para a luz, para que fique manifesto que as suas obras são feitas em Deus.</p>
+
+      <h2><b>O amigo do noivo</b> · 3:22-30</h2>
+      <p><span class="vn">22</span>Depois disto foi Jesus com os seus discípulos para a terra da Judeia, e ali <span class="dif">ficava</span><sup class="n" data-n="73">73</sup> com eles e batizava. <span class="vn">23</span>E João também batizava em Enom, perto de Salim, porque havia ali muitas águas; e vinham e eram batizados. <span class="vn">24</span>Pois João ainda não fora lançado na prisão.</p>
+      <p><span class="vn">25</span>Houve então uma discussão entre os discípulos de João e um judeu, acerca da purificação. <span class="vn">26</span>E foram a João e disseram-lhe: Rabi, aquele que estava contigo além do Jordão, de quem deste testemunho, ei-lo batizando, e <strong>todos vão a ele</strong>.</p>
+      <p><span class="vn">27</span>Respondeu João: O homem não pode receber coisa alguma, se não lhe for dada do céu. <span class="vn">28</span>Vós mesmos me sois testemunhas de que disse: Eu não sou o Cristo, mas sou enviado adiante dele.</p>
+      <p><span class="vn">29</span><span class="dif">Aquele que tem a noiva é o noivo</span><sup class="n" data-n="74">74</sup>; mas o amigo do noivo, que está presente e o ouve, muito se alegra com a voz do noivo. Esta minha alegria, pois, está cumprida. <span class="vn">30</span>É preciso que ele cresça e que eu diminua.</p>
+
+      <h2><b>Quem vem de cima</b> · 3:31-36</h2>
+      <p><span class="vn">31</span>Aquele que vem <span class="dif">de cima</span><sup class="n" data-n="62">62</sup> é sobre todos; o que é da terra é da terra e fala da terra. Aquele que vem do céu é sobre todos. <span class="vn">32</span>E o que viu e ouviu, isso testifica — e ninguém recebe o seu testemunho. <span class="vn">33</span>Quem lhe recebe o testemunho, esse selou que Deus é verdadeiro.</p>
+      <p><span class="vn">34</span>Porque aquele a quem Deus enviou fala as palavras de Deus, pois <span class="dif">não dá o Espírito por medida</span><sup class="n" data-n="75">75</sup>. <span class="vn">35</span>O Pai ama o Filho, e todas as coisas entregou nas suas mãos. <span class="vn">36</span>Quem crê no Filho tem vida eterna; mas quem se recusa ao Filho não verá a vida — antes, a ira de Deus <span class="dif">permanece</span><sup class="n" data-n="73">73</sup> sobre ele.</p>
+    </div>
+
+    <div class="ap">
+      <h3>Aparato · quinze escolhas</h3>
+      <div class="note" id="n-61"><span class="num">61</span><div><span class="kind k-consist">consistência</span><strong>"De noite" é dado, não cor local.</strong> O discurso que começa aqui termina em quem "<strong>vem para a luz</strong>" (3:21) — e o mesmo Nicodemos reaparecerá duas vezes, a última <strong>ao sepultamento, em plena luz</strong> (19:39). João marca a hora de quem chega, como marcou a hora décima em 1:39.</div></div>
+      <div class="note" id="n-62"><span class="num">62</span><div><span class="kind k-glosa">glosa</span><strong>ἄνωθεν é a palavra-chave do capítulo, e significa as duas coisas:</strong> "<strong>do alto</strong>" e "<strong>de novo</strong>". A cena inteira depende disso — <strong>Nicodemos ouve "de novo"</strong> e responde com o ventre materno (3:4); <strong>Jesus quer dizer "do alto"</strong>.</p>
+      <p><strong>E o próprio João prova qual é o sentido:</strong> em <strong>3:31</strong> ele usa ἄνωθεν sem ambiguidade possível — "aquele que vem <strong>de cima</strong>" —, e o mesmo em 19:11 ("se não te fosse dado <strong>de cima</strong>") e 19:23 (a túnica tecida "<strong>de alto</strong> a baixo"). <strong>Em João, ἄνωθεν é sempre de cima.</strong></p>
+      <p>Como o português não tem uma palavra que carregue as duas, <strong>traduziu-se "do alto" — o sentido de Jesus — com glosa marcada</strong>, mesma solução do λόγος em 1:1. Traduzir por "de novo" (Almeida, a maioria) dá a Nicodemos a razão e tira o sentido de Jesus; traduzir só por "do alto" torna a resposta dele incompreensível. <strong>A glosa é o único modo de o leitor ver o mal-entendido acontecer.</strong></div></div>
+      <div class="note" id="n-63"><span class="num">63</span><div><span class="kind k-lexico">léxico</span>Três leituras correntes: batismo; nascimento físico (água amniótica) mais espiritual; e <strong>Ezequiel 36:25-27</strong> — "aspergirei sobre vós <strong>água</strong> pura (...) e porei dentro de vós o meu <strong>espírito</strong>".</p>
+      <p><strong>A terceira é a mais forte, e o argumento é do próprio texto:</strong> 3:10 repreende Nicodemos — "<strong>tu és o mestre de Israel e não sabes isto?</strong>" —, o que implica que a coisa <strong>está nas Escrituras que ele ensina</strong>. Batismo cristão não estaria; Ezequiel 36 está, e é o único oráculo de renovação que emparelha água e espírito. <strong>Traduzido literal, sem decidir.</strong></div></div>
+      <div class="note" id="n-64"><span class="num">64</span><div><span class="kind k-lexico">léxico</span><strong>Segundo intraduzível do capítulo.</strong> É <strong>πνεῦμα</strong> nas duas pontas: "o <strong>πνεῦμα</strong> sopra onde quer (...) assim é todo o que é nascido do <strong>πνεύματος</strong>". <strong>Vento e Espírito são a mesma palavra</strong> — e o hebraico <em>ruach</em> faz o mesmo, o que o torna idioma, não trocadilho ocasional.</p>
+      <p>E "<strong>ouves a sua voz</strong>" (φωνήν) vale para os dois: vento tem som, o Espírito tem voz. <strong>O português obriga a escolher a cada ocorrência</strong>; o efeito — uma frase que se lê inteira de dois modos — não passa. Declarado aqui.</div></div>
+      <div class="note" id="n-65"><span class="num">65</span><div><span class="kind k-lexico">léxico</span><strong>Com artigo no grego:</strong> ὁ διδάσκαλος τοῦ Ἰσραήλ — "<strong>o</strong> mestre de Israel", não "um mestre". É a terceira credencial que o capítulo empilha (fariseu, príncipe, <em>o</em> mestre) — <strong>e a única frase em que Jesus a usa é para dizer que ela não bastou</strong>.</div></div>
+      <div class="note" id="n-66"><span class="num">66</span><div><span class="kind k-texto">texto</span>Muitos manuscritos acrescentam ao fim do versículo <strong>"que está no céu"</strong> (ὁ ὢν ἐν τῷ οὐρανῷ) — ausente nos papiros antigos e nos grandes unciais. <strong>Não adotado.</strong> É acréscimo explicativo, e do tipo esperado: copistas preenchem o que parece faltar.</p>
+      <p><strong>E aqui está o outro problema do capítulo, que é editorial e não textual:</strong> o grego não tem aspas, e <strong>não se sabe onde a fala de Jesus termina</strong> — em 3:15 ou em 3:21. A favor de 3:15: o versículo 16 começa com <strong>"porque"</strong>, lê como comentário; "<strong>deu</strong> o seu Filho" olha para trás, para o acontecimento inteiro; e <strong>μονογενής é palavra do evangelista</strong> (1:14; 1:18), que Jesus não usa em nenhum outro lugar de João. O mesmo se repete em 3:31-36. <strong>A maioria das traduções fecha as aspas sem avisar.</strong> Esta não usa aspas, e declara o problema.</div></div>
+      <div class="note" id="n-67"><span class="num">67</span><div><span class="kind k-consist">consistência</span><strong>ὑψόω</strong> — "levantar", e é o mesmo verbo nas duas metades da frase: Moisés <strong>levantou</strong> a serpente (Números 21:8-9); o Filho do Homem será <strong>levantado</strong>.</p>
+      <p><strong>Em João, "levantar" é a cruz</strong> — 8:28 e 12:32-34, onde a multidão entende exatamente isso ("como dizes tu que importa que o Filho do Homem seja levantado?"). <strong>É o fio que responde 1:51:</strong> a escada de Jacó é anunciada, nunca aparece, e o que vem no lugar é este verbo. <strong>Traduzido igual nas quatro ocorrências.</strong></div></div>
+      <div class="note" id="n-68"><span class="num">68</span><div><span class="kind k-lexico">léxico</span><strong>οὕτως é "assim, deste modo" — não "tanto".</strong> A tradução tradicional ("de tal maneira amou") sugere <strong>grau</strong>; o advérbio grego indica <strong>modo</strong>, e aponta para trás: <strong>"assim" = do jeito que acabei de dizer</strong>, levantando o Filho como a serpente foi levantada (3:14-15).</p>
+      <p><span class="was">A construção οὕτως... ὥστε também admite leitura de grau em koiné, e essa é a leitura majoritária e tradicional. Adotou-se o modo por causa da ligação com 3:14; as duas ficam registradas.</span></div></div>
+      <div class="note" id="n-69"><span class="num">69</span><div><span class="kind k-consist">consistência</span><strong>μονογενής</strong>, a mesma palavra de 1:14 e 1:18 — <strong>"único no gênero"</strong>, não "unigênito", que traz o "gerado" pelo latim. Traduzido igual nos quatro lugares (1:14; 1:18; 3:16; 3:18).</div></div>
+      <div class="note" id="n-70"><span class="num">70</span><div><span class="kind k-consist">consistência</span><strong>ζωὴ αἰώνιος</strong> aparece aqui pela primeira vez, e é a mesma <strong>ζωή</strong> de 1:4 — o termo que, ao contrário de λόγος, <strong>atravessa o evangelho inteiro</strong> e enuncia a tese do livro em 20:31. <strong>"Vida", sempre, sem variar para "existência" ou "salvação".</strong></div></div>
+      <div class="note" id="n-71"><span class="num">71</span><div><span class="kind k-lexico">léxico</span><strong>κρίσις é "julgamento", não "condenação"</strong> — e a diferença importa, porque 3:19 diz <strong>em que consiste</strong> o julgamento: não numa sentença futura, mas no que já aconteceu — <strong>"a luz veio ao mundo, e os homens amaram mais as trevas"</strong>.</p>
+      <p>Com "condenação" (Almeida), 3:19 vira anúncio de pena. Com "julgamento", vira o que o texto diz: <strong>o juízo é a preferência, e já está em curso</strong> — como confirma 3:18, "<strong>já está julgado</strong>".</div></div>
+      <div class="note" id="n-72"><span class="num">72</span><div><span class="kind k-consist">consistência</span><strong>É aqui que o evangelho explica a sua própria luz.</strong> φῶς entra no Prólogo (1:4-9) sem definição; <strong>3:19-21 diz o que ela faz e por que é resistida</strong>, e 8:12 a põe na boca de Jesus.</p>
+      <p><strong>É a diferença com λόγος, e explica por que um some e o outro fica:</strong> λόGOS o leitor traz pronto e João não explica; φῶς o evangelho define por dentro.</div></div>
+      <div class="note" id="n-73"><span class="num">73</span><div><span class="kind k-consist">consistência</span><strong>μένω, sexta e sétima vez</strong> — "ali <strong>ficava</strong> com eles" (3:22) e "a ira de Deus <strong>permanece</strong> sobre ele" (3:36). Ver notas 34 e 50: mesma palavra, traduzida por sentido, com o fio declarado. <strong>E 3:36 mostra por que o fio importa:</strong> o verbo do "permanecei em mim" de 15:4 é o mesmo que aqui descreve a ira que não sai de cima de alguém.</div></div>
+      <div class="note" id="n-74"><span class="num">74</span><div><span class="kind k-consist">consistência</span><strong>É aqui que o noivo é nomeado — um capítulo depois de Caná.</strong> Em 2:10 o mestre-sala elogia <strong>o noivo</strong> por um vinho que ele não providenciou, e o texto <strong>não faz a identificação</strong>. Em 3:29 o Batista a faz: "<strong>aquele que tem a noiva é o noivo</strong>".</p>
+      <p><strong>A tradução não antecipa nada em 2:10</strong> e não acrescenta nada aqui. A justaposição é de João, e só funciona se os dois textos forem deixados como estão.</div></div>
+      <div class="note" id="n-75"><span class="num">75</span><div><span class="kind k-texto">texto</span>O sujeito de "não dá" <strong>não está no grego</strong>: literalmente "<em>não dá o Espírito por medida</em>". Alguns manuscritos acrescentam <strong>"Deus"</strong>; outros deixam implícito — e então o sujeito pode ser <strong>Deus</strong> (dá o Espírito sem medida ao Filho) ou <strong>o Filho</strong> (dá o Espírito sem medida aos seus). <strong>Mantida a ambiguidade</strong>, com o sujeito omitido como no texto mais antigo.</div></div>
+    </div>
+    <p class="foot">Base: edição crítica do texto grego. Almeida citada como referência de contraste, não como base.</p>
+  </article>
+
+
+  <!-- ============ JOÃO 4 ============ -->
+  <article class="doc page" id="p5">
+    <p class="eyebrow">João 4</p>
+    <h1>A samaritana</h1>
+    <p class="dek">O contracampo do capítulo 3 — e é a comparação que dá sentido aos dois.</p>
+
+    <div class="arg" style="border-left-color:var(--lexico)">
+      <h4>os capítulos 3 e 4 são um díptico</h4>
+      <div class="tw"><table>
+        <tr><th></th><th>Nicodemos</th><th>a samaritana</th></tr>
+        <tr><td>nome</td><td><strong>nomeado</strong></td><td><strong>sem nome</strong></td></tr>
+        <tr><td>posição</td><td>fariseu, príncipe, <em>o</em> mestre de Israel</td><td>mulher, samaritana, cinco maridos</td></tr>
+        <tr><td>hora</td><td><strong>de noite</strong> (3:2)</td><td><strong>hora sexta</strong>, meio-dia (4:6)</td></tr>
+        <tr><td>quem procura</td><td><strong>ele</strong> procura Jesus</td><td><strong>Jesus</strong> pede água a ela</td></tr>
+        <tr><td>desfecho</td><td>pergunta duas vezes "como pode?" e <strong>sai sem veredicto</strong></td><td><strong>a cidade inteira crê</strong> (4:39-42)</td></tr>
+      </table></div>
+      <p><strong>As credenciais estão todas de um lado e o resultado do outro</strong> — e João marca a hora dos dois para que a comparação não passe.</p>
+      <h4>com o que ele está interagindo</h4>
+      <p><strong>Com a disputa Garizim × Jerusalém</strong>, que tem séculos: os samaritanos tinham templo no monte Garizim, destruído por João Hircano por volta de 128 a.C. "<strong>Este</strong> monte" (4:20) é dito com ele à vista.</p>
+      <p><strong>Com o poço de Jacó</strong> — o terreno de Gênesis 33:19 e 48:22 —, e com a pergunta "és tu maior do que <strong>nosso pai Jacó</strong>?" (4:12), que é a segunda cena jacóbica do evangelho, depois de Natanael em 1:47-51.</p>
+      <p><strong>E com um título de César.</strong> "<strong>Salvador do mundo</strong>" (4:42) era vocabulário imperial — e quem o diz são samaritanos.</p>
+      <h4>contra o que ele argumenta</h4>
+      <ul>
+        <li><strong>Contra o lugar como condição do culto:</strong> "nem neste monte, nem em Jerusalém" (4:21).</li>
+        <li><strong>Contra a fé que exige sinais:</strong> "se não virdes sinais e prodígios, não crereis" (4:48) — e logo em seguida um homem <strong>crê na palavra antes de verificar</strong> (4:50). É a resposta a 2:23-25.</li>
+        <li><strong>E contra a expectativa dos próprios discípulos</strong>, que se admiram de ele falar com uma mulher — e o narrador registra <strong>o que nenhum deles disse</strong> (4:27).</li>
+      </ul>
+      <h4>o que ele parece afirmar</h4>
+      <ul>
+        <li>Que <strong>a hora vem — e já chegou</strong> (4:23). É o "já e ainda não" de João, na mesma frase.</li>
+        <li>Que <strong>Deus é espírito</strong>, e por isso o culto não tem endereço.</li>
+        <li><strong>"Eu sou"</strong> (4:26) — e é a primeira vez no evangelho, dita a uma samaritana.</li>
+        <li>Que a salvação <strong>vem dos judeus</strong> (4:22) e o Salvador é <strong>do mundo</strong> (4:42).</li>
+      </ul>
+      <p class="tese">O ponto: <strong>o que faltava a Nicodemos não era informação — e a prova é que ela tem menos e chega mais longe.</strong></p>
+    </div>
+
+    <div class="t">
+      <h2><b>O poço</b> · 4:1-26</h2>
+      <p><span class="vn">1</span>Quando, pois, o Senhor soube que os fariseus tinham ouvido que Jesus fazia e batizava mais discípulos do que João <span class="vn">2</span>— ainda que Jesus mesmo não batizava, mas os seus discípulos — <span class="vn">3</span>deixou a Judeia e foi outra vez para a Galileia. <span class="vn">4</span>E <span class="dif">era-lhe necessário</span><sup class="n" data-n="76">76</sup> passar por Samaria.</p>
+      <p><span class="vn">5</span>Foi, pois, a uma cidade de Samaria chamada Sicar, junto da herdade que Jacó dera a seu filho José. <span class="vn">6</span>E estava ali a fonte de Jacó. Jesus, pois, cansado do caminho, estava assim assentado junto da fonte. Era <span class="dif">cerca da hora sexta</span><sup class="n" data-n="77">77</sup>.</p>
+      <p><span class="vn">7</span>Vem uma mulher de Samaria tirar água. Diz-lhe Jesus: Dá-me de beber. <span class="vn">8</span>Pois os seus discípulos tinham ido à cidade comprar comida.</p>
+      <p><span class="vn">9</span>Diz-lhe então a mulher samaritana: Como é que tu, sendo judeu, me pedes de beber a mim, que sou mulher samaritana? Porque <span class="dif">os judeus não se dão com os samaritanos</span><sup class="n" data-n="78">78</sup>.</p>
+      <p><span class="vn">10</span>Respondeu Jesus e disse-lhe: Se conhecesses o dom de Deus, e quem é o que te diz "dá-me de beber", tu lhe pedirias, e ele te daria <span class="dif">água viva</span><sup class="n" data-n="79">79</sup>.</p>
+      <p><span class="vn">11</span>Diz-lhe a mulher: Senhor, não tens com que a tirar, e o poço é fundo; de onde, pois, tens a água viva? <span class="vn">12</span><span class="dif">Porventura és tu maior</span><sup class="n" data-n="80">80</sup> do que o nosso pai Jacó, que nos deu o poço, e ele mesmo dele bebeu, e os seus filhos, e o seu gado?</p>
+      <p><span class="vn">13</span>Respondeu Jesus: Todo o que beber desta água tornará a ter sede. <span class="vn">14</span>Mas aquele que beber da água que eu lhe der nunca mais terá sede; antes, a água que eu lhe der se fará nele uma fonte de água que jorre para a vida eterna.</p>
+      <p><span class="vn">15</span>Diz-lhe a mulher: Senhor, dá-me dessa água, para que não tenha mais sede, nem venha aqui tirá-la. <span class="vn">16</span>Diz-lhe Jesus: Vai, chama o teu marido, e vem cá. <span class="vn">17</span>Respondeu a mulher: Não tenho marido. Diz-lhe Jesus: Disseste bem, "não tenho marido", <span class="vn">18</span>porque tiveste cinco maridos, e o que agora tens não é teu marido; isto disseste com verdade.</p>
+      <p><span class="vn">19</span>Diz-lhe a mulher: Senhor, vejo que és profeta. <span class="vn">20</span>Nossos pais adoraram neste monte, e vós dizeis que é em Jerusalém o lugar onde se deve adorar.</p>
+      <p><span class="vn">21</span>Diz-lhe Jesus: Mulher, crê-me: vem a hora em que nem neste monte, nem em Jerusalém adorareis o Pai. <span class="vn">22</span>Vós adorais o que não sabeis; nós adoramos o que sabemos, porque <span class="dif">a salvação vem dos judeus</span><sup class="n" data-n="81">81</sup>. <span class="vn">23</span>Mas <span class="dif">vem a hora, e agora é</span><sup class="n" data-n="82">82</sup>, em que os verdadeiros adoradores adorarão o Pai <span class="dif">em espírito e verdade</span><sup class="n" data-n="83">83</sup> — pois o Pai procura a tais que assim o adorem. <span class="vn">24</span><span class="dif">Deus é espírito</span><sup class="n" data-n="84">84</sup>, e importa que os que o adoram o adorem em espírito e verdade.</p>
+      <p><span class="vn">25</span>Diz-lhe a mulher: Sei que vem o Messias (que se chama o Cristo); quando ele vier, nos anunciará todas as coisas. <span class="vn">26</span>Diz-lhe Jesus: <span class="dif">Eu sou</span><sup class="n" data-n="85">85</sup> — o que fala contigo.</p>
+
+      <h2><b>A seara</b> · 4:27-42</h2>
+      <p><span class="vn">27</span>E nisto vieram os seus discípulos, e <span class="dif">admiraram-se de que falasse com uma mulher</span><sup class="n" data-n="86">86</sup>; todavia nenhum disse: Que perguntas? ou: Que falas com ela?</p>
+      <p><span class="vn">28</span>Deixou, pois, a mulher o seu cântaro, e foi à cidade, e disse àqueles homens: <span class="vn">29</span>Vinde, vede um homem que me disse tudo quanto tenho feito. <span class="dif">Será este o Cristo?</span><sup class="n" data-n="80">80</sup> <span class="vn">30</span>Saíram, pois, da cidade e foram ter com ele.</p>
+      <p><span class="vn">31</span>E entretanto os discípulos lhe rogavam, dizendo: Rabi, come. <span class="vn">32</span>Ele, porém, lhes disse: Uma comida tenho para comer, que vós não conheceis. <span class="vn">33</span>Diziam, pois, os discípulos uns aos outros: <span class="dif">Trouxe-lhe alguém de comer?</span><sup class="n" data-n="87">87</sup> <span class="vn">34</span>Diz-lhes Jesus: A minha comida é fazer a vontade daquele que me enviou, e realizar a sua obra.</p>
+      <p><span class="vn">35</span>Não dizeis vós que ainda há quatro meses até que venha a ceifa? Eis que vos digo: levantai os vossos olhos e vede as terras, que já estão brancas para a ceifa. <span class="vn">36</span>E o que ceifa recebe salário e ajunta fruto para a vida eterna, para que tanto o que semeia como o que ceifa juntamente se alegrem. <span class="vn">37</span>Porque nisto é verdadeiro o ditado: um é o que semeia, e outro o que ceifa. <span class="vn">38</span>Eu vos enviei a ceifar onde vós não trabalhastes; outros trabalharam, e vós entrastes no trabalho deles.</p>
+      <p><span class="vn">39</span>E muitos dos samaritanos daquela cidade creram nele, pela palavra da mulher, que testificou: Disse-me tudo quanto tenho feito. <span class="vn">40</span>Indo, pois, ter com ele os samaritanos, rogaram-lhe que <span class="dif">ficasse</span><sup class="n" data-n="88">88</sup> com eles; e ficou ali dois dias. <span class="vn">41</span>E muitos mais creram, por causa da palavra dele.</p>
+      <p><span class="vn">42</span>E diziam à mulher: Já não é pelo teu dito que cremos; porque nós mesmos o temos ouvido, e sabemos que este é verdadeiramente <span class="dif">o Salvador do mundo</span><sup class="n" data-n="89">89</sup>.</p>
+
+      <h2><b>O segundo sinal</b> · 4:43-54</h2>
+      <p><span class="vn">43</span>E dois dias depois partiu dali e foi para a Galileia. <span class="vn">44</span>Porque o próprio Jesus testificou que um profeta não tem honra na sua própria pátria. <span class="vn">45</span>Chegando, pois, à Galileia, os galileus o receberam, tendo visto todas as coisas que fizera em Jerusalém, na festa; porque também eles tinham ido à festa.</p>
+      <p><span class="vn">46</span>Foi, pois, Jesus outra vez a Caná da Galileia, onde da água fizera vinho. E havia ali um oficial do rei, cujo filho estava enfermo em Cafarnaum. <span class="vn">47</span>Ouvindo este que Jesus vinha da Judeia para a Galileia, foi ter com ele, e rogou-lhe que descesse e curasse o seu filho, porque já estava à morte.</p>
+      <p><span class="vn">48</span>Disse-lhe então Jesus: <span class="dif">Se não virdes sinais e prodígios, de modo nenhum crereis.</span><sup class="n" data-n="90">90</sup> <span class="vn">49</span>Diz-lhe o oficial: Senhor, desce antes que meu filho morra. <span class="vn">50</span>Diz-lhe Jesus: Vai, o teu filho vive. E o homem <span class="dif">creu na palavra que Jesus lhe disse</span><sup class="n" data-n="90">90</sup>, e partiu.</p>
+      <p><span class="vn">51</span>E, descendo ele já, saíram-lhe ao encontro os seus servos, e anunciaram, dizendo: O teu filho vive. <span class="vn">52</span>Perguntou-lhes, pois, <span class="dif">a que hora</span><sup class="n" data-n="77">77</sup> se achara melhor; e disseram-lhe: Ontem à hora sétima a febre o deixou. <span class="vn">53</span>Entendeu, pois, o pai que era aquela a hora em que Jesus lhe dissera "o teu filho vive"; e creu ele e toda a sua casa.</p>
+      <p><span class="vn">54</span><span class="dif">Este foi outra vez o segundo sinal</span><sup class="n" data-n="91">91</sup> que Jesus fez, quando ia da Judeia para a Galileia.</p>
+    </div>
+
+    <div class="ap">
+      <h3>Aparato · dezesseis escolhas</h3>
+      <div class="note" id="n-76"><span class="num">76</span><div><span class="kind k-lexico">léxico</span><strong>δεῖ</strong> — o verbo da <strong>necessidade divina</strong> em João (3:7; 3:14; 3:30; 9:4; 12:34; 20:9). E aqui ele <strong>não é geográfico</strong>: judeus que iam da Judeia à Galileia costumavam <strong>contornar</strong> Samaria pelo vale do Jordão. <strong>Passar por lá não era necessário — era escolha.</strong> "Tinha de passar" traduz o verbo; "era o caminho" o falsearia.</div></div>
+      <div class="note" id="n-77"><span class="num">77</span><div><span class="kind k-consist">consistência</span><strong>João marca horas, e marca as duas deste díptico:</strong> Nicodemos vem <strong>de noite</strong> (3:2); ela vem à <strong>hora sexta</strong> — meio-dia. E o capítulo fecha com outra hora: o pai <strong>confere a hora</strong> em que o filho melhorou (4:52-53).<span class="was">A leitura de que ela vinha ao meio-dia para evitar as outras mulheres é inferência, não dado — e é contestada. O que é dado é que João registra a hora, como registrou a décima em 1:39.</span></div></div>
+      <div class="note" id="n-78"><span class="num">78</span><div><span class="kind k-lexico">léxico</span><strong>συγχράομαι</strong> é disputado: "conviver com" ou "<strong>usar vasilha em comum</strong>". A segunda leitura encaixa na cena — um poço, um cântaro, um pedido de beber — e faz da objeção <strong>uma questão de pureza ritual</strong>, não de antipatia. <strong>Traduzido largo</strong> ("não se dão com"), que cobre as duas, com a alternativa registrada aqui.</div></div>
+      <div class="note" id="n-79"><span class="num">79</span><div><span class="kind k-lexico">léxico</span><strong>ὕδωρ ζῶν</strong> é "água viva" <strong>e</strong> "água corrente" — e, ao contrário de ἄνωθεν em 3:3, <strong>este trocadilho funciona também em hebraico</strong>: <em>mayim chayyim</em> é literalmente "águas vivas" e significa água de nascente (Gênesis 26:19; Levítico 14:5).</p>
+      <p><strong>A diferença importa para o método:</strong> ἄνωθεν só existe em grego, o que diz algo sobre a composição do diálogo; este não diz nada, porque passa nas duas línguas. <strong>Não generalizar "os mal-entendidos joaninos são gregos".</strong></div></div>
+      <div class="note" id="n-80"><span class="num">80</span><div><span class="kind k-lexico">léxico</span><strong>A mesma partícula, duas vezes, com tons opostos.</strong> Em 4:12 ela usa <strong>μή</strong> e em 4:29 <strong>μήτι</strong> — partículas que, em grego, <strong>esperam a resposta "não"</strong>.</p>
+      <p>Na primeira é escárnio: "<em>porventura</em> és tu maior do que Jacó?" — e o leitor sabe que a resposta é sim. Na segunda é esperança contida: "<em>será</em> este o Cristo?" — sem afirmar. <strong>Traduzir as duas por afirmação ("tu és maior?", "este é o Cristo!") apaga a mulher inteira:</strong> ela zomba, depois arrisca, e nunca conclui.</div></div>
+      <div class="note" id="n-81"><span class="num">81</span><div><span class="kind k-texto">texto</span><strong>Verso duro, e não se deve amaciá-lo.</strong> O mesmo evangelho que marca distância chamando a festa de "páscoa <strong>dos judeus</strong>" (2:13) põe na boca de Jesus que <strong>"a salvação vem dos judeus"</strong>.</p>
+      <p>Isso corta as duas leituras fáceis: <strong>não é um evangelho antijudaico</strong> — e a frase está aí —, e <strong>não é um evangelho que dissolve Israel</strong> no universal. <strong>Traduzido literal, sem atenuante.</strong></div></div>
+      <div class="note" id="n-82"><span class="num">82</span><div><span class="kind k-consist">consistência</span><strong>"Vem a hora, e agora é"</strong> — ἔρχεται ὥρα καὶ νῦν ἐστιν. É o <strong>"já e ainda não" de João numa só frase</strong>, e volta em 5:25.</p>
+      <p>E é a <strong>mesma palavra ὥρα</strong> da hora de Jesus (2:4; 12:23; 17:1). <strong>Traduzida igual em todos</strong>, para que se veja que o evangelho tem uma hora só, e que ela já começou a chegar.</div></div>
+      <div class="note" id="n-83"><span class="num">83</span><div><span class="kind k-consist">consistência</span><strong>Os dois fios do evangelho se encontram aqui.</strong> <strong>πνεῦμα</strong> vem do capítulo 3 — o vento que sopra onde quer, o nascimento do alto. <strong>ἀλήθεια</strong> vem do Prólogo — "cheio de graça e de <strong>verdade</strong>" (1:14), "a graça e a verdade vieram por Jesus Cristo" (1:17).</p>
+      <p><strong>E é por isso que "verdade" foi mantido em 1:14</strong> contra a precisão local (que pediria "fidelidade", pelo <em>emet</em> de Êxodo 34:6): <strong>o fio precisa chegar aqui e a 14:6.</strong> Ver nota 15 — <em>consistência vence precisão local</em>, e este versículo é a fatura.</div></div>
+      <div class="note" id="n-84"><span class="num">84</span><div><span class="kind k-lexico">léxico</span><strong>πνεῦμα ὁ θεός</strong> — e é <strong>exatamente a construção de 1:1c</strong>: predicativo <strong>sem artigo e anteposto</strong>, portanto <strong>qualitativo</strong>. Diz <em>de que natureza</em> Deus é, não <em>o que</em> ele é entre outros.</p>
+      <p>"Deus é espírito" (e não "um espírito", nem "o Espírito"). <strong>A mesma gramática que em 1:1 impede ler "o Verbo era um deus" impede aqui ler "Deus é um espírito".</strong></div></div>
+      <div class="note" id="n-85"><span class="num">85</span><div><span class="kind k-lexico">léxico</span><strong>ἐγώ εἰμι — e é a primeira vez no evangelho.</strong> Pode ser lido como resposta simples ("sou eu, o que fala contigo") ou como a fórmula absoluta de Êxodo 3:14 e de Isaías 43:10 na Septuaginta, onde <em>ἐγώ εἰμι</em> é o modo de Deus se nomear.</p>
+      <p><strong>Traduzido "Eu sou" com travessão</strong>, que deixa as duas leituras de pé — como o grego deixa. E vale notar a quem é dito: <strong>não a Israel, não a um mestre, mas a uma samaritana junto de um poço.</strong></div></div>
+      <div class="note" id="n-86"><span class="num">86</span><div><span class="kind k-lexico">léxico</span><strong>O narrador registra o que ninguém disse.</strong> "Admiraram-se (...) todavia <strong>nenhum disse</strong>: Que perguntas? ou: Que falas com ela?" — frase que só existe para informar que <strong>o espanto foi calado</strong>.</p>
+      <p>É a mesma técnica de 2:9, em que João escreve as duas metades (o que o mestre-sala não sabia <strong>e</strong> o que os serventes sabiam). <strong>Mantida inteira, sem aparar.</strong></div></div>
+      <div class="note" id="n-87"><span class="num">87</span><div><span class="kind k-consist">consistência</span><strong>Terceiro mal-entendido em três capítulos</strong>, e sempre a mesma estrutura: Nicodemos e o ventre (3:4), a mulher e o cântaro (4:11), os discípulos e a comida (4:33). <strong>Tomam ao pé da letra e o leitor não</strong> — porque o leitor foi informado no Prólogo. É o desnível de 1:1-18 operando.</div></div>
+      <div class="note" id="n-88"><span class="num">88</span><div><span class="kind k-consist">consistência</span><strong>μένω</strong>, oitava e nona vez: os samaritanos rogam que <strong>fique</strong>, e ele <strong>ficou</strong> dois dias. Ver notas 34, 50 e 73. <strong>E aqui é irônico:</strong> os discípulos perguntaram em 1:38 "onde ficas?"; quem consegue que ele fique são samaritanos.</div></div>
+      <div class="note" id="n-89"><span class="num">89</span><div><span class="kind k-lexico">léxico</span><strong>σωτὴρ τοῦ κόσμου — "Salvador do mundo" — era título imperial.</strong> <em>Soter</em> aparece em inscrições e moedas do culto ao imperador, e a expressão só ocorre <strong>aqui e em 1João 4:14</strong> em todo o Novo Testamento.</p>
+      <p><strong>E quem a diz são samaritanos.</strong> Isso corrige uma conclusão anterior nossa: dissemos que <strong>o Prólogo não tem polêmica imperial visível</strong> — e não tem. <strong>Mas o evangelho tem, e ela entra aqui</strong>, pela boca de gente que nem judeia era. Mesma operação de Mateus 5:9 ("filhos de Deus", o <em>divi filius</em> das moedas) e de Apocalipse 4:11.</div></div>
+      <div class="note" id="n-90"><span class="num">90</span><div><span class="kind k-consist">consistência</span><strong>Aqui o capítulo 2 recebe a sua resposta.</strong> Em 2:23-25 muitos creram <strong>vendo sinais</strong> — e Jesus não se confiava a eles. Em 4:48 a censura é explícita: "<strong>se não virdes sinais e prodígios, de modo nenhum crereis</strong>".</p>
+      <p><strong>E 4:50 mostra o contrário acontecendo:</strong> "e o homem <strong>creu na palavra</strong> (τῷ λόγῳ) que Jesus lhe disse, e partiu" — <strong>antes de verificar</strong>. Só em 4:53 ele confere a hora.</p>
+      <p>E note: <strong>λόγος outra vez como substantivo comum</strong>, como em 2:22. <strong>Confirma pela terceira vez que a palavra não sumiu do vocabulário: sumiu da função de título.</strong></div></div>
+      <div class="note" id="n-91"><span class="num">91</span><div><span class="kind k-lexico">léxico</span><strong>João numera os sinais</strong> — "este princípio dos sinais" (2:11) e "este <strong>segundo</strong> sinal" (4:54) —, e depois para de contar. <strong>Traduzido literal</strong>, inclusive o "outra vez" que a frase carrega e que as traduções costumam aparar. É o autor mostrando que o livro tem uma contagem, ainda que a abandone.</div></div>
+    </div>
+    <p class="foot">Base: edição crítica do texto grego. Almeida citada como referência de contraste, não como base.</p>
+  </article>
+
+
+  <!-- ============ JOÃO 5 ============ -->
+  <article class="doc page" id="p6">
+    <p class="eyebrow">João 5</p>
+    <h1>O tanque e o processo</h1>
+    <p class="dek">A cura ocupa três versículos; o interrogatório ocupa quarenta. É aqui que o evangelho vira tribunal.</p>
+
+    <div class="arg" style="border-left-color:var(--consist)">
+      <h4>com o que ele está interagindo</h4>
+      <p><strong>Com um debate judaico real sobre o sábado de Deus.</strong> Se Deus descansou no sétimo dia, e no entanto o mundo continua de pé, <strong>Deus trabalha no sábado</strong>. Fílon já o dizia — Deus <em>nunca cessa de fazer</em> (<em>Alegorias</em> 1.5-6) — e a discussão rabínica posterior resolve pelo mesmo lado: as duas coisas que não param em dia nenhum são <strong>nascer e morrer</strong>, isto é, <strong>dar vida e julgar</strong>. <strong>São exatamente as duas que 5:21-22 põe nas mãos do Filho.</strong> A resposta de 5:17 não muda de assunto: entra no debate pela porta da frente.</p>
+      <p><strong>Com a halachá do carregar.</strong> A objeção de 5:10 não é contra a cura — é contra o <strong>leito</strong>. E tem base escrita: "não tireis carga (...) no dia de sábado" (Jeremias 17:21-22), aplicado em Neemias 13:15-19. <strong>Os acusadores estão citando a Escritura, não inventando escrúpulo.</strong></p>
+      <p><strong>Com Daniel 7.</strong> "Deu-lhe autoridade para julgar, porque é <strong>filho do homem</strong>" (5:27) — sem artigo, o único lugar de João onde a expressão aparece assim, e é a forma de Daniel 7:13, onde a figura recebe o domínio.</p>
+      <p><strong>E com o direito testemunhal.</strong> "Pela boca de duas ou três testemunhas se estabelecerá o caso" (Deuteronômio 19:15). <strong>5:31-47 é um arrolamento</strong>, e a peça inteira tem forma forense: acusação (5:16-18), defesa (5:19-30), testemunhas (5:31-47), e uma acusação de volta no último parágrafo.</p>
+      <h4>as quatro testemunhas, e o que Jesus faz com cada uma</h4>
+      <div class="tw"><table>
+        <tr><th></th><th>testemunha</th><th>e o que ele diz dela</th></tr>
+        <tr><td>5:33-35</td><td><strong>João Batista</strong></td><td>vale, e é dispensada: "eu não recebo testemunho de homem"</td></tr>
+        <tr><td>5:36</td><td><strong>as obras</strong></td><td>"maior do que a de João" — mas é o que o capítulo 2 já disse que não basta sozinho</td></tr>
+        <tr><td>5:37-38</td><td><strong>o Pai</strong></td><td>testemunha que eles <strong>não podem verificar</strong>: "nunca ouvistes a sua voz"</td></tr>
+        <tr><td>5:39-47</td><td><strong>as Escrituras, e Moisés</strong></td><td>a que eles possuem — e que <strong>vira testemunha de acusação</strong></td></tr>
+      </table></div>
+      <p><strong>A escada desce e sobe:</strong> começa na testemunha humana que ele recusa e termina na que os acusadores acham que é deles.</p>
+      <h4>contra o que ele argumenta</h4>
+      <ul>
+        <li><strong>Contra a leitura do sábado que interrompe a obra que dá vida</strong> — e não contra o sábado, que o argumento de 5:17 pressupõe que Deus também guarda a seu modo.</li>
+        <li><strong>Contra a acusação de autonomia:</strong> a resposta a "fazia-se igual a Deus" é <strong>"o Filho nada pode fazer de si mesmo"</strong> (5:19), repetida em 5:30. <strong>A defesa é feita de dependência.</strong></li>
+        <li><strong>Contra a Escritura como posse.</strong> Ter o texto, examiná-lo e esperar dele a vida não produz o reconhecimento (5:39-40).</li>
+        <li><strong>Contra a honra recíproca:</strong> "recebendo glória uns dos outros" (5:44) — um circuito fechado em que crer se torna impossível.</li>
+      </ul>
+      <h4>o que ele parece afirmar</h4>
+      <ul>
+        <li>Que <strong>dar vida e julgar</strong> — as duas prerrogativas que nem o sábado suspende — <strong>foram entregues ao Filho</strong> (5:21-22).</li>
+        <li>Que <strong>a hora vem e já é</strong> (5:25), e que <strong>vem uma hora que ainda não é</strong> (5:28) — e a diferença entre as duas frases é uma cláusula que ele tira de propósito.</li>
+        <li>Que <strong>quem ouve e crê já passou</strong> da morte para a vida (5:24), no perfeito.</li>
+        <li>Que <strong>a ressurreição é de todos</strong>, e de duas espécies (5:29).</li>
+      </ul>
+      <h4>o que ele não afirma</h4>
+      <p><strong>Não diz que o homem curado creu.</strong> Ele não pede nada, não sabe quem o curou (5:13), e a última coisa que faz é <strong>denunciá-lo</strong> (5:15) — o narrador não comenta. <strong>Não diz qual era a festa</strong> (nota 92). E <strong>não confirma a acusação nos termos em que ela é feita</strong>: "igual a Deus" é o que os adversários concluem, e o que vem a seguir é um Filho que não consegue fazer nada sozinho. <strong>João narra a acusação; a defesa não a repete.</strong></p>
+      <p class="tese">O ponto: <strong>o que está em julgamento não é o sábado — é quem trabalha nele.</strong> E a defesa não reivindica independência nenhuma: reivindica que a obra é a mesma, vista e refeita.</p>
+    </div>
+
+    <div class="t">
+      <h2><b>Betesda</b> · 5:1-18</h2>
+      <p><span class="vn">1</span>Depois disto havia <span class="dif">uma festa dos judeus</span><sup class="n" data-n="92">92</sup>, e Jesus subiu a Jerusalém.</p>
+      <p><span class="vn">2</span>E <span class="dif">há</span><sup class="n" data-n="94">94</sup> em Jerusalém, junto à <span class="dif">porta das ovelhas</span><sup class="n" data-n="93">93</sup>, um tanque, chamado em hebraico <span class="dif">Betzatá</span><sup class="n" data-n="93">93</sup>, que tem cinco pórticos. <span class="vn">3</span>Nestes jazia grande multidão de enfermos: cegos, coxos, ressequidos.<sup class="n" data-n="95">95</sup></p>
+      <p><span class="vn">5</span>E estava ali um homem que havia <span class="dif">trinta e oito anos</span><sup class="n" data-n="96">96</sup> estava enfermo. <span class="vn">6</span>Vendo-o Jesus deitado, e sabendo que já ali estava havia muito tempo, diz-lhe: <span class="dif">Queres ficar são?</span><sup class="n" data-n="96">96</sup></p>
+      <p><span class="vn">7</span>Respondeu-lhe o enfermo: Senhor, <span class="dif">não tenho homem</span><sup class="n" data-n="97">97</sup> que me ponha no tanque quando a água é agitada; e, enquanto eu vou, desce outro antes de mim.</p>
+      <p><span class="vn">8</span>Diz-lhe Jesus: Levanta-te, toma o teu <span class="dif">catre</span><sup class="n" data-n="98">98</sup> e anda. <span class="vn">9</span>E logo o homem ficou são; e tomou o seu catre e andava. E <span class="dif">era sábado naquele dia</span><sup class="n" data-n="99">99</sup>.</p>
+      <p><span class="vn">10</span>Diziam, pois, os judeus ao que fora curado: É sábado, <span class="dif">não te é lícito levar o catre</span><sup class="n" data-n="99">99</sup>. <span class="vn">11</span>Ele lhes respondeu: Aquele que me curou, esse me disse: Toma o teu catre e anda. <span class="vn">12</span>Perguntaram-lhe então: <span class="dif">Quem é o homem</span><sup class="n" data-n="97">97</sup> que te disse: Toma-o e anda?</p>
+      <p><span class="vn">13</span>E o que fora curado não sabia quem era, porque Jesus se retirara, havendo naquele lugar uma multidão. <span class="vn">14</span>Depois Jesus o encontrou no templo e disse-lhe: Eis que já estás são; <span class="dif">não peques mais, para que não te suceda coisa pior</span><sup class="n" data-n="100">100</sup>. <span class="vn">15</span>O homem foi e anunciou aos judeus que era Jesus quem o curara.</p>
+      <p><span class="vn">16</span>E por isso os judeus perseguiam Jesus, porque fazia estas coisas em sábado. <span class="vn">17</span>Ele, porém, lhes respondeu: <span class="dif">Meu Pai trabalha até agora, e eu trabalho</span><sup class="n" data-n="101">101</sup>.</p>
+      <p><span class="vn">18</span>Por isso, pois, ainda mais procuravam os judeus matá-lo, porque não só <span class="dif">desatava</span><sup class="n" data-n="102">102</sup> o sábado, mas também dizia que Deus era seu próprio Pai, fazendo-se igual a Deus.</p>
+
+      <h2><b>A obra que não para</b> · 5:19-30</h2>
+      <p><span class="vn">19</span>Respondeu, pois, Jesus e dizia-lhes: Em verdade, em verdade vos digo: <span class="dif">o Filho nada pode fazer de si mesmo, senão o que vir o Pai fazer</span><sup class="n" data-n="103">103</sup>; porque tudo o que ele faz, isso também o Filho faz igualmente. <span class="vn">20</span>Porque o Pai <span class="dif">ama</span><sup class="n" data-n="103">103</sup> o Filho e lhe mostra tudo o que faz; e maiores obras do que estas lhe mostrará, para que vos maravilheis.</p>
+      <p><span class="vn">21</span>Pois, assim como o Pai ressuscita os mortos e lhes dá vida, assim também o Filho dá vida a quem quer. <span class="vn">22</span>E o Pai a ninguém julga, mas todo o <span class="dif">julgamento</span><sup class="n" data-n="107">107</sup> entregou ao Filho, <span class="vn">23</span>para que todos honrem o Filho como honram o Pai. Quem não honra o Filho não honra o Pai que o enviou.</p>
+      <p><span class="vn">24</span>Em verdade, em verdade vos digo: quem ouve a minha palavra e crê naquele que me enviou tem a vida eterna e não entra em julgamento, mas <span class="dif">passou da morte para a vida</span><sup class="n" data-n="104">104</sup>.</p>
+      <p><span class="vn">25</span>Em verdade, em verdade vos digo: <span class="dif">vem a hora, e agora é</span><sup class="n" data-n="105">105</sup>, em que os mortos ouvirão a voz do Filho de Deus, e os que a ouvirem viverão. <span class="vn">26</span>Porque, assim como o Pai tem a vida em si mesmo, assim deu também ao Filho ter a vida em si mesmo; <span class="vn">27</span>e deu-lhe autoridade para julgar, porque é <span class="dif">filho do homem</span><sup class="n" data-n="106">106</sup>.</p>
+      <p><span class="vn">28</span>Não vos admireis disto, porque <span class="dif">vem a hora</span><sup class="n" data-n="105">105</sup> em que todos os que estão nos sepulcros ouvirão a sua voz <span class="vn">29</span>e sairão: os que fizeram o bem, para a <span class="dif">ressurreição de vida</span><sup class="n" data-n="107">107</sup>; e os que praticaram o mal, para a ressurreição de julgamento.</p>
+      <p><span class="vn">30</span>Eu não posso de mim mesmo fazer coisa alguma. Como ouço, julgo — e o meu julgamento é justo, porque não busco a minha vontade, mas a vontade daquele que me enviou.</p>
+
+      <h2><b>As quatro testemunhas</b> · 5:31-47</h2>
+      <p><span class="vn">31</span><span class="dif">Se eu testifico de mim mesmo, o meu testemunho não é verdadeiro</span><sup class="n" data-n="108">108</sup>. <span class="vn">32</span>Há outro que testifica de mim, e sei que é verdadeiro o testemunho que ele dá de mim.</p>
+      <p><span class="vn">33</span>Vós mandastes mensageiros a João, e ele deu testemunho da verdade. <span class="vn">34</span>Eu, porém, não recebo testemunho de homem; mas digo isto para que sejais salvos. <span class="vn">35</span>Ele era a <span class="dif">candeia</span><sup class="n" data-n="109">109</sup> que ardia e alumiava, e vós quisestes alegrar-vos por um pouco de tempo na sua luz.</p>
+      <p><span class="vn">36</span>Mas eu tenho maior testemunho do que o de João: porque as obras que o Pai me deu para realizar, essas mesmas obras que eu faço testificam de mim que o Pai me enviou.</p>
+      <p><span class="vn">37</span>E o Pai que me enviou, ele mesmo testificou de mim. Nunca ouvistes a sua voz, nem <span class="dif">vistes o seu aspecto</span><sup class="n" data-n="113">113</sup>; <span class="vn">38</span>e a sua palavra não permanece em vós, porque não credes naquele que ele enviou.</p>
+      <p><span class="vn">39</span><span class="dif">Examinais as Escrituras</span><sup class="n" data-n="110">110</sup>, porque julgais ter nelas a vida eterna — e são elas que testificam de mim. <span class="vn">40</span>E não quereis vir a mim para terdes vida.</p>
+      <p><span class="vn">41</span>Eu não recebo glória dos homens. <span class="vn">42</span>Mas bem vos conheço: não tendes em vós o amor de Deus. <span class="vn">43</span>Eu vim em nome de meu Pai, e não me recebeis; se outro vier em seu próprio nome, a esse recebereis. <span class="vn">44</span>Como podeis crer, recebendo <span class="dif">glória</span><sup class="n" data-n="111">111</sup> uns dos outros, e não buscando a glória que vem <span class="dif">do Deus único</span><sup class="n" data-n="111">111</sup>?</p>
+      <p><span class="vn">45</span>Não cuideis que eu vos hei de acusar diante do Pai. Há quem vos acuse: Moisés, em quem vós esperais. <span class="vn">46</span>Porque, se crêsseis em Moisés, creríeis em mim — pois de mim escreveu ele. <span class="vn">47</span>Mas, se não credes nos <span class="dif">escritos dele</span><sup class="n" data-n="112">112</sup>, como crereis nas minhas palavras?</p>
+    </div>
+
+    <div class="ap">
+      <h3>Aparato · vinte e duas escolhas</h3>
+      <div class="note" id="n-92"><span class="num">92</span><div><span class="kind k-texto">texto</span><strong>Com ou sem artigo, e a diferença é de calendário.</strong> Os manuscritos dividem-se entre <strong>ἑορτή</strong> ("<em>uma</em> festa") e <strong>ἡ ἑορτή</strong> ("<em>a</em> festa", que seria a Páscoa ou os Tabernáculos). Os papiros antigos e o Vaticano leem <strong>sem artigo</strong>, e é o que se adotou.</p>
+      <p><strong>A consequência é grande e costuma passar despercebida:</strong> a cronologia de João — dois anos e pouco de ministério — é construída pela contagem das páscoas (2:13; 6:4; 11:55). <strong>Se esta festa tivesse artigo, haveria mais uma.</strong> Traduzido "uma festa", e <strong>o evangelho não diz qual é</strong>: a tradução não completa o que ele deixou aberto.</div></div>
+      <div class="note" id="n-93"><span class="num">93</span><div><span class="kind k-texto">texto</span><strong>Duas lacunas no mesmo versículo.</strong> A primeira é gramatical: o grego tem só o adjetivo — <strong>ἐπὶ τῇ προβατικῇ</strong>, "junto à ovelhil" —, <strong>e o substantivo falta</strong>. "Porta" vem de Neemias 3:1 e 12:39, onde a Porta das Ovelhas existe; é <strong>suplemento do tradutor</strong>, e está declarado aqui porque ninguém o declara.</p>
+      <p>A segunda é o nome, e os manuscritos dão quatro: <strong>Βηθζαθά</strong> (Sinaítico), <strong>Βηθεσδά</strong> (a tradicional, a de Almeida), <strong>Βηθσαϊδά</strong> (Vaticano e um papiro antigo, por contaminação com a cidade da Galileia) e <strong>Βελζεθά</strong> (Beza). <strong>Adotou-se a da edição crítica</strong>, como manda a regra — mas <strong>"Betesda" tem um apoio que não é grego:</strong> o Rolo de Cobre de Qumran (3Q15) menciona um <em>bêt 'ešdatayin</em>, "casa dos dois derramamentos", <strong>no dual</strong>.</p>
+      <p><strong>E o dual bate com o terreno:</strong> a escavação junto a Santa Ana achou <strong>dois tanques gêmeos separados por um dique</strong> — quatro pórticos em volta e um sobre o dique, que são os <strong>cinco</strong> do versículo. <span class="was">Nota lateral: "em hebraico" (Ἑβραϊστί) em João quer dizer, na prática, <strong>aramaico</strong> — é o mesmo advérbio de 19:13, 19:17 e 19:20.</span></div></div>
+      <div class="note" id="n-94"><span class="num">94</span><div><span class="kind k-lexico">léxico</span><strong>Está no presente: "há em Jerusalém".</strong> Usa-se isso como prova de que João escreveu <strong>antes de 70</strong>, quando o tanque ainda estava de pé. <strong>O argumento não fecha</strong>, por duas razões: o presente é forma corrente de descrição em narrativa grega, e <strong>a estrutura sobreviveu à guerra</strong> — o lugar continuou em uso no período romano, com um santuário de cura instalado ali.</p>
+      <p><strong>Traduzido no presente, porque é o que o texto tem</strong>, e o dado fica registrado sem virar premissa. É a regra: <strong>a forma verbal nunca é premissa</strong> (princípio 5).</div></div>
+      <div class="note" id="n-95"><span class="num">95</span><div><span class="kind k-texto">texto</span><strong>Falta o versículo 4, e a numeração pula de 3 para 5.</strong> Muitos manuscritos trazem aqui o anjo que descia ao tanque, agitava a água, e curava o primeiro que entrasse. <strong>Não está nos papiros antigos, nem no Sinaítico, nem no Vaticano</strong>, e vários dos que o trazem <strong>marcam-no com obelo</strong> — o sinal com que o copista avisa que duvida do que está copiando. O vocabulário também não é de João. <strong>Não adotado.</strong></p>
+      <p><strong>Mas o preço da omissão tem de ser dito:</strong> sem o versículo 4, a resposta do homem em 5:7 — "quando a água é agitada (...) desce outro antes de mim" — <strong>fica sem explicação no texto</strong>. <strong>João contava com um leitor que já sabia da crença local</strong>, e o versículo 4 é um copista fazendo por ele o favor de explicar. <strong>Declarar a falta é melhor do que preenchê-la:</strong> é a diferença entre um texto com lacuna e um texto consertado.</div></div>
+      <div class="note" id="n-96"><span class="num">96</span><div><span class="kind k-consist">consistência</span><strong>O contraste com o capítulo 4 é o dado.</strong> Lá o oficial <strong>pede</strong>, insiste e crê antes de verificar (4:47-50). Aqui Jesus pergunta "<strong>queres ficar são?</strong>" e o homem <strong>não responde a pergunta</strong> — explica por que não consegue. Nunca pede, não sabe quem o curou (5:13) e vai denunciá-lo (5:15).</p>
+      <p><strong>O sinal acontece sem nada do lado de quem o recebe</strong>, e o evangelho não comenta. Mantido assim, sem aparar.</p>
+      <p><span class="was">Sobre os trinta e oito anos: a ligação com os trinta e oito de deserto em Deuteronômio 2:14 é possível e <strong>não é controlável</strong> — João não a assinala e o número não volta. Registrada como leitura, não como dado.</span></div></div>
+      <div class="note" id="n-97"><span class="num">97</span><div><span class="kind k-lexico">léxico</span><strong>ἄνθρωπον οὐκ ἔχω — "não tenho homem".</strong> As traduções põem "não tenho ninguém", que é o português natural e <strong>apaga a palavra</strong>. E a palavra trabalha: ele diz que não tem homem <strong>ao homem que está ali</strong>; e em 5:12 os acusadores perguntam "quem é <strong>o homem</strong> que te disse?" — a mesma palavra, agora com desprezo.</p>
+      <p><strong>Traduzido literal nas duas pontas.</strong> O leitor de João já foi avisado, no Prólogo, de quem é o homem que ele tem diante de si.</div></div>
+      <div class="note" id="n-98"><span class="num">98</span><div><span class="kind k-lexico">léxico</span><strong>κράβαττος não é "leito": é um latinismo de registro baixo</strong> (<em>grabatus</em>), a enxerga de quem não tem cama — palavra que os puristas áticos do período <strong>condenavam por vulgar</strong>. "Leito" (Almeida) põe o homem numa mobília que ele não tinha.</p>
+      <p><strong>"Catre" foi escolhido por carregar a mesma pobreza</strong> — e porque o objeto importa: <strong>é ele que produz o processo</strong>. Ninguém é acusado por andar; é acusado por carregar. Ver nota 99.</div></div>
+      <div class="note" id="n-99"><span class="num">99</span><div><span class="kind k-consist">consistência</span><strong>A frase vem depois da cura, e é assim no grego:</strong> "e tomou o seu catre e andava — <strong>e era sábado naquele dia</strong>". João cura primeiro e só então acende o pavio. Mesma técnica de 3:2 ("de noite") e 4:6 ("hora sexta"): <strong>a circunstância entra quando muda tudo</strong>.</p>
+      <p><strong>E a acusação tem texto:</strong> "não tireis carga (...) no dia de sábado" (Jeremias 17:21-22), executado em Neemias 13:15-19 com as portas fechadas. <strong>Traduzido "não te é lícito levar", não "não é permitido"</strong> — o grego é ἔξεστιν, o verbo do que é lícito, que é palavra de direito e não de regulamento.</p>
+      <p><span class="was">A codificação que lista o transporte entre domínios como trabalho proibido (<em>Shabat</em> 7:2) é de cerca de 200 d.C. Serve para mostrar que o debate existia, <strong>não</strong> para provar o que se praticava em Jerusalém antes de 70.</span></div></div>
+      <div class="note" id="n-100"><span class="num">100</span><div><span class="kind k-consist">consistência</span><strong>Este versículo bate de frente com 9:3, e não se deve amaciá-lo.</strong> Aqui Jesus liga o estado do homem ao pecado — "não peques mais, <strong>para que não te suceda coisa pior</strong>". No capítulo 9, diante do cego de nascença, <strong>ele nega a regra</strong>: "nem este pecou, nem seus pais".</p>
+      <p><strong>O mesmo evangelho faz as duas coisas</strong>, e a saída honesta não é harmonizar por fora (dizer que aqui é "pecado em geral", o que o texto não diz): é notar que <strong>João recusa a regra como explicação universal e a mantém como palavra a uma pessoa</strong>. Traduzido literal, com a tensão à vista.</div></div>
+      <div class="note" id="n-101"><span class="num">101</span><div><span class="kind k-lexico">léxico</span><strong>ἐργάζεται — "trabalha" —, e a frase é uma jogada dentro de um debate corrente.</strong> Se Deus descansou no sétimo dia, quem sustenta o mundo no sábado? <strong>Fílon responde que Deus nunca cessa de fazer</strong> (<em>Alegorias</em> 1.5-6); a tradição rabínica responde pelo mesmo caminho, observando que <strong>gente nasce e gente morre no sábado</strong> — ou seja, que <strong>dar vida e julgar não param nunca</strong>.</p>
+      <p><strong>É a chave do capítulo inteiro.</strong> As duas obras que a discussão isenta do sábado são <strong>exatamente as duas</strong> que o discurso reivindica em seguida: "o Filho <strong>dá vida</strong> a quem quer" (5:21) e "todo o <strong>julgamento</strong> entregou ao Filho" (5:22).</p>
+      <p><strong>"Até agora" (ἕως ἄρτι) traduzido literal</strong>, e não "sempre": o grego diz <em>até este momento</em>, e aponta para o que acabou de acontecer no tanque.</div></div>
+      <div class="note" id="n-102"><span class="num">102</span><div><span class="kind k-consist">consistência</span><strong>λύω é "desatar, soltar", e é o mesmo verbo em quatro lugares que importam:</strong> "<strong>desatai</strong> este templo" (2:19), "<strong>desatava</strong> o sábado" (5:18), a circuncisão que não <strong>desata</strong> a lei (7:23), e "a Escritura não pode ser <strong>desatada</strong>" (10:35).</p>
+      <p>"Violava o sábado" (Almeida e quase todas) traduz o sentido e <strong>apaga o fio</strong> — e o fio é irônico: acusam-no de desatar o sábado num evangelho em que ele diz que a Escritura não se desata. <strong>Traduzido igual em todas.</strong></div></div>
+      <div class="note" id="n-103"><span class="num">103</span><div><span class="kind k-lexico">léxico</span><strong>Há uma parábola escondida em 5:19-20</strong>, e ela só aparece quando se traduz sem inflar: um filho <strong>olha o pai trabalhar e faz o mesmo</strong>, e o pai, porque gosta dele, <strong>mostra-lhe</strong> (δείκνυσιν) tudo o que faz. É a imagem do aprendiz na oficina do pai. <strong>Traduzido com os verbos concretos</strong> — ver, mostrar, fazer —, sem substituí-los por vocabulário metafísico.</p>
+      <p><strong>E há aqui um dado que desmancha um lugar-comum de púlpito.</strong> Em 3:35 o Pai <strong>ἀγαπᾷ</strong> o Filho; em 5:20 o Pai <strong>φιλεῖ</strong> o Filho. <strong>Mesma relação, mesmo evangelho, duas palavras.</strong> João alterna por variação, não por grau — o que <strong>tira a base</strong> da leitura que faz de ἀγάπη e φιλία dois amores de qualidade diferente em 21:15-17. <strong>Traduzidas as duas por "ama"</strong>, com a alternância declarada aqui.</div></div>
+      <div class="note" id="n-104"><span class="num">104</span><div><span class="kind k-lexico">léxico</span><strong>μεταβέβηκεν está no perfeito: "passou, e está do outro lado".</strong> Não é promessa nem processo — é mudança <strong>já feita</strong>, com efeito em vigor. "Passa da morte para a vida" (presente, em boa parte das traduções) devolve ao futuro o que o tempo verbal tirou dele.</p>
+      <p>E o verbo é de <strong>travessia</strong>, o mesmo de mudar de lugar. <strong>Traduzido no pretérito perfeito</strong>, que em português é o que mais perto chega.</div></div>
+      <div class="note" id="n-105"><span class="num">105</span><div><span class="kind k-consist">consistência</span><strong>A mesma fórmula de 4:23, e a diferença entre 5:25 e 5:28 é o achado.</strong> Em 5:25: "vem a hora, <strong>e agora é</strong>". Em 5:28, três versículos depois: "<strong>vem a hora</strong>" — <strong>e a cláusula não está lá</strong>.</p>
+      <p><strong>Não é descuido, é a distinção sendo feita:</strong> os mortos que ouvem a voz agora (5:25) e os que estão nos sepulcros e sairão (5:28-29) <strong>não são a mesma hora</strong>. Onde o futuro é futuro, João <strong>tira o "agora"</strong>.</p>
+      <p><strong>Traduzida idêntica em 4:23, 5:25 e 5:28</strong>, letra por letra, <strong>porque só assim a ausência aparece.</strong> É o caso mais limpo de "consistência vence precisão local" no evangelho: a regra não serve para o que a tradução diz — serve para o que ela deixa o leitor <strong>notar que falta</strong>.</div></div>
+      <div class="note" id="n-106"><span class="num">106</span><div><span class="kind k-lexico">léxico</span><strong>Aqui, e só aqui em João, a expressão vem sem artigo:</strong> υἱὸς ἀνθρώπου, "<strong>filho de homem</strong>" — nas outras doze vezes é "<em>o</em> Filho <em>do</em> Homem".</p>
+      <p><strong>E sem artigo é a forma de Daniel 7:13</strong> — "<em>como um filho de homem</em>", a figura que se aproxima do Ancião e <strong>recebe domínio e julgamento</strong>. O versículo diz exatamente isso: deu-lhe autoridade para julgar <strong>porque</strong> é filho de homem.</p>
+      <p><strong>Mantida a falta do artigo em português</strong>, ainda que soe estranho. Pôr "o Filho do Homem" aqui, como quase todas fazem, <strong>apaga a única marca que liga o versículo a Daniel</strong>.</div></div>
+      <div class="note" id="n-107"><span class="num">107</span><div><span class="kind k-texto">texto</span><strong>κρίσις é "julgamento", não "condenação"</strong> — e o capítulo obriga a manter isto, porque a mesma palavra faz a frase "ressurreição de <strong>julgamento</strong>" (5:29), que com "condenação" já antecipa o resultado que o texto não dá.</p>
+      <p><strong>E sobre 5:28-29 há uma questão que não é de manuscrito:</strong> parte da crítica (Bultmann à frente) considera os dois versículos acréscimo posterior, por dizerem o oposto da escatologia realizada de 5:24-25. <strong>Nenhum manuscrito os omite.</strong> Pela regra desta tradução isso encerra o assunto no nível do texto: <strong>ficam, e a tensão é do autor</strong>. Que ela seja resolvida por 5:25 e 5:28 serem horas diferentes é leitura — ver nota 105.</div></div>
+      <div class="note" id="n-108"><span class="num">108</span><div><span class="kind k-texto">texto</span><strong>Contradição direta com 8:14, e sem variante que a resolva.</strong> Aqui: "se eu testifico de mim mesmo, o meu testemunho <strong>não é verdadeiro</strong>". Lá: "ainda que eu testifique de mim mesmo, o meu testemunho <strong>é verdadeiro</strong>".</p>
+      <p><strong>Os copistas não mexeram em nenhum dos dois</strong> — e, pela regra, quando não há variante num texto difícil, <strong>isso também é dado</strong>: a dificuldade é original.</p>
+      <p>O pano de fundo é Deuteronômio 19:15, duas ou três testemunhas. <strong>Traduzido literal nos dois lugares</strong>, sem "só" nem "por si mesmo" — os paliativos que as traduções introduzem para costurar.</div></div>
+      <div class="note" id="n-109"><span class="num">109</span><div><span class="kind k-consist">consistência</span><strong>λύχνος é candeia, não luz.</strong> É a lamparina de azeite, que brilha porque está queimando — <strong>e o Prólogo já tinha dito que ele "não era a luz" (φῶς, 1:8)</strong>. As duas palavras são diferentes em grego e têm de continuar diferentes em português: <strong>"candeia" para João, "luz" para o que ele veio testemunhar.</strong></p>
+      <p>E a frase é mais dura do que parece: "quisestes <strong>alegrar-vos por um pouco de tempo</strong> na sua luz" — o verbo é de alegria festiva. <strong>O Batista foi temporada.</strong> <span class="was">Possível eco do Salmo 132:17, "preparei uma candeia para o meu ungido", onde a Septuaginta usa a mesma palavra.</span></div></div>
+      <div class="note" id="n-110"><span class="num">110</span><div><span class="kind k-ambig">ambiguidade</span><strong>ἐραυνᾶτε é indicativo e imperativo ao mesmo tempo</strong> — a forma é uma só. "<strong>Examinais</strong> as Escrituras" (constatação) ou "<strong>examinai</strong> as Escrituras" (ordem), e o grego não decide.</p>
+      <p><strong>O português também tem as duas formas separadas, e obriga a escolher.</strong> Adotou-se o <strong>indicativo</strong>, porque o que vem a seguir é reprovação — "e <strong>não quereis</strong> vir a mim" —, e uma ordem seguida de censura não fecha. A tradição vinda da King James ("<em>Search the scriptures</em>") leu imperativo, e <strong>é dela que vem o versículo como lema de estudo bíblico</strong> — uso que inverte o que a frase faz aqui.</p>
+      <p><span class="was">Aqui a tradução não pôde preservar a ambiguidade, ao contrário de 1:5 e 1:9. Escolha declarada, com a alternativa registrada.</span></div></div>
+      <div class="note" id="n-111"><span class="num">111</span><div><span class="kind k-lexico">léxico</span><strong>Este é o lugar onde o princípio 4 é cobrado.</strong> A regra desta tradução é que δόξα carrega o sentido da Septuaginta — glória, o peso visível de Deus. <strong>Em 5:41-44 não é isso:</strong> é o sentido <strong>grego clássico</strong>, <em>reputação, honra que os outros dão</em> — "recebendo δόξαν uns dos outros".</p>
+      <p><strong>Mantido "glória" mesmo assim</strong>, e aqui está a razão: é a <strong>mesma palavra</strong> de "vimos a sua glória" (1:14). Se aqui virar "honra", o leitor perde a acusação inteira — <strong>eles trocam a glória de Deus pela glória uns dos outros, e é a mesma palavra nas duas metades</strong>. Precisão local perderia a frase.</p>
+      <p><span class="was">Variante: parte da tradição antiga lê apenas "do Único", sem "Deus". Não muda o argumento; registrada.</span></div></div>
+      <div class="note" id="n-112"><span class="num">112</span><div><span class="kind k-lexico">léxico</span><strong>O último versículo do capítulo opõe duas palavras, e a oposição é o fecho:</strong> os <strong>γράμματα</strong> de Moisés — as letras, o escrito — contra os <strong>ῥήματα</strong> dele — as palavras ditas, vivas.</p>
+      <p><strong>Traduzido "escritos" × "palavras"</strong>, para que a oposição sobreviva. "Escritos" e "palavras" em Almeida ficam, mas o contraste se perde quando se traduz o primeiro por "escrituras", que puxa para o corpo canônico e não para a letra.</div></div>
+      <div class="note" id="n-113"><span class="num">113</span><div><span class="kind k-consist">consistência</span><strong>εἶδος é a forma vista, o aspecto</strong> — a palavra da aparência exterior de uma coisa. E a frase é o Prólogo voltando: "<strong>a Deus ninguém jamais viu</strong>" (1:18), dito ali contra a pretensão de acesso visionário.</p>
+      <p><strong>Aqui a mesma recusa é dirigida aos acusadores</strong>, e é a acusação mais pesada do arrolamento: a testemunha que eles não podem interrogar é o Pai, e nem a voz dele ouviram, nem o aspecto dele viram. <strong>Traduzido "aspecto", não "semblante" nem "presença"</strong>, que são mais bonitos e dizem outra coisa.</div></div>
+    </div>
+    <p class="foot">Base: edição crítica do texto grego. Almeida citada como referência de contraste, não como base.</p>
+  </article>
+
+  <!-- ============ PRINCÍPIOS ============ -->
+  <article class="doc page" id="p0">
+    <p class="eyebrow">O que governa as escolhas</p>
+    <h1>Princípios</h1>
+    <div class="princ"><ol>
+      <li><strong>A edição crítica é a base.</strong> Toda variante que possa mudar o argumento é <strong>declarada na mesma nota</strong> — e quando <em>não há</em> variante num texto difícil, isso também é registrado: significa que a dificuldade é original e que os copistas não a suavizaram.</li>
+      <li><strong>Consistência vence precisão local.</strong> Quando um termo faz um fio ao longo do livro, ele é traduzido igual em todas as pontas, ainda que em uma delas outra palavra fosse mais exata. É o que salva ἦν/ἐγένετο, "testemunho", "vinde e vede", e "Mulher" em 2:4 e 19:26.</li>
+      <li><strong>Ambiguidade do original permanece ambígua.</strong> Onde o grego não decide — <em>katélaben</em> em 1:5, o particípio de 1:9 —, a tradução não decide por ele.</li>
+      <li><strong>O sentido das palavras vem da Septuaginta, não do grego clássico.</strong> δόξα, ἀλήθεια, σκηνόω, μονογενής e λόγος carregam o sentido que a Septuaginta lhes deu. <strong>Sem ela, "vimos a sua glória" significaria "vimos a sua reputação".</strong></li>
+      <li><strong>A forma verbal nunca é premissa.</strong> Aspecto é ponto de vista, limitado por léxico, contexto e convenção. Antes de ler sentido numa forma, pergunta-se se houve escolha — e se o peso não está no advérbio ou no lexema.</li>
+      <li><strong>Toda glosa é visível.</strong> O que o tradutor acrescenta vem em <span class="glosa">itálico e cor</span>. Decisão interpretativa contrabandeada e invisível ao leitor é o defeito que esta tradução existe para não cometer.</li>
+      <li><strong>O argumento do autor vem sempre.</strong> Cada trecho abre declarando <strong>com o que o autor interage</strong>, <strong>contra o que argumenta</strong>, <strong>o que afirma</strong> — e <strong>o que não afirma</strong>. Sem isso a tradução descreve o texto sem dizer o que ele está fazendo.</li>
+      <li><strong>Silêncio não se completa.</strong> Onde o texto não interpreta — o papel da mãe em 2:3-5, as seis talhas num evangelho de sete sinais —, a tradução também não.</li>
+    </ol></div>
+    <p class="foot">Método completo em <code>biblia/METODO.md</code>. Comentário capítulo a capítulo na página irmã.</p>
+  </article>
+  </main>
+</div>
+
+<script>
+  var btns=document.querySelectorAll('.navlist button'), pages=document.querySelectorAll('.page');
+  btns.forEach(function(b){ b.addEventListener('click',function(){
+    btns.forEach(function(o){o.setAttribute('aria-current',String(o===b));});
+    pages.forEach(function(p){p.classList.toggle('on',p.id===b.dataset.go);});
+    window.scrollTo({top:0,behavior:'instant'});
+  });});
+  document.querySelectorAll('sup.n').forEach(function(s){
+    s.setAttribute('role','button'); s.setAttribute('tabindex','0');
+    function go(){
+      var n=document.getElementById('n-'+s.dataset.n); if(!n) return;
+      document.querySelectorAll('.note.hit').forEach(function(o){o.classList.remove('hit');});
+      n.classList.add('hit');
+      n.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+    s.addEventListener('click',go);
+    s.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault();go();} });
+  });
+  var sd=document.getElementById('showdif');
+  sd.addEventListener('click',function(){
+    var on=sd.getAttribute('aria-pressed')!=='true';
+    sd.setAttribute('aria-pressed',String(on));
+    sd.textContent=on?'Ocultar o que mudou':'Mostrar o que mudou';
+    document.body.classList.toggle('showdif',on);
+  });
+</script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('sw.js').catch(function(){});
+    });
+  }
+</script>

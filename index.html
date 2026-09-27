@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>João — três edições</title>
+<meta name="description" content="Uma tradução literal de João com aparato, uma edição em português de hoje e um comentário.">
+<link rel="stylesheet" href="fontes/fontes.css">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="icones/favicon-32.png">
+<link rel="apple-touch-icon" href="icones/apple-touch-icon.png">
+<meta name="theme-color" content="#FAF9F6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14130F" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="João">
+<style>
+  :root{
+    --ground:#FAF9F6; --surface:#FFFFFF; --ink:#1C1A17; --ink-2:#575249; --ink-3:#8C867B;
+    --rule:#E2DFD6; --rule-2:#CFCBC0; --lexico:#1D4E6B;
+  }
+  @media (prefers-color-scheme:dark){ :root{
+    --ground:#131210; --surface:#1B1A17; --ink:#EDEAE3; --ink-2:#ABA79D; --ink-3:#7B766C;
+    --rule:#2C2A26; --rule-2:#3D3A34; --lexico:#84AFCB;
+  }}
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--ground); color:var(--ink);
+    font-family:"EB Garamond",Georgia,serif;
+    padding:max(48px, env(safe-area-inset-top)) 20px max(48px, env(safe-area-inset-bottom))}
+  main{max-width:40rem; margin:0 auto}
+  .eyebrow{font-family:"IBM Plex Sans",system-ui,sans-serif; font-size:9.5px; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--ink-3); margin:0 0 10px}
+  h1{font-size:clamp(30px,7vw,42px); font-weight:600; margin:0 0 14px; line-height:1.12}
+  .dek{font-size:17.5px; line-height:1.6; color:var(--ink-2); margin:0 0 34px}
+  ul{list-style:none; margin:0; padding:0; display:grid; gap:13px}
+  a.card{display:block; text-decoration:none; background:var(--surface); color:inherit;
+    border:1px solid var(--rule); border-radius:5px; padding:18px 20px;
+    transition:border-color .15s, transform .15s}
+  a.card:hover,a.card:focus-visible{border-color:var(--rule-2); transform:translateY(-1px)}
+  .t{font-size:22px; font-weight:600; margin:0 0 5px; color:var(--lexico)}
+  .d{font-size:15px; line-height:1.55; color:var(--ink-2); margin:0}
+  footer{margin-top:38px; padding-top:16px; border-top:1px solid var(--rule);
+    font-family:"IBM Plex Sans",system-ui,sans-serif; font-size:12px; line-height:1.65; color:var(--ink-3)}
+</style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">Evangelho de João</p>
+  <h1>Três edições do mesmo texto</h1>
+  <p class="dek">A mesma exegese, apresentada de três formas. Onde uma escolha muda o sentido, a outra opção está à vista, e o motivo também.</p>
+  <ul>
+    <li><a class="card" href="joao-hoje.html">
+      <p class="t">João em português de hoje</p>
+      <p class="d">Equivalência dinâmica, com aparato, comentários por versículo, ecos do Antigo Testamento, grego alinhado, aspecto verbal em cores e um glossário de 130 verbetes com procedência declarada. Instala como aplicativo e funciona sem rede.</p></a></li>
+    <li><a class="card" href="traducao.html">
+      <p class="t">A tradução literal</p>
+      <p class="d">A edição de onde a outra deriva, com o aparato de escolhas. Toda decisão de leitura vem daqui.</p></a></li>
+    <li><a class="card" href="comentario.html">
+      <p class="t">O comentário</p>
+      <p class="d">João 1 e 2, seção por seção: com quem o texto interage, o que afirma e o que nega.</p></a></li>
+  </ul>
+  <footer>Trabalho pessoal, em andamento. As fontes de cada afirmação estão dentro de cada edição, e o que não tem fonte diz que não tem.</footer>
+</main>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('sw.js').catch(function(){});
+    });
+  }
+</script>
+</body>
+</html>
