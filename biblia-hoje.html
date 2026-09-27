@@ -345,12 +345,67 @@
   .legenda{display:block; margin-top:9px}
   .legenda i{display:inline-block; width:8px; height:8px; border-radius:2px; margin:0 5px 0 0}
   @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+
+  /* ---- busca ---- */
+  .busca-abre{display:flex; align-items:center; gap:8px; width:100%; margin:0 0 18px; padding:9px 11px;
+    font-family:"IBM Plex Sans",sans-serif; font-size:12.5px; color:var(--ink-3); text-align:left;
+    background:var(--surface); border:1px solid var(--rule-2); border-radius:4px; cursor:pointer}
+  .busca-abre:hover{color:var(--ink-2); border-color:var(--ink-3)}
+  .busca-abre svg,.busca-fab svg,.busca-linha svg{flex:none}
+  .busca-abre span{flex:1}
+  kbd{font-family:"IBM Plex Sans",sans-serif; font-size:10.5px; padding:1px 5px; border:1px solid var(--rule-2);
+    border-bottom-width:2px; border-radius:3px; color:var(--ink-3); background:var(--ground)}
+  @media (hover:none){ .busca-abre kbd{display:none} }
+  .busca-fab{position:fixed; right:max(16px, env(safe-area-inset-right)); bottom:max(16px, env(safe-area-inset-bottom));
+    z-index:70; width:50px; height:50px; border-radius:50%; border:0; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--ink); color:var(--ground); box-shadow:0 6px 20px rgba(0,0,0,.22)}
+  @media (min-width:1000px){ .busca-fab{display:none} }
+  body:has(.glx.on) .busca-fab, body.buscando .busca-fab{display:none}
+  body.buscando{overflow:hidden}
+  .busca{position:fixed; inset:0; z-index:90; background:color-mix(in srgb, var(--ink) 38%, transparent);
+    display:flex; justify-content:center; align-items:flex-start}
+  .busca[hidden]{display:none}
+  .busca-caixa{background:var(--surface); width:100%; height:100%; display:flex; flex-direction:column;
+    padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+  @media (min-width:700px){ .busca{padding-top:9vh}
+    .busca-caixa{width:min(640px, 92vw); height:auto; max-height:78vh; border:1px solid var(--rule-2);
+      border-radius:6px; box-shadow:0 18px 50px rgba(0,0,0,.28); padding:0} }
+  .busca-linha{display:flex; align-items:center; gap:10px; padding:12px 16px; border-bottom:1px solid var(--rule); color:var(--ink-3)}
+  .busca-linha input{flex:1; min-width:0; font-family:"EB Garamond",Garamond,Georgia,serif; font-size:21px;
+    color:var(--ink); background:transparent; border:0; outline:0; padding:4px 0}
+  .busca-linha input::placeholder{color:var(--ink-3)}
+  .busca-linha input::-webkit-search-cancel-button{display:none}
+  .busca-linha button{font-family:"IBM Plex Sans",sans-serif; font-size:12px; color:var(--mark);
+    background:none; border:0; padding:6px 2px; cursor:pointer}
+  .busca-res{overflow-y:auto; overscroll-behavior:contain; padding:6px 8px 14px; flex:1}
+  .bgrupo{font-family:"IBM Plex Sans",sans-serif; font-size:9.5px; letter-spacing:.15em; text-transform:uppercase;
+    font-weight:600; color:var(--ink-3); margin:14px 8px 5px}
+  .bgrupo span{letter-spacing:.04em; text-transform:none; font-weight:400; margin-left:6px}
+  .bitem{display:block; width:100%; text-align:left; background:none; border:0; border-radius:4px;
+    padding:9px 10px; cursor:pointer; color:var(--ink)}
+  .bitem:hover,.bitem[aria-selected="true"]{background:var(--surface-2)}
+  .bitem[aria-selected="true"]{box-shadow:inset 3px 0 0 var(--mark)}
+  .bt{font-size:17px; line-height:1.3; font-weight:500; margin-right:8px}
+  .br{font-family:"IBM Plex Sans",sans-serif; font-size:11px; color:var(--ink-3); white-space:nowrap}
+  .bs{display:block; font-size:15px; line-height:1.45; color:var(--ink-2); margin-top:2px}
+  .bitem mark,.bt mark{background:color-mix(in srgb, var(--mark) 20%, transparent); color:inherit; border-radius:2px; padding:0 1px}
+  .bvazio,.baviso{font-family:"IBM Plex Sans",sans-serif; font-size:12.5px; line-height:1.6; color:var(--ink-3); margin:12px 10px}
+  .baviso{color:var(--ink-2); background:var(--surface-2); border-left:3px solid var(--mark); border-radius:3px; padding:9px 12px; margin:10px 2px 4px}
+  .bex{display:flex; flex-wrap:wrap; gap:6px; margin:0 8px}
+  .bex button{font-family:"IBM Plex Sans",sans-serif; font-size:12px; color:var(--ink-2); background:var(--surface-2);
+    border:1px solid var(--rule); border-radius:14px; padding:5px 11px; cursor:pointer}
+  .bex button:hover{border-color:var(--rule-2); color:var(--ink)}
+  .achado{animation:achado 2.6s ease-out}
+  @keyframes achado{0%,35%{background:color-mix(in srgb, var(--mark) 22%, transparent)} 100%{background:transparent}}
+  @media (prefers-reduced-motion:reduce){ .achado{animation:none; outline:2px solid var(--mark); outline-offset:3px} }
 </style>
 
 <div class="shell">
   <nav class="rail">
     <p class="brand">Bíblia em português de hoje</p>
     <p class="brand-sub">Com as escolhas à vista</p>
+    <button class="busca-abre" type="button" data-busca><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Buscar livro, história ou palavra</span><kbd>/</kbd></button>
 
     <button class="ctrl" id="tnotas" aria-pressed="false">Mostrar notas e escolhas<small>O padrão é o texto limpo</small></button>
     <button class="ctrl" id="teco" aria-pressed="false">Mostrar ecos e alusões<small>Quinze no capítulo</small></button>
@@ -3001,6 +3056,12 @@
     <p class="dica">Dois cliques numa palavra do texto abrem esta janela. <kbd>Esc</kbd> fecha.</p>
   </div></div>
 
+  <button class="busca-fab" type="button" data-busca aria-label="Buscar"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+  <div class="busca" id="busca" role="dialog" aria-modal="true" aria-label="Buscar" hidden><div class="busca-caixa">
+    <div class="busca-linha"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="buscain" type="search" placeholder="jo 1:14, bodas de Caná, graça…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="go" aria-controls="buscares"><button type="button" id="buscafecha">Fechar</button></div>
+    <div class="busca-res" id="buscares" role="listbox"></div>
+  </div></div>
+
   <aside class="toc"><p class="tt">Nesta página</p><ol id="toclist"></ol></aside>
 </div>
 
@@ -3259,6 +3320,412 @@
   // abre direto numa página quando a URL pede (atalhos do app)
   var pedida = new URLSearchParams(location.search).get('p');
   if (pedida && document.getElementById(pedida)) mostrar(pedida);
+
+  // ---- busca: referência, história e texto livre
+  (function(){
+    var LIVROS = [
+      ['Gênesis','gn gen'],['Êxodo','ex exo'],['Levítico','lv lev'],['Números','nm num'],['Deuteronômio','dt deut'],
+      ['Josué','js jos'],['Juízes','jz jui'],['Rute','rt'],['1 Samuel','1sm 1sam'],['2 Samuel','2sm 2sam'],
+      ['1 Reis','1rs'],['2 Reis','2rs'],['1 Crônicas','1cr'],['2 Crônicas','2cr'],['Esdras','ed esd'],
+      ['Neemias','ne nee'],['Ester','et est'],['Jó','job'],['Salmos','sl sal salmo'],['Provérbios','pv pr prov'],
+      ['Eclesiastes','ec ecl'],['Cânticos','ct cant cantares'],['Isaías','is isa'],['Jeremias','jr jer'],['Lamentações','lm lam'],
+      ['Ezequiel','ez eze'],['Daniel','dn dan'],['Oseias','os'],['Joel','jl'],['Amós','am'],
+      ['Obadias','ob'],['Jonas','jn'],['Miqueias','mq'],['Naum','na'],['Habacuque','hc hab'],
+      ['Sofonias','sf'],['Ageu','ag'],['Zacarias','zc zac'],['Malaquias','ml mal'],
+      ['Mateus','mt'],['Marcos','mc mr'],['Lucas','lc'],['João','jo'],['Atos','at'],
+      ['Romanos','rm rom'],['1 Coríntios','1co'],['2 Coríntios','2co'],['Gálatas','gl gal'],['Efésios','ef'],
+      ['Filipenses','fp fl'],['Colossenses','cl col'],['1 Tessalonicenses','1ts'],['2 Tessalonicenses','2ts'],
+      ['1 Timóteo','1tm'],['2 Timóteo','2tm'],['Tito','tt'],['Filemom','fm'],['Hebreus','hb'],['Tiago','tg'],
+      ['1 Pedro','1pe'],['2 Pedro','2pe'],['1 João','1jo'],['2 João','2jo'],['3 João','3jo'],['Judas','jd'],['Apocalipse','ap']
+    ];
+
+    // nomes populares das histórias; o título da seção quase nunca é o que se digita
+    var HISTORIAS = [
+      ['gn 1:1', 'criação|criação do mundo|os sete dias|seis dias da criação|no princípio'],
+      ['gn 1:26', 'imagem de Deus|criação do homem|imagem e semelhança'],
+      ['gn 2:1', 'sábado|descanso de Deus|sétimo dia'],
+      ['gn 2:7', 'barro|pó da terra|fôlego de vida'],
+      ['gn 2:8', 'jardim do Éden|Éden|paraíso|árvore da vida|árvore do conhecimento do bem e do mal'],
+      ['gn 2:18', 'criação da mulher|Adão e Eva|costela|casamento|uma só carne'],
+      ['gn 3:1', 'a queda|pecado original|serpente|fruto proibido|tentação de Eva'],
+      ['gn 3:8', 'onde você está|Adão se esconde|folhas de figueira'],
+      ['gn 3:14', 'maldição da serpente|dores do parto|suor do rosto'],
+      ['gn 3:20', 'expulsão do paraíso|expulsão do Éden|querubins|espada flamejante|túnicas de pele'],
+      ['jo 1:1', 'prólogo|no princípio era o Verbo|o Verbo se fez carne|a Palavra|Logos'],
+      ['jo 1:19', 'testemunho de João Batista|João Batista|voz que clama no deserto'],
+      ['jo 1:29', 'Cordeiro de Deus|batismo de Jesus|a pomba'],
+      ['jo 1:35', 'primeiros discípulos|chamado de Pedro|André|Cefas'],
+      ['jo 1:43', 'Natanael|Filipe|debaixo da figueira|escada de Jacó'],
+      ['jo 2:1', 'bodas de Caná|casamento em Caná|água em vinho|água virou vinho|primeiro milagre|primeiro sinal'],
+      ['jo 2:13', 'purificação do templo|vendilhões do templo|expulsão dos vendilhões|chicote|destruam este templo'],
+      ['at 20:7', 'Êutico|rapaz que caiu da janela|jovem que caiu da janela|Trôade|partir do pão|primeiro dia da semana'],
+      ['mt 19:16', 'jovem rico|moço rico|homem rico|vende tudo o que tens|o que me falta'],
+      ['mt 19:23', 'camelo|buraco da agulha|fundo da agulha|camelo e a agulha'],
+      ['mt 19:27', 'os primeiros serão os últimos|deixamos tudo|doze tronos']
+    ];
+
+    var VAZIAS = ' a o as os de da do das dos e em no na nos nas um uma que para por com se ao aos ';
+
+    function nrm(s){
+      return s.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase()
+        .replace(/ª|º/g, '').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+    }
+    function palavras(s){ var n = nrm(s); return n ? n.split(' ') : []; }
+    function esc(s){ return s.replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+    function texto(el, tira){
+      var c = el.cloneNode(true);
+      c.querySelectorAll(tira || '.pop,.vn,.comtag,.eco').forEach(function(x){ x.remove(); });
+      c.querySelectorAll('p,div,li,h4,br').forEach(function(x){ x.after(' '); });
+      c.querySelectorAll('.pl').forEach(function(x){ x.textContent = ' ' + x.textContent + ': '; });
+      return c.textContent.replace(/\s+/g, ' ').trim();
+    }
+
+    // ---- livros
+    var apelido = {}, nomeN = [];
+    LIVROS.forEach(function(l, i){
+      var n = nrm(l[0]).replace(/ /g, '');
+      nomeN[i] = n;
+      apelido[n] = i;
+      l[1].split(' ').forEach(function(a){ apelido[a] = i; });
+    });
+    apelido['jo'] = 42;   // "jo" é João; Jó só com acento
+    function acharLivro(bruto){
+      if (bruto.toLowerCase().trim() === 'jó') return 17;
+      var n = nrm(bruto).replace(/ /g, '');
+      if (n in apelido) return apelido[n];
+      if (n.replace(/\d/g, '').length < 3) return -1;
+      var cand = [];
+      nomeN.forEach(function(x, i){ if (x.indexOf(n) === 0) cand.push(i); });
+      var feitos = cand.filter(function(i){ return livroPags[i]; });
+      return (feitos[0] !== undefined ? feitos[0] : cand[0] !== undefined ? cand[0] : -1);
+    }
+    function lerRef(q){
+      var m = q.trim().match(/^((?:[123]|i{1,3})\s*[ªºa]?\s*)?([\p{L}]+)\.?\s*(\d+)?(?:\s*[:.,]\s*|\s+)?(\d+)?(?:\s*-\s*(\d+))?\s*$/iu);
+      if (!m || !m[2]) return null;
+      var pre = (m[1] || '').replace(/[^123i]/gi, '').toLowerCase();
+      if (/^i+$/.test(pre)) pre = String(pre.length);
+      var i = pre ? acharLivro(pre + m[2]) : -1;
+      if (i < 0) i = acharLivro((m[1] || '') + m[2]);
+      if (i < 0) return null;
+      return { livro: i, cap: m[3] ? +m[3] : null, vs: m[4] ? +m[4] : null };
+    }
+
+    // ---- índice, lido da própria página
+    var livroPags = {}, pagLivro = {}, local = {}, capitulos = {}, docs = [];
+    document.querySelectorAll('.livro').forEach(function(lv){
+      var i = acharLivro(lv.querySelector('.lv').textContent);
+      if (i < 0) return;
+      lv.querySelectorAll('[data-go]').forEach(function(b){
+        (livroPags[i] = livroPags[i] || []).push({ pg: b.dataset.go, rot: b.textContent.trim() });
+        pagLivro[b.dataset.go] = i;
+      });
+    });
+
+    function rotulo(i, c, v){ return LIVROS[i][0] + ' ' + c + (v ? ':' + v : ''); }
+    function add(d){ d.id = docs.length; d.pn = palavras(d.t); d.tn = palavras(d.x || ''); docs.push(d); }
+
+    Object.keys(pagLivro).forEach(function(pg){
+      var art = document.getElementById(pg), li = pagLivro[pg];
+      if (!art) return;
+      art.querySelectorAll('.verso').forEach(function(vs){
+        var cap = null, atual = null, sec = null;
+        function fechaSec(){
+          if (sec && sec.ps.length) add({ g: 'h', t: sec.tit, x: '', r: LIVROS[li][0] + ' ' + sec.faixa, pg: pg, el: sec.ps[0], ps: sec.ps });
+          sec = null;
+        }
+        vs.querySelectorAll('h2, p').forEach(function(p){
+          if (p.tagName === 'H2') {
+            fechaSec();
+            var b = p.querySelector('b');
+            var faixa = p.textContent.replace(b ? b.textContent : '', '').replace(/^[\s·\u00b7]+/, '').trim();
+            var mc = faixa.match(/^(\d+):/);
+            if (mc) { cap = +mc[1]; atual = null; }
+            sec = { tit: (b || p).textContent.trim(), faixa: faixa, ps: [] };
+            return;
+          }
+          if (cap === null || p.closest('.com,.pop,.gr,.aparato') || p.classList.contains('xref')) return;
+          var vns = p.querySelectorAll('.vn'), nums = [];
+          vns.forEach(function(vn){
+            var a = vn.textContent.split('-').map(Number);
+            for (var n = a[0]; n <= (a[1] || a[0]); n++) {
+              nums.push(n);
+              local[li + ':' + cap + ':' + n] = { pg: pg, el: p };
+            }
+          });
+          if (nums.length) atual = nums[0] + (nums.length > 1 ? '-' + nums[nums.length - 1] : '');
+          if (atual === null) return;
+          if (sec) sec.ps.push(p);
+          if (!capitulos[li + ':' + cap]) capitulos[li + ':' + cap] = { pg: pg, el: p };
+          var ref = rotulo(li, cap, atual);
+          add({ g: 'v', t: ref, x: texto(p), r: '', pg: pg, el: p });
+          p.querySelectorAll('.op').forEach(function(op){
+            var w = op.querySelector('.opw'), pop = op.querySelector('.pop');
+            if (!w || !pop) return;
+            var eco = op.classList.contains('eco');
+            add({ g: 'n', t: eco ? w.textContent.trim() + ' em ' + ref : w.textContent.trim(), x: texto(pop, '.x'), r: ref, pg: pg, el: w,
+                  notas: !eco, ecos: eco, abre: w });
+          });
+          var com = p.nextElementSibling && p.nextElementSibling.classList.contains('comtag')
+                    ? p.nextElementSibling.nextElementSibling : null;
+          if (com && com.classList.contains('com'))
+            add({ g: 'n', t: (com.querySelector('.ct') || com).textContent.trim(), x: texto(com), r: ref, pg: pg, el: com, com: com });
+        });
+        fechaSec();
+      });
+      var h1 = art.querySelector('h1'), cab = h1 && h1.nextElementSibling;
+      while (cab && !cab.classList.contains('com')) cab = cab.nextElementSibling;
+      if (cab && cab.previousElementSibling && cab.previousElementSibling.classList.contains('comtag'))
+        add({ g: 'n', t: (cab.querySelector('.ct') || cab).textContent.trim(), x: texto(cab), r: h1.textContent.trim(), pg: pg, el: cab, com: cab });
+      art.querySelectorAll('.aparato .nota').forEach(function(nt){
+        var fr = nt.querySelector('.frase'), num = nt.querySelector('.num');
+        add({ g: 'n', t: fr ? texto(fr, '.kind') : 'Nota', x: texto(nt, '.frase,.num,.kind'),
+              r: h1.textContent.trim() + ' · nota ' + (num ? num.textContent : ''), pg: pg, el: nt, notas: true });
+      });
+    });
+
+    HISTORIAS.forEach(function(h){
+      var r = lerRef(h[0]), alvo = r && local[r.livro + ':' + r.cap + ':' + r.vs];
+      if (!alvo) return;
+      var sec = docs.filter(function(d){ return d.ps && d.ps.indexOf(alvo.el) >= 0; })[0];
+      h[1].split('|').forEach(function(nome){
+        add({ g: 'h', t: nome, x: '', r: sec ? sec.r + ' · ' + sec.t : rotulo(r.livro, r.cap, r.vs), pg: alvo.pg, el: sec ? sec.el : alvo.el, apelido: true });
+      });
+    });
+
+    document.querySelectorAll('#gllista > .fio').forEach(function(f){
+      var pt = f.querySelector('.fp'), gr = f.querySelector('.fg'), trn = f.querySelector('.fq');
+      add({ g: 'g', t: pt.textContent + ' · ' + gr.textContent, x: (trn ? trn.textContent + ' ' : '') + texto(f, '.fh,.selos'),
+            r: 'Glossário', pg: 'pg-gl', el: f });
+    });
+    [['pg-mt', 'p,li'], ['pg-fi', '.fio'], ['pg-ft', '.fi']].forEach(function(c){
+      var art = document.getElementById(c[0]);
+      if (!art) return;
+      var h1 = art.querySelector('h1').textContent.trim();
+      art.querySelectorAll(c[1]).forEach(function(el){
+        if (el.closest('.com') || (c[1] === 'p,li' && el.closest('li') && el.tagName === 'P')) return;
+        var x = texto(el);
+        if (x.length < 20) return;
+        add({ g: 'm', t: x.slice(0, 90), x: x, r: h1, pg: c[0], el: el });
+      });
+    });
+
+    var vocab = {};
+    docs.forEach(function(d){ d.pn.concat(d.tn).forEach(function(w){ vocab[w] = 1; }); });
+    vocab = Object.keys(vocab);
+
+    // ---- casamento de palavras
+    function quase(a, b){   // distância de edição até 1
+      if (Math.abs(a.length - b.length) > 1) return false;
+      var i = 0, j = 0, erro = 0;
+      while (i < a.length && j < b.length) {
+        if (a[i] === b[j]) { i++; j++; continue; }
+        if (++erro > 1) return false;
+        if (a.length > b.length) i++; else if (b.length > a.length) j++; else { i++; j++; }
+      }
+      return erro + (a.length - i) + (b.length - j) <= 1;
+    }
+    function variantes(t){
+      var m = {};
+      vocab.forEach(function(w){
+        if (w === t) m[w] = 3;
+        else if (t.length >= 2 && w.indexOf(t) === 0) m[w] = 2;
+      });
+      // erro de digitação só entra quando a palavra certa não existe
+      if (t.length >= 5 && !Object.keys(m).length) vocab.forEach(function(w){
+        if (quase(w, t) || (w.length > t.length && quase(w.slice(0, t.length), t))) m[w] = 1;
+      });
+      return m;
+    }
+    function pontua(lista, vs){
+      var melhor = 0;
+      for (var k = 0; k < lista.length; k++) { var s = vs[lista[k]]; if (s > melhor) melhor = s; if (melhor === 3) break; }
+      return melhor;
+    }
+    function buscarTexto(q){
+      var ts = palavras(q), cheias = ts.filter(function(t){ return VAZIAS.indexOf(' ' + t + ' ') < 0; });
+      if (cheias.length) ts = cheias;
+      if (!ts.length) return { res: [], achadas: {} };
+      var vs = ts.map(variantes), achadas = {}, frase = ts.join(' ');
+      vs.forEach(function(v){ Object.keys(v).forEach(function(w){ achadas[w] = 1; }); });
+      var res = [];
+      docs.forEach(function(d){
+        var s = 0;
+        for (var k = 0; k < ts.length; k++) {
+          var a = pontua(d.pn, vs[k]) * 3, b = pontua(d.tn, vs[k]);
+          if (!a && !b) return;
+          s += Math.max(a, b);
+        }
+        var junto = (' ' + d.pn.join(' ') + ' ').indexOf(' ' + frase) >= 0;
+        if (junto) s += d.g === 'h' ? 12 : 4;
+        else if (ts.length > 1 && (' ' + d.tn.join(' ') + ' ').indexOf(' ' + frase) >= 0) s += 3;
+        if (d.apelido && junto) s += 4;
+        res.push({ d: d, s: s });
+      });
+      res.sort(function(a, b){ return b.s - a.s || a.d.id - b.d.id; });
+      return { res: res, achadas: achadas };
+    }
+
+    function trecho(txt, achadas){
+      if (!txt) return '';
+      var re = /[\p{L}\p{M}\p{N}]+/gu, m, pos = [], ini = -1;
+      while ((m = re.exec(txt))) {
+        var ok = achadas[nrm(m[0])];
+        if (ok) { pos.push([m.index, m.index + m[0].length]); if (ini < 0) ini = m.index; }
+      }
+      if (ini < 0) ini = 0;
+      var a = Math.max(0, ini - 55); if (a > 0) { var sp = txt.indexOf(' ', a); if (sp > 0 && sp < ini) a = sp + 1; }
+      var z = Math.min(txt.length, a + 170), out = '', c = a;
+      pos.forEach(function(p){
+        if (p[0] < a || p[1] > z) return;
+        out += esc(txt.slice(c, p[0])) + '<mark>' + esc(txt.slice(p[0], p[1])) + '</mark>'; c = p[1];
+      });
+      out += esc(txt.slice(c, z));
+      return (a > 0 ? '…' : '') + out + (z < txt.length ? '…' : '');
+    }
+
+    // ---- ir até o resultado
+    function ir(d){
+      fecharBusca();
+      if (!document.getElementById(d.pg).classList.contains('on')) mostrar(d.pg);
+      if (d.notas && !document.body.classList.contains('notas')) document.getElementById('tnotas').click();
+      if (d.ecos && !document.body.classList.contains('ecos')) document.getElementById('teco').click();
+      if (d.com && !d.com.classList.contains('on')) d.com.previousElementSibling.click();
+      requestAnimationFrame(function(){
+        d.el.scrollIntoView({ block: 'center', behavior: 'instant' });
+        if (d.abre && d.abre.getAttribute('aria-expanded') !== 'true') d.abre.click();
+        d.el.classList.remove('achado'); void d.el.offsetWidth; d.el.classList.add('achado');
+        setTimeout(function(){ d.el.classList.remove('achado'); }, 2600);
+      });
+    }
+    function irRef(r){
+      var li = r.livro, alvo = null;
+      if (r.cap !== null && r.vs !== null) alvo = local[li + ':' + r.cap + ':' + r.vs];
+      else if (r.cap !== null) alvo = capitulos[li + ':' + r.cap];
+      else if (livroPags[li]) { mostrar(livroPags[li][0].pg); fecharBusca(); return true; }
+      if (!alvo) return false;
+      ir({ pg: alvo.pg, el: alvo.el });
+      try { history.replaceState(null, '', '?ref=' + encodeURIComponent(nrm(LIVROS[li][1].split(' ')[0] || LIVROS[li][0]).replace(/ /g, '') + (r.cap || '') + (r.vs ? ':' + r.vs : ''))); } catch (e) {}
+      return true;
+    }
+
+    // ---- interface
+    var caixa = document.getElementById('busca'), inp = document.getElementById('buscain'),
+        lst = document.getElementById('buscares'), atual = [], ativo = 0, antes = null;
+    var GRUPOS = { r: 'Ir para', h: 'Histórias e passagens', v: 'Versículos', n: 'Notas e comentários', g: 'Glossário', m: 'Método e fontes' };
+    var LIM = { h: 5, v: 8, n: 6, g: 4, m: 4 };
+
+    function exemplos(){
+      var ex = ['jo 1:14', 'gn 3', 'mt 19:24', 'bodas de Caná', 'jovem rico', 'graça'];
+      var tem = Object.keys(livroPags).map(function(i){
+        return '<b>' + LIVROS[i][0] + '</b> ' + livroPags[i].map(function(p){ return p.rot; }).join(', ');
+      }).join(' · ');
+      lst.innerHTML = '<p class="bvazio">Digite um livro e capítulo, o nome de uma história ou uma palavra.</p>'
+        + '<div class="bex">' + ex.map(function(e){ return '<button type="button">' + e + '</button>'; }).join('') + '</div>'
+        + '<p class="bvazio">Na tradução até agora: ' + tem + '.</p>';
+      lst.querySelectorAll('.bex button').forEach(function(b){
+        b.addEventListener('click', function(){ inp.value = b.textContent; buscar(); inp.focus(); });
+      });
+      atual = [];
+    }
+
+    function buscar(){
+      var q = inp.value.trim();
+      if (!q) return exemplos();
+      var itens = [], r = lerRef(q), aviso = '';
+      if (r) {
+        var li = r.livro, nome = LIVROS[li][0];
+        if (r.cap !== null && r.vs !== null && local[li + ':' + r.cap + ':' + r.vs])
+          itens.push({ g: 'r', t: rotulo(li, r.cap, r.vs), r: 'versículo', ref: r });
+        else if (r.cap !== null && r.vs === null && capitulos[li + ':' + r.cap])
+          itens.push({ g: 'r', t: rotulo(li, r.cap), r: 'capítulo', ref: r });
+        else if (r.cap === null && livroPags[li])
+          livroPags[li].forEach(function(p){ itens.push({ g: 'r', t: nome + ' ' + p.rot, r: 'passagem', ir: { pg: p.pg, el: document.getElementById(p.pg) } }); });
+        else if (r.cap !== null || nrm(q).length >= 4 || livroPags[li])
+          aviso = '<p class="baviso"><b>' + esc(rotulo(li, r.cap || '', r.vs)).trim() + '</b> ainda não está na tradução. '
+            + (livroPags[li] ? 'De ' + nome + ' já existe: ' + livroPags[li].map(function(p){ return p.rot; }).join(', ') + '.' : 'Nada de ' + nome + ' foi traduzido ainda.') + '</p>';
+      }
+      var bt = r && r.cap !== null ? { res: [], achadas: {} } : buscarTexto(q), conta = {}, ORD = 'hvngm';
+      bt.res.sort(function(a, b){ return ORD.indexOf(a.d.g) - ORD.indexOf(b.d.g) || b.s - a.s || a.d.id - b.d.id; });
+      bt.res.forEach(function(x){
+        var g = x.d.g; conta[g] = (conta[g] || 0) + 1;
+        if (conta[g] > LIM[g]) return;
+        if (g === 'h' && itens.some(function(y){ return y.d && y.d.g === 'h' && y.d.el === x.d.el; })) { conta[g]--; return; }
+        itens.push({ g: g, d: x.d });
+      });
+      atual = itens; ativo = 0;
+      var html = aviso, grupo = '';
+      itens.forEach(function(it, k){
+        if (it.g !== grupo) {
+          grupo = it.g;
+          var mais = conta[grupo] > LIM[grupo] ? ' <span>' + conta[grupo] + ' ao todo</span>' : '';
+          html += '<p class="bgrupo">' + GRUPOS[grupo] + mais + '</p>';
+        }
+        var d = it.d, t = d ? (d.g === 'm' ? '' : esc(d.t)) : esc(it.t),
+            rr = d ? esc(d.r) : esc(it.r),
+            sn = d ? trecho(d.g === 'h' ? '' : d.x, bt.achadas) : '';
+        if (d && d.g === 'h') t = trecho(d.t, bt.achadas) || t;
+        html += '<button type="button" class="bitem" role="option" id="bi' + k + '" data-k="' + k + '">'
+          + (t ? '<span class="bt">' + t + '</span>' : '') + (rr ? '<span class="br">' + rr + '</span>' : '')
+          + (sn ? '<span class="bs">' + sn + '</span>' : '') + '</button>';
+      });
+      if (!itens.length && !aviso) html = '<p class="bvazio">Nada encontrado para <b>' + esc(q) + '</b>. Tente outra palavra, ou uma referência como <b>jo 2:1</b>.</p>';
+      lst.innerHTML = html;
+      lst.querySelectorAll('.bitem').forEach(function(b){
+        b.addEventListener('click', function(){ abrir(+b.dataset.k); });
+      });
+      marcar();
+    }
+    function marcar(){
+      lst.querySelectorAll('.bitem').forEach(function(b){ b.setAttribute('aria-selected', String(+b.dataset.k === ativo)); });
+      var b = document.getElementById('bi' + ativo);
+      if (b) { b.scrollIntoView({ block: 'nearest' }); inp.setAttribute('aria-activedescendant', b.id); }
+    }
+    function abrir(k){
+      var it = atual[k]; if (!it) return;
+      if (it.ref) irRef(it.ref); else ir(it.d || it.ir);
+    }
+
+    function abrirBusca(q){
+      antes = document.activeElement;
+      caixa.hidden = false;
+      document.body.classList.add('buscando');
+      if (typeof q === 'string') inp.value = q;
+      buscar();
+      setTimeout(function(){ inp.focus(); inp.select(); }, 0);
+    }
+    function fecharBusca(){
+      if (caixa.hidden) return;
+      caixa.hidden = true;
+      document.body.classList.remove('buscando');
+      if (antes && antes.focus) antes.focus({ preventScroll: true });
+    }
+
+    var espera;
+    inp.addEventListener('input', function(){ clearTimeout(espera); espera = setTimeout(buscar, 70); });
+    inp.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowDown') { e.preventDefault(); if (ativo < atual.length - 1) { ativo++; marcar(); } }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); if (ativo > 0) { ativo--; marcar(); } }
+      else if (e.key === 'Enter') {
+        e.preventDefault(); clearTimeout(espera); buscar();
+        if (atual.length) abrir(ativo);
+      }
+    });
+    caixa.addEventListener('click', function(e){ if (e.target === caixa) fecharBusca(); });
+    document.getElementById('buscafecha').addEventListener('click', fecharBusca);
+    document.querySelectorAll('[data-busca]').forEach(function(b){ b.addEventListener('click', function(){ abrirBusca(); }); });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') { fecharBusca(); return; }
+      var alvo = e.target, digitando = alvo && (alvo.tagName === 'INPUT' || alvo.tagName === 'TEXTAREA' || alvo.isContentEditable);
+      if (((e.key === '/' && !digitando) || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k')) && caixa.hidden) {
+        e.preventDefault(); abrirBusca();
+      }
+    });
+
+    var qs = new URLSearchParams(location.search);
+    if (qs.get('ref')) { var rr0 = lerRef(qs.get('ref')); if (!rr0 || !irRef(rr0)) abrirBusca(qs.get('ref')); }
+    else if (qs.has('q')) abrirBusca(qs.get('q'));
+    else if (qs.has('busca')) abrirBusca('');
+  })();
 
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function(){

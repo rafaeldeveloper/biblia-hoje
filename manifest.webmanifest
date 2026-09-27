@@ -54,6 +54,17 @@
       ]
     },
     {
+      "name": "Buscar",
+      "short_name": "Buscar",
+      "url": "biblia-hoje.html?busca",
+      "icons": [
+        {
+          "src": "icones/icone-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
       "name": "Tradução literal de João",
       "short_name": "Literal",
       "url": "traducao.html",
