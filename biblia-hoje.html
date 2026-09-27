@@ -421,6 +421,7 @@
     .camadas .ecolg,.camadas .asplg{margin:0 0 12px}
     body:has(.glx.on) :is(.camadas-fab,.camadas), body.buscando :is(.camadas-fab,.camadas){display:none}
   }
+  .verso{touch-action:manipulation}
   .achado{animation:achado 2.6s ease-out}
   @keyframes achado{0%,35%{background:color-mix(in srgb, var(--mark) 22%, transparent)} 100%{background:transparent}}
   @media (prefers-reduced-motion:reduce){ .achado{animation:none; outline:2px solid var(--mark); outline-offset:3px} }
@@ -5832,7 +5833,7 @@
   <div class="glx" id="glx" role="dialog" aria-label="Glossário"><div class="in">
     <button class="gx" id="glxfechar" aria-label="Fechar">&times;</button>
     <div id="glxcorpo"></div>
-    <p class="dica">Dois cliques numa palavra do texto abrem esta janela. <kbd>Esc</kbd> fecha.</p>
+    <p class="dica">Dois cliques ou dois toques numa palavra do texto abrem esta janela. <kbd>Esc</kbd> fecha.</p>
   </div></div>
 
   <button class="camadas-fab" id="camadasfab" type="button" aria-label="Camadas do texto" aria-expanded="false" aria-controls="camadas"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/></svg></button>
@@ -6506,6 +6507,51 @@
     if (qs.get('ref')) { var rr0 = lerRef(qs.get('ref')); if (!rr0 || !irRef(rr0)) abrirBusca(qs.get('ref')); }
     else if (qs.has('q')) abrirBusca(qs.get('q'));
     else if (qs.has('busca')) abrirBusca('');
+  })();
+
+  // ---- no toque, dois toques numa palavra abrem o verbete
+  (function(){
+    var ultimo = null, LETRA = /[\p{L}\p{M}\u2019'-]/u;
+    function palavraEm(x, y){
+      var no, i;
+      if (document.caretPositionFromPoint) {
+        var cp = document.caretPositionFromPoint(x, y); if (!cp) return null;
+        no = cp.offsetNode; i = cp.offset;
+      } else if (document.caretRangeFromPoint) {
+        var r = document.caretRangeFromPoint(x, y); if (!r) return null;
+        no = r.startContainer; i = r.startOffset;
+      } else return null;
+      if (!no || no.nodeType !== 3) return null;
+      var el = no.parentNode;
+      if (!el.closest('.verso') || el.closest('.pop,.com,.gr,.vn')) return null;
+      var t = no.data, a = i, z = i;
+      while (a > 0 && LETRA.test(t[a - 1])) a--;
+      while (z < t.length && LETRA.test(t[z])) z++;
+      var w = t.slice(a, z).replace(/^[-'\u2019]+|[-'\u2019]+$/g, '');
+      return w || null;
+    }
+    function comDe(alvo){
+      var v = alvo.closest && alvo.closest('.temcom'), tag = v && v.nextElementSibling;
+      return tag && tag.classList.contains('comtag') ? tag : null;
+    }
+    document.addEventListener('touchend', function(e){
+      if (e.changedTouches.length !== 1) return;
+      var tq = e.changedTouches[0], agora = Date.now();
+      if (ultimo && agora - ultimo.t < 350 && Math.abs(tq.clientX - ultimo.x) < 24 && Math.abs(tq.clientY - ultimo.y) < 24) {
+        var antes = ultimo;
+        ultimo = null;
+        var w = palavraEm(tq.clientX, tq.clientY);
+        if (!w) return;
+        abrirGlx(w);
+        // o primeiro toque abriu ou fechou o comentário do verso; volta como estava
+        if (antes.tag) setTimeout(function(){
+          if ((antes.tag.getAttribute('aria-expanded') === 'true') !== antes.aberto) antes.tag.click();
+        }, 60);
+        return;
+      }
+      var tag = comDe(e.target);
+      ultimo = { t: agora, x: tq.clientX, y: tq.clientY, tag: tag, aberto: !!tag && tag.getAttribute('aria-expanded') === 'true' };
+    }, { passive: true });
   })();
 
   // ---- no celular, as camadas moram num painel flutuante
