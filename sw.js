@@ -1,4 +1,4 @@
-var VERSAO = 'biblia-v6';
+var VERSAO = 'biblia-v7';
 var ESTATICO = VERSAO + '-estatico';
 var PAGINAS = VERSAO + '-paginas';
 
@@ -9,6 +9,7 @@ var CASCA = [
   'traducao.html',
   'comentario.html',
   'manifest.webmanifest',
+  'instalar.js',
   'fontes/fontes.css',
   'icones/icone-192.png',
   'icones/icone-512.png',
