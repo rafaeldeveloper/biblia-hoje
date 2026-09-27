@@ -1,11 +1,11 @@
-var VERSAO = 'joao-v3';
+var VERSAO = 'biblia-v4';
 var ESTATICO = VERSAO + '-estatico';
 var PAGINAS = VERSAO + '-paginas';
 
 var CASCA = [
   './',
   'index.html',
-  'joao-hoje.html',
+  'biblia-hoje.html',
   'traducao.html',
   'comentario.html',
   'manifest.webmanifest',

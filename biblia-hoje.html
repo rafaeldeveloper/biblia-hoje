@@ -1,7 +1,7 @@
 <meta charset="utf-8">
-<title>João em português de hoje</title>
+<title>Bíblia em português de hoje</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Edição de equivalência dinâmica de João, com aparato, comentários, ecos, grego alinhado, aspecto verbal e glossário.">
+<meta name="description" content="Tradução de equivalência dinâmica da Bíblia, em andamento, com aparato, comentários, ecos, grego alinhado, aspecto verbal e glossário.">
 <link rel="stylesheet" href="fontes/fontes.css">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="favicon.ico" sizes="any">
@@ -11,7 +11,7 @@
 <meta name="theme-color" content="#14130F" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="João">
+<meta name="apple-mobile-web-app-title" content="Bíblia hoje">
 <style>
   :root{
     --ground:#FAF9F6; --surface:#FFFFFF; --surface-2:#F0EEE8; --rail:#F3F1EB;
@@ -58,6 +58,20 @@
   .navlist button:hover{background:var(--surface-2); color:var(--ink)}
   .navlist button[aria-current="true"]{background:var(--ink); color:var(--ground); font-weight:500}
   .navlist .ref{font-size:11px; opacity:.68; font-variant-numeric:tabular-nums}
+  .livros{margin:0 0 18px}
+  .livros .test{font-family:"IBM Plex Sans",sans-serif; font-size:9px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--ink-3); margin:12px 0 6px; opacity:.8}
+  .livros .test:first-child{margin-top:0}
+  .livro{margin:0 0 10px}
+  @media (max-width:999px){ .livro{display:flex; align-items:center; flex-wrap:wrap; gap:6px 10px} }
+  .livro .lv{font-size:15.5px; color:var(--ink-2); margin:0 0 4px; min-width:4.5em}
+  @media (max-width:999px){ .livro .lv{margin:0} }
+  .livro:has([aria-current="true"]) .lv{color:var(--ink); font-weight:600}
+  .navlist.caps{flex-direction:row; flex-wrap:wrap; gap:4px; margin:0}
+  .navlist.caps li{flex:none}
+  .navlist.caps button{width:auto; font-size:12px; padding:4px 9px; border:1px solid var(--rule-2);
+    border-radius:3px; font-variant-numeric:tabular-nums}
+  .navlist.caps button[aria-current="true"]{border-color:var(--ink)}
   .porvir{font-family:"IBM Plex Sans",sans-serif; font-size:10.5px; line-height:1.65;
     color:var(--ink-3); margin:0 0 22px; padding:9px 10px; border:1px dashed var(--rule-2);
     border-radius:3px}
@@ -335,7 +349,7 @@
 
 <div class="shell">
   <nav class="rail">
-    <p class="brand">João em português de hoje</p>
+    <p class="brand">Bíblia em português de hoje</p>
     <p class="brand-sub">Com as escolhas à vista</p>
 
     <button class="ctrl" id="tnotas" aria-pressed="false">Mostrar notas e escolhas<small>O padrão é o texto limpo</small></button>
@@ -360,15 +374,25 @@
     </div>
 
     <p class="navgroup">Livros</p>
-    <ul class="navlist">
-      <li><button data-go="pg-gn" aria-current="false">Gênesis <span class="ref">1:1-2:3</span></button></li>
-      <li><button data-go="pg-gn2" aria-current="false">Gênesis <span class="ref">2:4-25</span></button></li>
-      <li><button data-go="pg-gn3" aria-current="false">Gênesis <span class="ref">3</span></button></li>
-      <li><button data-go="pg-mt19" aria-current="false">Mateus <span class="ref">19:16-30</span></button></li>
-      <li><button data-go="pg-jo" aria-current="true">João <span class="ref">1</span></button></li>
-      <li><button data-go="pg-jo2" aria-current="false">João <span class="ref">2</span></button></li>
-      <li><button data-go="pg-at" aria-current="false">Atos <span class="ref">20:7-12</span></button></li>
-    </ul>
+    <div class="livros">
+      <p class="test">Antigo Testamento</p>
+      <div class="livro"><p class="lv">Gênesis</p><ul class="navlist caps">
+        <li><button data-go="pg-gn" aria-current="false">1:1-2:3</button></li>
+        <li><button data-go="pg-gn2" aria-current="false">2:4-25</button></li>
+        <li><button data-go="pg-gn3" aria-current="false">3</button></li>
+      </ul></div>
+      <p class="test">Novo Testamento</p>
+      <div class="livro"><p class="lv">Mateus</p><ul class="navlist caps">
+        <li><button data-go="pg-mt19" aria-current="false">19:16-30</button></li>
+      </ul></div>
+      <div class="livro"><p class="lv">João</p><ul class="navlist caps">
+        <li><button data-go="pg-jo" aria-current="true">1</button></li>
+        <li><button data-go="pg-jo2" aria-current="false">2</button></li>
+      </ul></div>
+      <div class="livro"><p class="lv">Atos</p><ul class="navlist caps">
+        <li><button data-go="pg-at" aria-current="false">20:7-12</button></li>
+      </ul></div>
+    </div>
     <p class="porvir">Só existe o que está acima. O Gênesis entrou porque João abre citando&#8209;o, e ganhou a semana inteira, o jardim e a saída dele. Atos 20:7-12 e Mateus 19:16-30 entraram avulsos, a partir de um estudo.</p>
 
     <p class="navgroup">Método</p>

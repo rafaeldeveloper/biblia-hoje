@@ -1,8 +1,8 @@
 {
-  "id": "joao-hoje.html",
-  "name": "João — três edições",
-  "short_name": "João",
-  "description": "Três edições do Evangelho de João: português de hoje, tradução literal com aparato e comentário. Funciona sem rede.",
+  "id": "./",
+  "name": "Bíblia em português de hoje",
+  "short_name": "Bíblia hoje",
+  "description": "Tradução da Bíblia em português de hoje, com as escolhas à vista, mais a tradução literal e o comentário de João. Funciona sem rede.",
   "lang": "pt-BR",
   "dir": "ltr",
   "start_url": "./",
@@ -43,9 +43,9 @@
   ],
   "shortcuts": [
     {
-      "name": "João em português de hoje",
+      "name": "Bíblia em português de hoje",
       "short_name": "Português de hoje",
-      "url": "joao-hoje.html",
+      "url": "biblia-hoje.html",
       "icons": [
         {
           "src": "icones/icone-192.png",
@@ -54,7 +54,7 @@
       ]
     },
     {
-      "name": "A tradução literal",
+      "name": "Tradução literal de João",
       "short_name": "Literal",
       "url": "traducao.html",
       "icons": [
@@ -65,7 +65,7 @@
       ]
     },
     {
-      "name": "O comentário",
+      "name": "Comentário de João",
       "short_name": "Comentário",
       "url": "comentario.html",
       "icons": [
@@ -77,7 +77,7 @@
     },
     {
       "name": "Glossário",
-      "url": "joao-hoje.html?p=pg-gl",
+      "url": "biblia-hoje.html?p=pg-gl",
       "icons": [
         {
           "src": "icones/icone-192.png",
