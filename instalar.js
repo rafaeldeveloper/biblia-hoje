@@ -24,7 +24,7 @@
     '.instalar button{font:inherit; font-size:12.5px; border-radius:5px; padding:7px 12px; cursor:pointer; border:0}' +
     '.instalar .sim{background:var(--ink,#1c1a17); color:var(--ground,#faf9f6); font-weight:600}' +
     '.instalar .nao{background:none; color:var(--ink-3,#8c867b)}' +
-    'body.oferta .busca-fab{display:none}';
+    'body.oferta .busca-fab, body.oferta .camadas-fab, body.oferta .camadas{display:none}';
 
   var caixa, pedido = null;
   function fechar(){
