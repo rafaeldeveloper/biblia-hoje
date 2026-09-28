@@ -1,4 +1,4 @@
-var VERSAO = 'biblia-v13';
+var VERSAO = 'biblia-v14';
 var ESTATICO = VERSAO + '-estatico';
 var PAGINAS = VERSAO + '-paginas';
 
