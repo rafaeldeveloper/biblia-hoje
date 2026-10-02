@@ -1,0 +1,1099 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sal e luz</title>
+<meta name="description" content="Mateus 5:13-16 verso a verso: o sal da terra e a luz do mundo, com as opções de tradução, as notas e a árvore de significados.">
+<link rel="stylesheet" href="fontes/fontes.css">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="icones/favicon-32.png">
+<link rel="apple-touch-icon" href="icones/apple-touch-icon.png">
+<meta name="theme-color" content="#FAF9F6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14130F" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Bíblia hoje">
+<style>
+  :root{
+    --ground:#FAF9F6; --surface:#FFFFFF; --surface-2:#F0EEE8;
+    --ink:#1C1A17; --ink-2:#575249; --ink-3:#8C867B;
+    --rule:#E2DFD6; --rule-2:#CFCBC0;
+    --mark:#2C3E6B;
+    --solida:#3F5B3A; --provavel:#2C3E6B; --possivel:#8A5A1E; --especulativa:#8C867B;
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --ground:#131210; --surface:#1B1A17; --surface-2:#232220;
+    --ink:#EDEAE3; --ink-2:#ABA79D; --ink-3:#7B766C;
+    --rule:#2C2A26; --rule-2:#3D3A34;
+    --mark:#8FA3D6;
+    --solida:#94B08C; --provavel:#8FA3D6; --possivel:#D4A263; --especulativa:#7B766C;
+  }}
+  :root[data-theme="dark"]{
+    --ground:#131210; --surface:#1B1A17; --surface-2:#232220;
+    --ink:#EDEAE3; --ink-2:#ABA79D; --ink-3:#7B766C;
+    --rule:#2C2A26; --rule-2:#3D3A34;
+    --mark:#8FA3D6;
+    --solida:#94B08C; --provavel:#8FA3D6; --possivel:#D4A263; --especulativa:#7B766C;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0; background:var(--ground); color:var(--ink);
+    font-family:"EB Garamond",Garamond,Georgia,serif; -webkit-font-smoothing:antialiased}
+  .heb{font-family:"Frank Ruhl Libre",serif; font-style:normal}
+
+  main{padding:max(32px, env(safe-area-inset-top)) 16px max(120px, env(safe-area-inset-bottom)); overflow-x:clip}
+  @media (min-width:1000px){ main{padding:64px 44px 150px} }
+  .doc{max-width:40rem; margin:0 auto}
+
+  .voltar{font-family:"IBM Plex Sans",sans-serif; font-size:12px; color:var(--ink-3);
+    text-decoration:none; display:inline-block; margin-bottom:26px}
+  .voltar:hover{color:var(--ink)}
+  .eyebrow{font-family:"IBM Plex Sans",sans-serif; font-size:10px; letter-spacing:.15em;
+    text-transform:uppercase; color:var(--ink-3); margin:0 0 9px}
+  h1{font-size:clamp(28px,4.6vw,38px); font-weight:600; line-height:1.07; letter-spacing:-.015em;
+    margin:0 0 11px; text-wrap:balance}
+  .dek{font-size:17.5px; line-height:1.55; color:var(--ink-2); margin:0; font-style:italic; max-width:32rem}
+
+  /* ---- opções por verso ---- */
+  .vs{margin:0}
+  .vs.nova{margin-top:30px}
+  .verso p.fala{touch-action:pan-y}
+  .esc{display:flex; gap:4px; margin:8px 0 26px; overflow-x:auto; scrollbar-width:none; letter-spacing:0}
+  .esc::-webkit-scrollbar{display:none}
+  .esc button{flex:none; font-family:"IBM Plex Sans",sans-serif; font-size:11px; line-height:1; color:var(--ink-3);
+    background:none; border:1px solid var(--rule); border-radius:99px; padding:6px 10px; cursor:pointer; white-space:nowrap}
+  .esc button:hover{color:var(--ink); border-color:var(--rule-2)}
+  .esc button[aria-selected="true"]{background:var(--ink); color:var(--ground); border-color:var(--ink); font-weight:500}
+  .esc button:focus-visible,.ctrl:focus-visible{outline:2px solid var(--mark); outline-offset:2px}
+  .fala.entra-d{animation:entra-d .22s ease-out}
+  .fala.entra-e{animation:entra-e .22s ease-out}
+  @keyframes entra-d{from{opacity:0; transform:translateX(14px)} to{opacity:1; transform:none}}
+  @keyframes entra-e{from{opacity:0; transform:translateX(-14px)} to{opacity:1; transform:none}}
+  .esc{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent); mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent); padding-right:28px}
+  .ctrls{margin-top:30px !important}
+
+  /* ---- análise ---- */
+  .fd{display:none; width:7px; height:7px; border-radius:50%; margin-right:6px; vertical-align:1px; background:var(--c)}
+  body.analise .fd{display:inline-block}
+  .n-solida{--c:var(--solida)} .n-provavel{--c:var(--provavel)} .n-possivel{--c:var(--possivel)} .n-especulativa{--c:var(--especulativa)}
+  .forca,.anl,.forlg{display:none}
+  body.analise .forca{display:block} body.analise .anl{display:block} body.analise .forlg{display:block}
+  .forca{font-family:"IBM Plex Sans",sans-serif; font-size:12px; line-height:1.55; color:var(--ink-2);
+    letter-spacing:0; margin:-16px 0 12px}
+  .forca b{color:var(--c); font-weight:600; text-transform:uppercase; letter-spacing:.1em; font-size:10px; margin-right:6px}
+  .forlg{margin:14px 0 0; padding:11px 12px; border:1px solid var(--rule); border-radius:3px;
+    font-family:"IBM Plex Sans",sans-serif; font-size:11px; line-height:1.75; color:var(--ink-3)}
+  .forlg span{display:block}
+  .forlg b{color:var(--c); font-weight:600}
+  .forlg .aviso{margin-top:7px; padding-top:7px; border-top:1px solid var(--rule)}
+  .anl{margin:0 0 30px; background:var(--surface); border:1px solid var(--rule); border-radius:4px;
+    letter-spacing:0; font-family:"IBM Plex Sans",sans-serif}
+  .anl summary{cursor:pointer; list-style:none; padding:10px 14px; font-size:10px; letter-spacing:.13em;
+    text-transform:uppercase; font-weight:600; color:var(--mark)}
+  .anl summary::-webkit-details-marker{display:none}
+  .anl summary::before{content:"+ "} .anl[open] summary::before{content:"− "}
+  .anl summary:focus-visible{outline:2px solid var(--mark); outline-offset:2px}
+  .anl .in{padding:0 14px 14px}
+  .anl h4{font-size:9.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3); font-weight:600; margin:10px 0 8px}
+  .anl h4 small{text-transform:none; letter-spacing:0; font-weight:400; font-size:11px; margin-left:4px}
+  .anl ul{list-style:none; margin:0 0 6px; padding:0; display:grid; gap:10px}
+  .anl li{font-size:13px; line-height:1.55; color:var(--ink-2)}
+  .anl li b{display:block; color:var(--ink); font-weight:600; font-size:13px}
+  .anl .polos{display:block; font-family:"EB Garamond",Georgia,serif; font-size:16px; color:var(--ink); margin:2px 0 3px}
+  .anl .peso{display:block}
+  .anl .peso::before{content:"Pesa mais: "; color:var(--ink-3)}
+  .ctrls{display:flex; gap:6px; margin:16px 0 0}
+  .ctrl{font-family:"IBM Plex Sans",sans-serif; font-size:11px; color:var(--ink-2); background:none;
+    border:1px solid var(--rule-2); border-radius:3px; padding:6px 10px; cursor:pointer}
+  .ctrl:hover{border-color:var(--ink-3); color:var(--ink)}
+  .ctrl[aria-pressed="true"]{background:var(--ink); color:var(--ground); border-color:var(--ink)}
+
+  /* ---- o texto ---- */
+  .verso{margin:34px 0 0; font-size:clamp(24px,4.3vw,31px); line-height:1.5; letter-spacing:-.012em}
+  .verso h2{font-family:"IBM Plex Sans",sans-serif; font-size:10px; letter-spacing:.15em;
+    text-transform:uppercase; font-weight:600; color:var(--ink-3); margin:0 0 20px;
+    padding-bottom:8px; border-bottom:1px solid var(--rule)}
+  .verso h2 b{color:var(--ink); font-weight:600}
+  .verso h2.sub{margin-top:34px}
+  .verso p.fala{margin:0 0 6px}
+  .vn{font-family:"IBM Plex Sans",sans-serif; font-size:10px; font-weight:500; color:var(--ink-3);
+    vertical-align:super; line-height:0; margin-right:5px; letter-spacing:0}
+
+  .op{position:relative}
+  .opw{cursor:pointer; border-bottom:2px dotted var(--mark)}
+  .opw:hover{background:color-mix(in srgb, var(--mark) 12%, transparent)}
+  .opw[aria-expanded="true"]{background:color-mix(in srgb, var(--mark) 18%, transparent)}
+  .pop{display:none; position:absolute; z-index:40; top:calc(100% + 10px); left:0;
+    width:min(370px,88vw); background:var(--surface); color:var(--ink-2);
+    border:1px solid var(--rule-2); border-left:3px solid var(--mark); border-radius:4px;
+    box-shadow:0 12px 38px rgba(0,0,0,.16); padding:14px 16px;
+    font-family:"IBM Plex Sans",sans-serif; font-size:13.5px; line-height:1.6;
+    letter-spacing:0; font-style:normal; font-weight:400; white-space:normal}
+  .op:hover .pop,.opw[aria-expanded="true"]+.pop{display:block}
+  @media (hover:none){ .op:hover .pop{display:none} .opw[aria-expanded="true"]+.pop{display:block} }
+  .pop b{color:var(--ink); font-weight:600}
+  .pl{display:block; font-size:8.5px; letter-spacing:.13em; text-transform:uppercase;
+    font-weight:600; color:var(--mark); margin-bottom:3px}
+  .pl~.pl{margin-top:11px; padding-top:10px; border-top:1px solid var(--rule)}
+
+  body:not(.notas) .opw{border-bottom:0; cursor:inherit; pointer-events:none}
+  body:not(.notas) .pop{display:none !important}
+
+  .gr{display:none; margin:10px 0 22px; padding:11px 0 11px 15px;
+    border-left:2px solid var(--rule-2); font-size:15.5px; line-height:1.8;
+    color:var(--ink-3); font-style:italic; letter-spacing:0}
+  body.grego .gr{display:block}
+  .gr .gn{font-family:"IBM Plex Sans",sans-serif; font-size:9.5px; font-weight:600;
+    color:var(--mark); vertical-align:super; line-height:0; margin-right:4px; font-style:normal}
+
+
+  /* ---- figuras ---- */
+  figure{margin:30px 0 0}
+  figure svg{display:block; width:100%; height:auto}
+  figcaption{font-family:"IBM Plex Sans",sans-serif; font-size:11.5px; line-height:1.6; color:var(--ink-3); margin:10px 0 0}
+  .f-ln{fill:none; stroke:var(--ink-3); stroke-width:1.4; stroke-linecap:round; stroke-linejoin:round}
+  .f-ink{fill:none; stroke:var(--ink); stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round}
+  .f-mk{fill:none; stroke:var(--mark); stroke-width:1.6; stroke-linecap:round}
+  .f-sol{fill:color-mix(in srgb, var(--mark) 14%, transparent); stroke:none}
+  .f-chao{fill:var(--surface-2); stroke:none}
+  .d-cond{font-family:"EB Garamond",Georgia,serif; font-size:17px; fill:var(--ink)}
+  .d-prom{font-family:"EB Garamond",Georgia,serif; font-size:14px; font-style:italic; fill:var(--ink-2)}
+  .d-num{font-family:"IBM Plex Sans",sans-serif; font-size:10px; font-weight:600; fill:var(--ink-3)}
+  .d-grp{font-family:"IBM Plex Sans",sans-serif; font-size:9px; letter-spacing:.14em; font-weight:600; fill:var(--ink-3)}
+  .d-chip{font-family:"IBM Plex Sans",sans-serif; font-size:9.5px; font-weight:600}
+  .d-pres rect{fill:var(--mark)} .d-pres text{fill:var(--ground)}
+  .d-fut rect{fill:none; stroke:var(--rule-2)} .d-fut text{fill:var(--ink-3)}
+  .d-sep{stroke:var(--rule); stroke-width:1}
+  .d-mold{fill:none; stroke:var(--mark); stroke-width:1.5}
+  .d-moldt{font-family:"IBM Plex Sans",sans-serif; font-size:9px; letter-spacing:.14em; font-weight:600; fill:var(--mark)}
+
+  /* ---- árvore de significados ---- */
+  .arv-sec{margin-top:64px}
+  .arv-sec h2{font-family:"IBM Plex Sans",sans-serif; font-size:10px; letter-spacing:.15em; text-transform:uppercase;
+    font-weight:600; color:var(--ink-3); margin:0 0 14px; padding-bottom:8px; border-bottom:1px solid var(--rule)}
+  .arv-sec h2 b{color:var(--ink); font-weight:600}
+  .arv-dek{font-size:16.5px; line-height:1.55; color:var(--ink-2); font-style:italic; margin:0 0 14px}
+  .arv-sec .esc{margin:0 0 12px}
+  .arv-filtro{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 18px}
+  .arv-filtro button{font-family:"IBM Plex Sans",sans-serif; font-size:11px; color:var(--ink-2); background:none;
+    border:1px solid var(--rule-2); border-radius:3px; padding:5px 9px; cursor:pointer}
+  .arv-filtro button::before{content:""; display:inline-block; width:8px; height:8px; border-radius:2px; margin-right:6px;
+    vertical-align:0; background:var(--k)}
+  .arv-filtro button:not([class])::before{display:none}
+  .arv-filtro button small{font-size:10px; color:var(--ink-3); margin-left:5px}
+  .arv-filtro button[aria-pressed="true"]{background:var(--ink); color:var(--ground); border-color:var(--ink)}
+  .arv-filtro button[aria-pressed="true"] small{color:var(--ground); opacity:.7}
+  .arv-filtro button:focus-visible{outline:2px solid var(--mark); outline-offset:2px}
+  .s-e{--k:var(--mark)} .s-c{--k:var(--solida)} .s-a{--k:var(--possivel)} .s-d{--k:var(--especulativa)}
+  .arv-raiz{background:var(--surface); border:1px solid var(--rule-2); border-radius:6px; padding:14px 16px; margin:0 0 14px}
+  .arv-raiz .tn{font-size:21px; line-height:1.45; margin:0; color:var(--ink)}
+  .arv-raiz .g{font-size:15.5px; line-height:1.5; margin:10px 0 0; padding-top:9px; border-top:1px solid var(--rule); color:var(--ink-3); font-style:italic}
+  .arv-dica{font-family:"IBM Plex Sans",sans-serif; font-size:11px; color:var(--ink-3); margin:0 0 6px}
+  .arv-tv{overflow-x:auto; overscroll-behavior-x:contain; margin:0 -16px; padding:0 16px; scrollbar-width:thin}
+  @media (min-width:700px){ .arv-tv{margin:0; padding:0} }
+  .arv-svg{display:block}
+  .arv-svg .rz{fill:var(--surface-2); stroke:var(--rule-2)}
+  .arv-svg .rzt{font-family:"IBM Plex Sans",sans-serif; font-size:11px; font-weight:600; letter-spacing:.12em; fill:var(--ink-2)}
+  .arv-svg .lk{fill:none; stroke:var(--k); stroke-width:1.5}
+  .arv-svg .lk.lq{stroke:var(--rule-2); stroke-width:1.2}
+  .arv-svg .lk.s-e{stroke-width:2.4}
+  .arv-svg .lk.s-a{stroke-dasharray:4 4}
+  .arv-svg .lk.s-d{stroke:var(--rule-2); stroke-dasharray:3 4}
+  .arv-svg .tq .tg{font-family:"EB Garamond",Georgia,serif; font-size:15px; font-weight:500; fill:var(--ink)}
+  .arv-svg .tq .tp{font-family:"EB Garamond",Georgia,serif; font-size:13px; font-style:italic; fill:var(--ink-2)}
+  .arv-svg .lf{cursor:pointer; outline:none}
+  .arv-svg .lb{fill:var(--surface); stroke:var(--rule)}
+  .arv-svg .lc{fill:var(--k)}
+  .arv-svg .tl{font-family:"EB Garamond",Georgia,serif; font-size:14.5px; font-weight:500; fill:var(--ink)}
+  .arv-svg .lf.s-e .lb{stroke:var(--mark); fill:color-mix(in srgb, var(--mark) 9%, var(--surface))}
+  .arv-svg .lf.s-d{opacity:.55}
+  .arv-svg .lf.s-d .lb{stroke-dasharray:3 3; fill:none}
+  .arv-svg .lf:hover .lb{stroke:var(--ink-3)}
+  .arv-svg .lf.sel .lb, .arv-svg .lf:focus-visible .lb{stroke:var(--ink); stroke-width:2}
+  .arv-svg .lf.sel{opacity:1}
+  .arv-wrap{position:relative}
+  .arv-svg .qn{outline:none}
+  .arv-svg .qn:not(.sem){cursor:help}
+  .arv-svg .qh{fill:transparent}
+  .arv-svg .qn:not(.sem):hover .qh, .arv-svg .qn:focus-visible .qh{fill:color-mix(in srgb, var(--mark) 12%, transparent)}
+  .arv-svg .qn:focus-visible .qh{stroke:var(--mark); stroke-width:1.5}
+  .arv-svg .qn:not(.sem) .tg{text-decoration:underline dotted; text-decoration-color:var(--rule-2); text-underline-offset:3px}
+  .arv-tip{position:absolute; z-index:30; width:min(360px, 92%); background:var(--surface); color:var(--ink-2);
+    border:1px solid var(--rule-2); border-left:3px solid var(--mark); border-radius:4px; box-shadow:0 12px 38px rgba(0,0,0,.18);
+    padding:11px 13px; font-family:"IBM Plex Sans",sans-serif; font-size:12.5px; line-height:1.55; pointer-events:none}
+  .arv-tip b{display:block; font-family:"EB Garamond",Georgia,serif; font-size:15.5px; font-weight:500; color:var(--ink); margin-bottom:4px}
+  .og-p{display:block}
+  .og-r a, .arv-refs a{color:var(--mark); text-decoration:underline; text-decoration-color:color-mix(in srgb, var(--mark) 40%, transparent); text-underline-offset:2px}
+  .og-r a:hover, .arv-refs a:hover{text-decoration-color:var(--mark)}
+  .og-r a.busca::after, .arv-refs a.busca::after{content:" ⌕"; font-size:.9em; color:var(--ink-3)}
+  .og-dica{display:block; margin-top:7px; font-size:11px; color:var(--ink-3)}
+  .rf-nota{font-size:12px; line-height:1.55; color:var(--ink-3); margin:4px 0 6px}
+  .og-r{display:block; margin-top:7px; padding-top:7px; border-top:1px solid var(--rule); color:var(--ink-2)}
+  .og-r i{display:block; font-style:normal; font-size:9px; letter-spacing:.13em; text-transform:uppercase; color:var(--mark); font-weight:600; margin-bottom:2px}
+  .no.og{--k:var(--mark)}
+  .arv-refs{margin:22px 0 0; background:var(--surface); border:1px solid var(--rule); border-radius:4px; font-family:"IBM Plex Sans",sans-serif}
+  .arv-refs summary{cursor:pointer; list-style:none; padding:10px 14px; font-size:10px; letter-spacing:.13em; text-transform:uppercase; font-weight:600; color:var(--mark)}
+  .arv-refs summary::-webkit-details-marker{display:none}
+  .arv-refs summary::before{content:"+ "} .arv-refs[open] summary::before{content:"− "}
+  .arv-refs summary:focus-visible{outline:2px solid var(--mark); outline-offset:2px}
+  .arv-refs .in{padding:0 14px 14px}
+  .arv-refs h4{font-size:9.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3); font-weight:600; margin:10px 0 6px}
+  .arv-refs ul{margin:0; padding-left:16px; font-size:12.5px; line-height:1.6; color:var(--ink-2)}
+  .arv-refs small{color:var(--ink-3); font-size:10.5px}
+  .arv-card{margin:14px 0 0}
+  .cd-vazio{font-family:"IBM Plex Sans",sans-serif; font-size:12px; color:var(--ink-3); margin:0}
+  .no{margin:0; padding:11px 14px; background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--k);
+    border-radius:5px; font-family:"IBM Plex Sans",sans-serif; font-size:12.5px; line-height:1.55; color:var(--ink-2)}
+  .no b{display:block; font-family:"EB Garamond",Georgia,serif; font-size:18px; font-weight:500; color:var(--ink); line-height:1.35; margin:2px 0 4px}
+  .no .st{font-size:9px; letter-spacing:.13em; text-transform:uppercase; font-weight:600; color:var(--k); margin-right:8px}
+  .cq{font-family:"EB Garamond",Georgia,serif; font-style:italic; font-size:14px; color:var(--ink-3)}
+  .no .nn{display:block; margin-top:6px; color:var(--ink)}
+  .no .nn::before{content:"na nossa: "; color:var(--ink-3)}
+  .no .fr{display:block; margin-top:8px; padding-top:8px; border-top:1px solid var(--rule); font-family:"EB Garamond",Georgia,serif;
+    font-size:17px; color:var(--ink); line-height:1.4}
+  .no .fr::before{content:"a frase deste caminho"; display:block; font-family:"IBM Plex Sans",sans-serif; font-size:9px;
+    letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3); margin-bottom:2px}
+  .cd-bts{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-top:10px}
+  .cd-nota{font-size:11.5px; color:var(--ink-3); width:100%}
+  .cd-bt{font-family:"IBM Plex Sans",sans-serif; font-size:11.5px; color:var(--mark); background:color-mix(in srgb, var(--mark) 9%, transparent);
+    border:0; border-radius:99px; padding:6px 12px; cursor:pointer}
+  .cd-bt:hover{background:color-mix(in srgb, var(--mark) 17%, transparent)}
+  .cd-bt:focus-visible{outline:2px solid var(--mark); outline-offset:2px}
+  .arv-lista h4{font-family:"IBM Plex Sans",sans-serif; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3);
+    font-weight:600; margin:20px 0 8px}
+  .arv-lista h4:first-child{margin-top:0}
+  .arv-lista .li{display:block; width:100%; text-align:left; margin:0 0 7px; padding:9px 12px; background:var(--surface);
+    border:1px solid var(--rule); border-left:3px solid var(--k); border-radius:5px; cursor:pointer;
+    font-family:"IBM Plex Sans",sans-serif; font-size:12.5px; line-height:1.5; color:var(--ink-2)}
+  .arv-lista .li:hover{border-color:var(--rule-2)}
+  .arv-lista .li:focus-visible{outline:2px solid var(--mark); outline-offset:2px}
+  .arv-lista .li b{display:block; font-family:"EB Garamond",Georgia,serif; font-size:17px; font-weight:500; color:var(--ink); margin:1px 0 2px}
+  .vs.achado .fala{animation:achado 1.6s ease-out}
+  @keyframes achado{0%{background:color-mix(in srgb, var(--mark) 22%, transparent)} 100%{background:transparent}}
+
+  footer{margin-top:56px; padding-top:16px; border-top:1px solid var(--rule);
+    font-family:"IBM Plex Sans",sans-serif; font-size:12px; line-height:1.7; color:var(--ink-3)}
+  footer i{font-family:"EB Garamond",Georgia,serif; font-size:13.5px}
+  @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+
+  /* ---- navegação entre blocos ---- */
+  .blocos{display:flex; align-items:center; gap:8px; margin:0 0 26px; font-family:"IBM Plex Sans",sans-serif; font-size:12px}
+  .blocos.fim{margin:48px 0 0}
+  .bl-seta{flex:1; color:var(--mark); text-decoration:none; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .bl-seta.prox{text-align:right}
+  .bl-seta:hover{text-decoration:underline}
+  .bl-menu{position:relative; flex:none}
+  .bl-menu summary{cursor:pointer; list-style:none; color:var(--ink-2); border:1px solid var(--rule-2); border-radius:99px; padding:5px 11px}
+  .bl-menu summary::-webkit-details-marker{display:none}
+  .bl-menu summary:focus-visible{outline:2px solid var(--mark); outline-offset:2px}
+  .bl-menu ol{position:absolute; z-index:60; left:50%; transform:translateX(-50%); top:calc(100% + 6px); width:min(300px, 86vw);
+    max-height:60vh; overflow-y:auto; margin:0; padding:8px; list-style:none; background:var(--surface);
+    border:1px solid var(--rule-2); border-radius:8px; box-shadow:0 14px 40px rgba(0,0,0,.18)}
+  .blocos.fim .bl-menu ol{top:auto; bottom:calc(100% + 6px)}
+  .bl-menu a{display:block; padding:7px 9px; border-radius:4px; color:var(--ink); text-decoration:none; font-family:"EB Garamond",Georgia,serif; font-size:16px}
+  .bl-menu a small{font-family:"IBM Plex Sans",sans-serif; font-size:10.5px; color:var(--ink-3); margin-left:4px}
+  .bl-menu a:hover{background:var(--surface-2)}
+  .bl-menu a[aria-current="page"]{background:var(--ink); color:var(--ground)}
+  .bl-menu a[aria-current="page"] small{color:var(--ground); opacity:.7}
+  .voltar{margin-bottom:14px}
+</style>
+<body class="notas">
+<main>
+<div class="doc">
+  <a class="voltar" href="index.html">← início</a>
+  <nav class="blocos" aria-label="Blocos do Sermão do Monte"><a class="bl-seta" href="bem-aventurancas.html">← Bem-aventuranças</a><details class="bl-menu"><summary>Sermão do Monte · 2 de 2</summary><ol><li><a href="bem-aventurancas.html">Bem-aventuranças <small>5:1-12</small></a></li><li><a href="sal-e-luz.html" aria-current="page">Sal e luz <small>5:13-16</small></a></li></ol></details><span class="bl-seta"></span></nav>
+  <p class="eyebrow">Mateus 5:13-16 · traduções comparadas</p>
+  <h1>Sal e luz</h1>
+  <p class="dek">Logo depois de chamar os perseguidos de bem-aventurados, Jesus diz a eles o que são. Duas imagens de casa, o sal e a lamparina, e uma só ideia: existir para outro.</p>
+
+  <div class="ctrls">
+    <button class="ctrl" id="b-notas" aria-pressed="true">Notas</button>
+    <button class="ctrl" id="b-grego" aria-pressed="false">Grego</button>
+    <button class="ctrl" id="b-analise" aria-pressed="false">Análise</button>
+    <button class="ctrl" id="b-reset" type="button">Voltar à nossa</button>
+    <a class="ctrl" href="#arvore" style="text-decoration:none">Árvore ↓</a>
+  </div>
+  <div class="forlg">
+    <span class="n-solida"><b>● sólida</b>: apoio direto no texto, na gramática ou numa citação.</span>
+    <span class="n-provavel"><b>● provável</b>: paralelo forte, mas inferido.</span>
+    <span class="n-possivel"><b>● possível</b>: defensável, mas contestada ou trazida de fora do texto.</span>
+    <span class="n-especulativa"><b>● especulativa</b>: etimologia ou efeito poético.</span>
+    <span class="aviso">Avaliação nossa, do argumento por trás de cada opção, e não da beleza da frase. Em cada verso, "escolhas" são leituras que se excluem; "camadas" são o que o grego diz de uma vez e o português não diz junto.</span>
+  </div>
+
+
+  <div class="verso" id="texto"></div>
+
+  <section class="arv-sec" id="arvore">
+    <h2><b>Árvore de significados</b> · as escolhas feitas</h2>
+    <p class="arv-dek">Da palavra grega às perguntas que ela abre, e de cada pergunta aos sentidos possíveis: o que a nossa tradução escolheu, o que guardou junto, o que deixou aberto e o que descartou. Passe o mouse ou toque numa pergunta para ver por que ela é feita e de onde vem; toque numa folha para ver a frase que sai daquele caminho; use os filtros para ver um tipo de folha em todos os versos.</p>
+    <div class="esc" id="arv-vs" role="tablist" aria-label="Árvore"></div>
+    <div class="arv-filtro" id="arv-filtro" aria-label="Filtrar folhas"></div>
+    <div class="arv-raiz" id="arv-topo"></div>
+    <p class="arv-dica" id="arv-dica" hidden>Deslize a árvore para o lado para ver os ramos seguintes.</p>
+    <div class="arv-wrap" id="arv-wrap"><div class="arv-tv" id="arv-tv"></div><div class="arv-tip" id="arv-tip" hidden></div></div>
+    <div class="arv-card" id="arv-card" aria-live="polite"></div>
+    <div class="arv-lista" id="arv-lista" hidden></div>
+    <details class="arv-refs" id="arv-refs"></details>
+  </section>
+
+  <nav class="blocos fim" aria-label="Blocos do Sermão do Monte"><a class="bl-seta" href="bem-aventurancas.html">← Bem-aventuranças</a><details class="bl-menu"><summary>Sermão do Monte · 2 de 2</summary><ol><li><a href="bem-aventurancas.html">Bem-aventuranças <small>5:1-12</small></a></li><li><a href="sal-e-luz.html" aria-current="page">Sal e luz <small>5:13-16</small></a></li></ol></details><span class="bl-seta"></span></nav>
+  <footer>Texto grego: Nestle-Aland, 28ª edição; nos versos 13-16 não há variante que mude o argumento. Bases das notas: W. D. Davies e D. C. Allison, <i>Matthew</i> (ICC), vol. 1; U. Luz, <i>Matthew 1-7</i> (Hermeneia); R. Guelich, <i>The Sermon on the Mount</i>; J. Jeremias, <i>As parábolas de Jesus</i>. Talmude: b. <i>Bekhorot</i> 8b. <i>Evangelho de Tomé</i> 32. J. Winthrop, <i>A Model of Christian Charity</i> (1630).</footer>
+</div>
+</main>
+<script>
+// Mateus 5:13-16. Formato em sermao/LEIA.md
+var BLOCO = {
+ "id": "5-13-16", "arquivo": "sal-e-luz.html", "cap": 5, "ref": "5:13-16",
+ "titulo": "Sal e luz", "nav": "Sal e luz",
+ "eyebrow": "Mateus 5:13-16 · traduções comparadas",
+ "descricao": "Mateus 5:13-16 verso a verso: o sal da terra e a luz do mundo, com as opções de tradução, as notas e a árvore de significados.",
+ "dek": "Logo depois de chamar os perseguidos de bem-aventurados, Jesus diz a eles o que são. Duas imagens de casa, o sal e a lamparina, e uma só ideia: existir para outro.",
+ "secoes": [{"de": 13, "t": "<b>Sal e luz</b> · 5:13-16"}],
+ "novas": [16],
+ "rodape": "Texto grego: Nestle-Aland, 28ª edição; nos versos 13-16 não há variante que mude o argumento. Bases das notas: W. D. Davies e D. C. Allison, <i>Matthew</i> (ICC), vol. 1; U. Luz, <i>Matthew 1-7</i> (Hermeneia); R. Guelich, <i>The Sermon on the Mount</i>; J. Jeremias, <i>As parábolas de Jesus</i>. Talmude: b. <i>Bekhorot</i> 8b. <i>Evangelho de Tomé</i> 32. J. Winthrop, <i>A Model of Christian Charity</i> (1630).",
+ "fontes": [
+  ["b. Bekhorot 8b", "https://www.sefaria.org/Bekhorot.8b"],
+  ["Evangelho de Tomé 32", "http://www.earlychristianwritings.com/thomas/gospelthomas32.html"],
+  ["J. Winthrop", "https://history.hanover.edu/texts/winthmod.html"],
+  ["J. Jeremias, \"Die Lampe", "https://scholar.google.com/scholar?q=Jeremias+%22Die+Lampe+unter+dem+Scheffel%22", 1],
+  ["J. Jeremias, As parábolas", "https://openlibrary.org/search?q=Jeremias+Parables+of+Jesus", 1],
+  ["E. P. Deatrick", "https://scholar.google.com/scholar?q=Deatrick+%22Salt+Soil+Savior%22", 1],
+  ["M. Black", "https://openlibrary.org/search?q=Matthew+Black+Aramaic+Approach+Gospels+Acts", 1]
+ ]
+};
+var GREGO = {
+ "13": "Ὑμεῖς ἐστε τὸ ἅλας τῆς γῆς· ἐὰν δὲ τὸ ἅλας μωρανθῇ, ἐν τίνι ἁλισθήσεται; εἰς οὐδὲν ἰσχύει ἔτι εἰ μὴ βληθὲν ἔξω καταπατεῖσθαι ὑπὸ τῶν ἀνθρώπων.",
+ "14": "Ὑμεῖς ἐστε τὸ φῶς τοῦ κόσμου. οὐ δύναται πόλις κρυβῆναι ἐπάνω ὄρους κειμένη·",
+ "15": "οὐδὲ καίουσιν λύχνον καὶ τιθέασιν αὐτὸν ὑπὸ τὸν μόδιον ἀλλ᾽ ἐπὶ τὴν λυχνίαν, καὶ λάμπει πᾶσιν τοῖς ἐν τῇ οἰκίᾳ.",
+ "16": "οὕτως λαμψάτω τὸ φῶς ὑμῶν ἔμπροσθεν τῶν ἀνθρώπων, ὅπως ἴδωσιν ὑμῶν τὰ καλὰ ἔργα καὶ δοξάσωσιν τὸν πατέρα ὑμῶν τὸν ἐν τοῖς οὐρανοῖς."
+};
+var OPCOES = {
+ "13": [
+  { "id": "nossa", "nome": "Nossa", "t": "{Vocês é que são|\"Vós sois\".|ὑμεῖς está sobrando, porque o verbo já diz a pessoa: <b>o pronome é enfático</b>. E o verbo está no indicativo. Não é \"sejam\": <b>é uma declaração</b> sobre os mesmos perseguidos de 5:10-12, que continuam sendo o \"vocês\".} o {sal da terra|\"o sal do mundo\".|O sal conservava, temperava e selava: a Lei manda pôr sal em toda oferta, \"o sal da aliança do teu Deus\" (Lv 2:13; Nm 18:19). E γῆ é tanto a terra habitada quanto o solo, onde o sal também servia. <b>\"Terra\" guarda os dois</b>.}. Mas, se o sal {perder o sabor|\"tornar-se insípido\", ou \"enlouquecer\".|μωραίνω é, ao pé da letra, <b>\"ficar tolo\"</b>: é o verbo de Rm 1:22, \"tornaram-se loucos\". Marcos diz \"ficar sem sal\" (9:50). A explicação mais citada é um jogo de palavras do aramaico, em que <i>tāpēl</i> é ao mesmo tempo \"insosso\" e \"tolo\".}, {com que se vai salgar de novo|\"com que se há de salgar?\".|O sujeito do verbo fica aberto: o próprio sal, ou a terra. A pergunta soa a impossível, como no Talmude, onde perguntam a Josué ben Hananias como salgar o sal que perdeu o sabor e ele responde: \"com a placenta de uma mula\" (b. <i>Bekhorot</i> 8b), isto é, com o que não existe.}? Já não serve para nada, a não ser para {ser jogado fora e pisado pelas pessoas|\"ser lançado fora e pisado pelos homens\".|\"Lançar fora\" é linguagem de juízo em Mateus: 8:12; 22:13; 25:30. O sal inútil acaba na rua, debaixo dos pés.}." },
+  { "id": "literal", "nome": "Literal", "t": "Vós sois o sal da terra; mas, se o sal {se tornar insípido|\"ficar louco\".|A tradução tradicional dá o sentido culinário e deixa de lado o sentido próprio do verbo, \"tornar-se tolo\".}, com que será salgado? Para nada mais presta, senão para ser lançado fora e pisado pelos homens." },
+  { "id": "tolo", "nome": "O sal que enlouquece", "t": "Vocês são o sal da terra. Mas, {se o sal ficar tolo|\"se o sal perder o sabor\".|<b>Traduz o verbo pelo sentido próprio</b>: μωραίνω é tornar-se tolo, como em Rm 1:22 e 1Co 1:20 (\"Deus tornou tola a sabedoria do mundo\"). A imagem do sal some, mas aparece a acusação: <b>o discípulo que perde o sabor fica tolo</b>, e em 7:26 o tolo (μωρός) é quem ouve e não pratica.}, com que se vai salgar? Já não serve para nada, a não ser para ser jogado fora e pisado." },
+  { "id": "solo", "nome": "Sal para o solo", "t": "Vocês são o sal {para o solo|\"da terra\".|Lê γῆ como solo. Em Lucas o mesmo dito termina assim: \"não serve nem para a terra nem para o monturo\" (14:35), como se o sal fosse adubo. E. P. Deatrick defendeu essa leitura (\"Salt, Soil, Savior\", 1962). <b>Possível em Lucas, mais difícil em Mateus</b>, que põe \"terra\" em paralelo com \"mundo\" no verso seguinte.}. Mas, se o sal perder a força, com que se vai salgar? Já não serve para nada, a não ser para ser jogado fora e pisado." },
+  { "id": "alianca", "nome": "Sal da aliança", "t": "Vocês são {o sal da aliança para a terra|\"o sal da terra\".|<b>Acréscimo interpretativo.</b> Na Bíblia hebraica há a \"aliança de sal\", que não se desfaz (Nm 18:19; 2Cr 13:5), e todo sacrifício levava sal (Lv 2:13). Lida assim, a frase diz que os discípulos são o que mantém de pé a relação de Deus com o mundo. Nada no verso cita esses textos.}. Mas, se o sal perder o sabor, com que se vai salgar? Já não serve para nada, a não ser para ser jogado fora e pisado." }
+ ],
+ "14": [
+  { "id": "nossa", "nome": "Nossa", "t": "Vocês é que são {a luz do mundo|\"uma luz para o mundo\".|Em Isaías, a luz das nações é Israel, o servo: \"eu te farei luz para as nações\" (Is 42:6; 49:6). <b>Aqui a vocação de Israel passa a este grupo de discípulos.</b> Em João, quem diz \"eu sou a luz do mundo\" é Jesus (Jo 8:12); em Mateus, ele diz isso dos outros.}. {Não se pode esconder|\"Não deve se esconder\".|É constatação, não ordem: \"não pode\". <b>A visibilidade não é tarefa; é consequência</b> de estar onde está.} {uma cidade que está no alto de um monte|\"a cidade posta sobre o monte\".|Sem artigo: \"uma cidade\", qualquer uma, como as da Galileia, que se viam de longe. A leitura que vê aqui Jerusalém, o monte para onde as nações vão subir (Is 2:2-3), é possível, mas o grego não aponta para uma cidade só.}." },
+  { "id": "literal", "nome": "Literal", "t": "Vós sois a luz do mundo. Não se pode esconder uma cidade {situada sobre um monte|\"edificada sobre um monte\".|κειμένη é \"que jaz\", \"que está posta\". \"Edificada\", da tradição, acrescenta a construção.}." },
+  { "id": "siao", "nome": "Sião", "t": "Vocês são a luz do mundo. {Não se esconde a cidade posta sobre o monte|\"uma cidade num monte\".|Põe o artigo que o grego não tem, para ler <b>Jerusalém</b>: \"nos últimos dias, o monte da casa do Senhor será firmado no alto dos montes, e para ele afluirão todas as nações\" (Is 2:2); \"levanta-te, resplandece, porque vem a tua luz\" (Is 60:1-3). A ligação é de imagem, não de palavra.}." },
+  { "id": "nacoes", "nome": "Luz para as nações", "t": "Vocês são a {luz para o mundo|\"a luz do mundo\".|Lê o genitivo como \"para\": a luz que existe <b>para</b> o mundo, e não a que pertence a ele. É a fórmula de Is 49:6, \"luz para as nações\". Ganha o sentido de missão; perde a forma simples do grego.}. Ninguém pode esconder uma cidade que está no alto de um monte." }
+ ],
+ "15": [
+  { "id": "nossa", "nome": "Nossa", "t": "{Ninguém acende|\"Nem se acende\".|O grego usa a terceira pessoa do plural sem sujeito, como o hebraico e o aramaico fazem para \"a gente\". Em português, \"ninguém\" diz isso sem pesar.} uma {lamparina|\"candeia\".|λύχνος é a lamparina de barro com azeite e pavio, da casa comum. \"Candeia\" é a palavra da tradição; \"lamparina\" é a coisa que o ouvinte tinha na mão.} para pôr {debaixo de um cesto|\"debaixo do alqueire\".|μόδιος é uma medida de grão, cerca de nove litros, e o recipiente em que se media. \"Alqueire\" é a medida portuguesa que a tradição usou, maior e variável de região para região, e hoje ninguém sabe o que é. <b>\"Cesto\" dá o objeto e perde a medida.</b>}, e sim {no candeeiro|\"no velador\".|λυχνία é o suporte alto da lamparina. Na Bíblia grega é também a palavra do candelabro do santuário (Êx 25:31), mas aqui é o da casa.}, e ela ilumina {todos os que estão na casa|\"os que entram\".|A casa camponesa simples tinha muitas vezes um cômodo só, e uma lamparina bastava para todos. Lucas diz \"para que os que entram vejam a luz\" (Lc 8:16; 11:33), pensando numa casa com entrada. <b>Mateus fala de quem já está dentro.</b>}." },
+  { "id": "literal", "nome": "Literal", "t": "Nem se acende a candeia e se coloca debaixo do alqueire, mas no velador, e dá luz a todos que estão na casa." },
+  { "id": "apagar", "nome": "Abafar", "t": "Ninguém acende uma lamparina {para depois abafá-la com um cesto|\"para pôr debaixo do cesto\".|J. Jeremias propôs que cobrir a lamparina com o μόδιος era o modo de apagá-la sem fumaça. <b>Então o problema não é esconder a luz, é extingui-la.</b> A leitura é engenhosa e discutida, e o grego só diz \"pôr debaixo\".}, e sim no candeeiro, e ela ilumina todos os que estão na casa." },
+  { "id": "lucas", "nome": "Lucas", "t": "{Ninguém acende uma lamparina para pô-la num lugar escondido ou debaixo do cesto, e sim no candeeiro, para que os que entram vejam a luz|\"e ela ilumina todos os que estão na casa\".|É Lucas 11:33. <b>A luz é para quem vem de fora</b>, e o dito vira imagem da missão. Mateus fala de quem já está na casa. A diferença não é de tradução, é de texto, e mostra o que Mateus escolheu.}." }
+ ],
+ "16": [
+  { "id": "nossa", "nome": "Nossa", "t": "{Do mesmo modo|\"Assim\".|οὕτως remete à lamparina: como ela, no lugar alto, para a casa inteira. Não é \"de tal maneira que\".}, a luz de vocês {tem de brilhar|\"brilhe\".|Imperativo de terceira pessoa, que o português só faz com a forma do subjuntivo: \"brilhe\" soa a desejo. <b>Depois de dois versos no indicativo (\"vocês são\"), vem a ordem</b>, e a ordem é ser o que já se é.} diante das pessoas, para que elas vejam {o bem que vocês fazem|\"as vossas boas obras\".|καλὰ ἔργα: καλός é bom e belo, o que se vê que é bom. E a frase parece colidir com 6:1, \"cuidado para não praticar a justiça diante das pessoas para serem vistos por elas\". <b>O que separa os dois é o fim</b>: aqui, a glória vai para o Pai; lá, para quem pratica.} e {deem glória ao Pai de vocês, que está nos céus|\"glorifiquem a vosso Pai\".|É a primeira vez em Mateus que Deus é chamado \"o Pai de vocês\". No sermão, Deus volta a ser chamado assim, \"o Pai de vocês\" ou \"teu Pai\", mais catorze vezes. <b>O ponto final da luz não é quem brilha</b>.}." },
+  { "id": "literal", "nome": "Literal", "t": "Assim brilhe a vossa luz diante dos homens, para que vejam as vossas boas obras e glorifiquem a vosso Pai, que está nos céus." },
+  { "id": "belas", "nome": "Belas obras", "t": "Do mesmo modo, a luz de vocês tem de brilhar diante das pessoas, para que elas vejam {a beleza do que vocês fazem|\"as vossas boas obras\".|Traduz καλός pelo lado que \"bom\" perde: <b>o bem que se vê como belo</b>. 1Pe 2:12 diz o mesmo com a mesma palavra: \"vendo as vossas boas obras, glorifiquem a Deus\". O risco é estetizar: o verso fala de conduta, não de aparência.} e deem glória ao Pai de vocês, que está nos céus." },
+  { "id": "agentes", "nome": "Façam brilhar", "t": "{Façam a luz de vocês brilhar|\"Assim brilhe a vossa luz\".|Põe os discípulos como sujeito. <b>No grego o sujeito é a luz</b>: ela brilha, e eles não a acendem. A opção é natural em português e muda o centro da frase.} diante das pessoas, para que elas vejam o bem que vocês fazem e deem glória ao Pai de vocês, que está nos céus." }
+ ]
+};
+var ANALISE = {
+ "13": { "forca": {
+   "nossa": ["solida", "O pronome enfático, o indicativo e a linguagem de juízo estão no texto; o jogo aramaico vai só na nota."],
+   "literal": ["solida", "Forma tradicional, com o sentido culinário."],
+   "tolo": ["provavel", "O verbo significa isso, e 7:26 usa a mesma raiz; mas a imagem do sal continua sendo a primeira."],
+   "solo": ["possivel", "Apoiada em Lucas 14:35; em Mateus, \"terra\" está em paralelo com \"mundo\"."],
+   "alianca": ["possivel", "Os textos existem; o verso não os cita."] },
+  "escolhas": [
+   { "t": "O que o sal faz", "polos": "conservar × temperar × selar a aliança × adubar o solo", "peso": "O verso não escolhe. O que o texto diz é negativo: sal que perde a função não serve para nada. A tradução deve deixar \"sal\" sem explicar." },
+   { "t": "Quem seria salgado", "polos": "o próprio sal × a terra", "peso": "O sal: a pergunta segue \"se o sal perder o sabor\". Mas o grego deixa o sujeito implícito, e o português também pode." } ],
+  "camadas": [
+   { "t": "μωραίνω", "d": "Perder o sabor e ficar tolo, numa palavra. Nenhum verbo português faz as duas coisas." },
+   { "t": "γῆ", "d": "A terra habitada e o solo. \"Terra\" guarda os dois: aqui o português ganha." },
+   { "t": "ὑμεῖς", "d": "O pronome que insiste: \"vocês, e não outros\". \"Vocês é que são\" carrega a ênfase." } ] },
+ "14": { "forca": {
+   "nossa": ["solida", "O eco de Isaías e a ausência do artigo estão no texto."],
+   "literal": ["solida", "Tradução de palavra."],
+   "siao": ["possivel", "A imagem de Is 2 e 60 é forte, mas o grego não tem artigo."],
+   "nacoes": ["provavel", "Is 49:6 sustenta o sentido; a forma \"para\" interpreta o genitivo."] },
+  "escolhas": [
+   { "t": "Que cidade", "polos": "qualquer cidade no alto, imagem comum × Jerusalém, o monte de Is 2", "peso": "Qualquer cidade: não há artigo. O eco de Sião é possível como segunda leitura." },
+   { "t": "Constatação ou ordem", "polos": "\"não pode ser escondida\" × \"não deve se esconder\"", "peso": "Constatação: o verbo é \"poder\". A ordem só vem em 5:16." } ],
+  "camadas": [
+   { "t": "τοῦ κόσμου", "d": "A luz que pertence ao mundo e a que existe para ele. O genitivo diz os dois; \"do mundo\" puxa para o primeiro." },
+   { "t": "κειμένη", "d": "\"Que está posta\", sem dizer quem pôs. \"Edificada\" acrescenta, \"situada\" fica técnico." } ] },
+ "15": { "forca": {
+   "nossa": ["solida", "Léxico e realia da casa galileia; a comparação com Lucas é dado de texto."],
+   "literal": ["solida", "Forma tradicional."],
+   "apagar": ["possivel", "Hipótese de Jeremias, discutida; o grego só diz \"pôr debaixo\"."],
+   "lucas": ["solida", "É o texto de Lucas 11:33; não é o de Mateus."] },
+  "escolhas": [
+   { "t": "Esconder ou apagar", "polos": "cobrir a luz para que não se veja × abafá-la para que se apague", "peso": "Esconder: é o que o verso anterior pede (a cidade que não se esconde). Apagar fica como leitura possível." },
+   { "t": "Para quem é a luz", "polos": "os que estão na casa (Mateus) × os que entram (Lucas)", "peso": "Os da casa, porque é o texto de Mateus. A diferença é dos evangelistas, e a tradução não deve harmonizar." } ],
+  "camadas": [
+   { "t": "μόδιος", "d": "A medida e o recipiente. \"Alqueire\" guarda a medida e ninguém a reconhece; \"cesto\" guarda o objeto." },
+   { "t": "λυχνία", "d": "O suporte da casa e o candelabro do santuário. A segunda camada só aparece para quem conhece Êx 25." },
+   { "t": "καίουσιν", "d": "\"Eles acendem\", sem sujeito: o \"a gente\" semítico. \"Ninguém\" resolve, e troca a forma positiva pela negativa." } ] },
+ "16": { "forca": {
+   "nossa": ["solida", "O imperativo, a finalidade e o primeiro \"Pai de vocês\" estão no texto."],
+   "literal": ["solida", "Forma tradicional."],
+   "belas": ["provavel", "καλός tem o sentido de belo, e 1Pe 2:12 confirma o uso; o risco é estetizar."],
+   "agentes": ["possivel", "Natural em português, mas troca o sujeito do grego."] },
+  "escolhas": [
+   { "t": "Ver as obras e 6:1", "polos": "fazer o bem diante das pessoas (5:16) × não fazer diante das pessoas para ser visto (6:1)", "peso": "Não há contradição: o critério é o fim. Aqui a glória vai ao Pai; em 6:1, o fim é ser visto. A tradução deve manter \"diante das pessoas\" nos dois lugares, para o leitor ver a tensão." },
+   { "t": "Quem faz brilhar", "polos": "a luz brilha (grego) × os discípulos a fazem brilhar", "peso": "A luz: o sujeito gramatical é ela. Os discípulos são o lugar, não a fonte." } ],
+  "camadas": [
+   { "t": "λαμψάτω", "d": "Imperativo de terceira pessoa: ordem dada a quem ouve, sobre a luz. O português só a faz com o subjuntivo, \"brilhe\", que soa a desejo, ou \"tem de brilhar\", que pesa." },
+   { "t": "καλά", "d": "Bom e belo, o bem visível. \"Boas obras\" perde o visível; \"belas obras\" perde o moral." },
+   { "t": "ἔργα", "d": "Obras, ações, trabalho. \"Obras\" soa a doutrina; \"o que vocês fazem\" soa vago." } ] }
+};
+var ARVORE = {
+ "13": { "raiz": "Ὑμεῖς ἐστε τὸ ἅλας τῆς γῆς · ἐὰν δὲ τὸ ἅλας μωρανθῇ, ἐν τίνι ἁλισθήσεται;", "nossa": "Vocês é que são o sal da terra. Mas, se o sal perder o sabor, com que se vai salgar de novo?",
+  "q": [
+   { "q": "Ὑμεῖς ἐστε · declaração ou ordem?", "r": [
+     { "s": "e", "t": "declaração: vocês são", "p": "Indicativo, com pronome enfático. Os perseguidos de 5:10-12 continuam sendo o \"vocês\".", "n": "\"Vocês é que são\"" },
+     { "s": "d", "t": "ordem: sejam o sal", "p": "Não há imperativo. A ordem só vem em 5:16." } ]},
+   { "q": "τὸ ἅλας · que função?", "r": [
+     { "s": "c", "t": "conservar e temperar", "p": "O uso de casa, que qualquer ouvinte conhecia." },
+     { "s": "c", "t": "selar a aliança", "p": "Lv 2:13; Nm 18:19. Segunda camada, para quem conhece a Lei." },
+     { "s": "d", "t": "adubar o solo", "p": "Leitura de Lc 14:35; em Mateus, \"terra\" está em paralelo com \"mundo\"." } ]},
+   { "q": "τῆς γῆς · que terra?", "r": [
+     { "s": "e", "t": "a terra habitada", "p": "Em paralelo com \"o mundo\" de 5:14.", "n": "\"da terra\"" },
+     { "s": "c", "t": "o solo", "p": "O mesmo γῆ; \"terra\" em português guarda os dois." } ]},
+   { "q": "μωρανθῇ · perder o quê?", "r": [
+     { "s": "e", "t": "o sabor", "p": "O sentido que a imagem pede.", "n": "\"perder o sabor\"" },
+     { "s": "c", "t": "o juízo: ficar tolo", "p": "O sentido próprio do verbo (Rm 1:22); em 7:26 o tolo é quem ouve e não pratica." } ]},
+   { "q": "ἐν τίνι ἁλισθήσεται · pergunta real?", "r": [
+     { "s": "e", "t": "não: é o impossível", "p": "Sal que deixa de ser sal não tem conserto. O Talmude faz a mesma pergunta como enigma (b. Bekhorot 8b).", "n": "\"com que se vai salgar de novo?\"" },
+     { "s": "d", "t": "sim: há como restaurar", "p": "O resto do verso fecha a porta: \"já não serve para nada\"." } ]} ]},
+ "14": { "raiz": "Ὑμεῖς ἐστε τὸ φῶς τοῦ κόσμου · οὐ δύναται πόλις κρυβῆναι ἐπάνω ὄρους κειμένη", "nossa": "Vocês é que são a luz do mundo. Não se pode esconder uma cidade que está no alto de um monte.",
+  "q": [
+   { "q": "τὸ φῶς τοῦ κόσμου · de quem era o título?", "r": [
+     { "s": "e", "t": "de Israel, o servo de Isaías", "p": "Is 42:6; 49:6. A vocação passa aos discípulos.", "n": "\"a luz do mundo\"" },
+     { "s": "c", "t": "de Jesus, em João", "p": "Jo 8:12. Em Mateus, Jesus dá o título aos outros." } ]},
+   { "q": "τοῦ κόσμου · que genitivo?", "r": [
+     { "s": "c", "t": "a luz que está no mundo", "p": "A leitura simples do genitivo.", "n": "\"do mundo\"" },
+     { "s": "c", "t": "a luz para o mundo", "p": "Is 49:6, \"luz para as nações\"." } ]},
+   { "q": "πόλις · que cidade?", "r": [
+     { "s": "e", "t": "qualquer cidade no alto", "p": "Sem artigo; as cidades da Galileia se viam de longe.", "n": "\"uma cidade\"" },
+     { "s": "a", "t": "Jerusalém, o monte das nações", "p": "Is 2:2-3; 60:1-3. Eco de imagem, não de palavra." } ]},
+   { "q": "οὐ δύναται · constatação ou ordem?", "r": [
+     { "s": "e", "t": "constatação: não pode", "p": "A visibilidade é consequência, não tarefa.", "n": "\"Não se pode esconder\"" },
+     { "s": "d", "t": "ordem: não se esconda", "p": "O verbo é \"poder\", não um imperativo." } ]} ]},
+ "15": { "raiz": "οὐδὲ καίουσιν λύχνον καὶ τιθέασιν αὐτὸν ὑπὸ τὸν μόδιον ἀλλ᾽ ἐπὶ τὴν λυχνίαν", "nossa": "Ninguém acende uma lamparina para pôr debaixo de um cesto, e sim no candeeiro, e ela ilumina todos os que estão na casa.",
+  "q": [
+   { "q": "ὑπὸ τὸν μόδιον · esconder ou apagar?", "r": [
+     { "s": "e", "t": "esconder", "p": "Continua a cidade que não se esconde.", "n": "\"debaixo de um cesto\"" },
+     { "s": "a", "t": "apagar, abafando", "p": "Hipótese de J. Jeremias." } ]},
+   { "q": "μόδιος · que objeto?", "r": [
+     { "s": "e", "t": "o recipiente: um cesto", "p": "O objeto que se reconhece.", "n": "\"cesto\"" },
+     { "s": "d", "t": "a medida: o alqueire", "p": "Correto e opaco para o leitor de hoje." } ]},
+   { "q": "τῇ οἰκίᾳ · para quem é a luz?", "r": [
+     { "s": "e", "t": "os que estão na casa", "p": "A casa simples, muitas vezes de um cômodo; é o texto de Mateus.", "n": "\"todos os que estão na casa\"" },
+     { "s": "d", "t": "os que entram", "p": "É Lucas 11:33; harmonizar apaga a diferença." } ]},
+   { "q": "λυχνία · que suporte?", "r": [
+     { "s": "e", "t": "o candeeiro da casa", "p": "O contexto é doméstico.", "n": "\"candeeiro\"" },
+     { "s": "c", "t": "o candelabro do santuário", "p": "A mesma palavra em Êx 25:31; eco para quem o conhece." } ]} ]},
+ "16": { "raiz": "οὕτως λαμψάτω τὸ φῶς ὑμῶν ἔμπροσθεν τῶν ἀνθρώπων, ὅπως ἴδωσιν ὑμῶν τὰ καλὰ ἔργα", "nossa": "Do mesmo modo, a luz de vocês tem de brilhar diante das pessoas, para que elas vejam o bem que vocês fazem e deem glória ao Pai de vocês, que está nos céus.",
+  "q": [
+   { "q": "λαμψάτω · que tipo de ordem?", "r": [
+     { "s": "e", "t": "ser o que já se é", "p": "Depois de \"vocês são\", a ordem é deixar a luz fazer o que faz.", "n": "\"tem de brilhar\"" },
+     { "s": "d", "t": "produzir a luz", "p": "O sujeito é a luz; os discípulos não a acendem." } ]},
+   { "q": "ἔμπροσθεν τῶν ἀνθρώπων · e 6:1?", "r": [
+     { "s": "e", "t": "o fim decide", "p": "Aqui a glória vai ao Pai; em 6:1, o fim é ser visto.", "n": "\"diante das pessoas\", mantido nos dois versos" },
+     { "s": "d", "t": "contradição", "p": "Os dois versos usam a mesma expressão justamente para que o leitor compare os fins." } ]},
+   { "q": "τὰ καλὰ ἔργα · bom ou belo?", "r": [
+     { "s": "e", "t": "o bem que se vê", "p": "καλός é bom de um jeito visível.", "n": "\"o bem que vocês fazem\"" },
+     { "s": "c", "t": "belo", "p": "1Pe 2:12 usa a mesma palavra." },
+     { "s": "d", "t": "obras, em sentido doutrinal", "p": "\"Boas obras\" puxa para o debate da Reforma, que não é o do texto." } ]},
+   { "q": "τὸν πατέρα ὑμῶν · por que agora?", "r": [
+     { "s": "e", "t": "a primeira vez que Deus é \"o Pai de vocês\"", "p": "A expressão vai dominar o sermão.", "n": "\"o Pai de vocês\"" } ]} ]}
+};
+var LIGA = {
+ "13": { "declaração: vocês são": ["Vocês é que são o sal da terra", "nossa"], "ordem: sejam o sal": ["Sejam o sal da terra"],
+  "conservar e temperar": ["o sal da terra", "nossa"], "selar a aliança": ["o sal da aliança para a terra", "alianca"], "adubar o solo": ["o sal para o solo", "solo"],
+  "a terra habitada": ["o sal da terra", "nossa"], "o solo": ["o sal para o solo", "solo"],
+  "o sabor": ["se o sal perder o sabor", "nossa"], "o juízo: ficar tolo": ["se o sal ficar tolo", "tolo"],
+  "não: é o impossível": ["com que se vai salgar de novo?", "nossa"], "sim: há como restaurar": ["como se vai salgar de novo?"] },
+ "14": { "de Israel, o servo de Isaías": ["Vocês é que são a luz do mundo", "nossa"], "de Jesus, em João": ["Eu sou a luz do mundo (Jo 8:12)"],
+  "a luz que está no mundo": ["a luz do mundo", "nossa"], "a luz para o mundo": ["a luz para o mundo", "nacoes"],
+  "qualquer cidade no alto": ["uma cidade que está no alto de um monte", "nossa"], "Jerusalém, o monte das nações": ["a cidade posta sobre o monte", "siao"],
+  "constatação: não pode": ["Não se pode esconder", "nossa"], "ordem: não se esconda": ["Que a cidade não se esconda"] },
+ "15": { "esconder": ["para pôr debaixo de um cesto", "nossa"], "apagar, abafando": ["para depois abafá-la com um cesto", "apagar"],
+  "o recipiente: um cesto": ["debaixo de um cesto", "nossa"], "a medida: o alqueire": ["debaixo do alqueire", "literal"],
+  "os que estão na casa": ["ilumina todos os que estão na casa", "nossa"], "os que entram": ["para que os que entram vejam a luz", "lucas"],
+  "o candeeiro da casa": ["no candeeiro", "nossa"], "o candelabro do santuário": ["no candelabro"] },
+ "16": { "ser o que já se é": ["a luz de vocês tem de brilhar", "nossa"], "produzir a luz": ["Façam a luz de vocês brilhar", "agentes"],
+  "o fim decide": ["diante das pessoas, para que deem glória ao Pai", "nossa"], "contradição": ["(trocar \"diante das pessoas\" por outra expressão em 6:1)"],
+  "o bem que se vê": ["o bem que vocês fazem", "nossa"], "belo": ["a beleza do que vocês fazem", "belas"], "obras, em sentido doutrinal": ["as vossas boas obras", "literal"],
+  "a primeira vez que Deus é \"o Pai de vocês\"": ["deem glória ao Pai de vocês", "nossa"] }
+};
+var TRECHO = { "raiz": "Mateus 5:13-16", "nossa": "As escolhas que valem para o bloco inteiro: o sal e a luz lidos juntos",
+ "q": [
+  { "q": "Ὑμεῖς ἐστε · quem são \"vocês\"?", "r": [
+    { "s": "e", "t": "os perseguidos de 5:10-12", "p": "O \"vocês\" de 5:11 continua sem quebra. Quem acabou de ser chamado de bem-aventurado na perseguição recebe agora uma função.", "vv": [13, 14] },
+    { "s": "c", "t": "Israel renovado", "p": "Os títulos de Israel (luz das nações, aliança de sal) passam ao grupo.", "vv": [13, 14] },
+    { "s": "d", "t": "uma elite moral", "p": "O texto acabou de felicitar os que estão por baixo." } ]},
+  { "q": "sal e luz · por que duas imagens?", "r": [
+    { "s": "e", "t": "um só ponto: existir para outro", "p": "O sal não serve para si, a lamparina não ilumina a si mesma.", "vv": [13, 15] },
+    { "s": "c", "t": "uma pelo que se perde, outra pelo que se mostra", "p": "O sal pode perder a função (13); a luz não pode ser escondida (14-15).", "vv": [13, 14, 15] } ]},
+  { "q": "γῆ e κόσμος · mesmo alcance?", "r": [
+    { "s": "e", "t": "sim: os dois são universais", "p": "\"Terra\" e \"mundo\" em paralelo, num grupo pequeno da Galileia.", "vv": [13, 14] },
+    { "s": "d", "t": "\"terra\" como terra de Israel", "p": "O paralelo com \"mundo\" impede." } ]},
+  { "q": "indicativo e imperativo · que ordem?", "r": [
+    { "s": "e", "t": "primeiro ser, depois fazer", "p": "Dois \"vocês são\" (13, 14) e só então \"brilhe\" (16). A mesma ordem das bem-aventuranças: graça antes de exigência.", "vv": [13, 14, 16] },
+    { "s": "d", "t": "tudo como ordem", "p": "Ler 13-14 como \"sejam\" apaga a sequência." } ]},
+  { "q": "o sal pisado · ameaça ou constatação?", "r": [
+    { "s": "c", "t": "constatação", "p": "É o destino de sal que não salga.", "vv": [13] },
+    { "s": "c", "t": "aviso de juízo", "p": "\"Lançar fora\" é linguagem de juízo em Mateus (8:12; 22:13; 25:30).", "vv": [13] } ]},
+  { "q": "ser visto · como conciliar com 6:1-18?", "r": [
+    { "s": "e", "t": "pelo fim: o Pai, e não quem pratica", "p": "5:16 e 6:1 usam \"diante das pessoas\" de propósito.", "vv": [16] },
+    { "s": "a", "t": "pelo tipo de ato", "p": "Obras de serviço se veem; esmola, oração e jejum, não. Leitura antiga e defensável, mas o texto não distingue assim.", "vv": [16] } ]},
+  { "q": "a recepção · a cidade no monte", "r": [
+    { "s": "d", "t": "a nação eleita", "p": "J. Winthrop, em 1630, aplicou \"a cidade no monte\" à colônia de Massachusetts, e a frase virou lema político nos Estados Unidos. O texto fala dos discípulos, não de um povo político.", "vv": [14] },
+    { "s": "c", "t": "a comunidade visível", "p": "A leitura que fica no texto: um grupo que não tem como passar despercebido.", "vv": [14] } ]} ]
+};
+var ORIGEM = {
+ "trecho": {
+  "Ὑμεῖς ἐστε · quem são \"vocês\"?": { "p": "O \"vocês\" começa em 5:11 e continua sem nenhuma marca de mudança. É preciso decidir se o sal e a luz são os mesmos perseguidos.", "t": ["Mt 5:11-14"], "e": ["Davies e Allison, vol. 1", "U. Luz, Matthew 1-7"] },
+  "sal e luz · por que duas imagens?": { "p": "O bloco junta dois ditos que em Marcos e Lucas aparecem separados.", "t": ["Mc 9:50", "Mc 4:21", "Lc 14:34-35", "Lc 11:33"], "e": ["R. Guelich, The Sermon on the Mount"] },
+  "γῆ e κόσμος · mesmo alcance?": { "p": "Um grupo pequeno, numa região periférica, recebe uma função universal.", "t": ["Is 42:6", "Is 49:6"], "e": [] },
+  "indicativo e imperativo · que ordem?": { "p": "Os verbos mudam de modo dentro do bloco.", "t": ["Mt 5:13-16"], "e": ["biblia/METODO.md, item 7"] },
+  "o sal pisado · ameaça ou constatação?": { "p": "O fim do verso 13 tem o vocabulário que Mateus usa para o juízo.", "t": ["Mt 8:12", "Mt 22:13", "Mt 25:30"], "e": [] },
+  "ser visto · como conciliar com 6:1-18?": { "p": "Duas instruções do mesmo sermão usam a mesma expressão, \"diante das pessoas\", com sinais opostos.", "t": ["Mt 5:16", "Mt 6:1"], "e": ["U. Luz, Matthew 1-7", "Davies e Allison, vol. 1"] },
+  "a recepção · a cidade no monte": { "p": "A frase teve vida própria fora da igreja, e a leitura política pesa sobre ela.", "t": [], "e": ["J. Winthrop, A Model of Christian Charity (1630)"] } },
+ "13": {
+  "Ὑμεῖς ἐστε · declaração ou ordem?": { "p": "O pronome é desnecessário em grego, e o verbo está no indicativo, onde se esperaria uma exortação.", "t": ["Mt 5:13"], "e": [] },
+  "τὸ ἅλας · que função?": { "p": "O sal tinha muitos usos, e o verso não diz qual.", "t": ["Lv 2:13", "Nm 18:19", "2Cr 13:5", "2Rs 2:19-22"], "e": ["Davies e Allison, vol. 1"] },
+  "τῆς γῆς · que terra?": { "p": "γῆ é a terra habitada e o solo; Lucas põe o dito ao lado do monturo.", "t": ["Lc 14:35"], "e": ["E. P. Deatrick, \"Salt, Soil, Savior\", Biblical Archaeologist 25 (1962)"] },
+  "μωρανθῇ · perder o quê?": { "p": "O verbo grego quer dizer \"ficar tolo\", e é estranho para sal. Marcos usa outra palavra.", "t": ["Mc 9:50", "Rm 1:22", "1Co 1:20", "Mt 7:26"], "e": ["M. Black, An Aramaic Approach to the Gospels and Acts", "J. Jeremias, As parábolas de Jesus"] },
+  "ἐν τίνι ἁλισθήσεται · pergunta real?": { "p": "Cloreto de sódio puro não perde o sabor; a pergunta soa a impossível, e o Talmude a usa como enigma.", "t": ["b. Bekhorot 8b"], "e": [] } },
+ "14": {
+  "τὸ φῶς τοῦ κόσμου · de quem era o título?": { "p": "O título já tinha dono antes de Jesus dá-lo aos discípulos.", "t": ["Is 42:6", "Is 49:6", "Is 60:1-3", "Jo 8:12", "Mt 4:16"], "e": [] },
+  "τοῦ κόσμου · que genitivo?": { "p": "O genitivo grego admite pertença e destino.", "t": ["Is 49:6"], "e": [] },
+  "πόλις · que cidade?": { "p": "O verso não tem artigo, e parte da tradição leu Jerusalém. O Evangelho de Tomé traz o mesmo dito, sem nomear cidade nenhuma.", "t": ["Is 2:2-3", "Is 60:1-3", "Evangelho de Tomé 32"], "e": ["Davies e Allison, vol. 1"] },
+  "οὐ δύναται · constatação ou ordem?": { "p": "O verso fica entre duas declarações e um imperativo.", "t": ["Mt 5:14-16"], "e": [] } },
+ "15": {
+  "ὑπὸ τὸν μόδιον · esconder ou apagar?": { "p": "Ninguém esconderia de propósito uma lamparina acesa; o gesto precisa de explicação.", "t": ["Mc 4:21"], "e": ["J. Jeremias, \"Die Lampe unter dem Scheffel\", ZNW 39 (1940)"] },
+  "μόδιος · que objeto?": { "p": "A palavra é de medida, e a tradição portuguesa a traduziu por outra medida.", "t": ["Mt 5:15"], "e": [] },
+  "τῇ οἰκίᾳ · para quem é a luz?": { "p": "Lucas, no mesmo dito, fala de quem entra; Mateus, de quem está dentro.", "t": ["Lc 8:16", "Lc 11:33"], "e": ["J. Jeremias, As parábolas de Jesus"] },
+  "λυχνία · que suporte?": { "p": "A palavra é a mesma do candelabro do santuário na Bíblia grega.", "t": ["Êx 25:31", "Zc 4:2"], "e": [] } },
+ "16": {
+  "λαμψάτω · que tipo de ordem?": { "p": "É o primeiro imperativo depois das declarações, e o sujeito não é \"vocês\", é a luz.", "t": ["Mt 5:16"], "e": [] },
+  "ἔμπροσθεν τῶν ἀνθρώπων · e 6:1?": { "p": "A mesma expressão volta em 6:1 com sinal oposto.", "t": ["Mt 6:1-18"], "e": ["U. Luz, Matthew 1-7"] },
+  "τὰ καλὰ ἔργα · bom ou belo?": { "p": "καλός não é ἀγαθός, e 1 Pedro usa a mesma fórmula.", "t": ["1Pe 2:12"], "e": [] },
+  "τὸν πατέρα ὑμῶν · por que agora?": { "p": "É a primeira ocorrência da expressão em Mateus.", "t": ["Mt 5:16", "Mt 6:1-18"], "e": ["J. Jeremias, Teologia do Novo Testamento"] } }
+};
+
+function nota(t){
+  return t.replace(/\{([^|{}]+)\|([^|{}]*)\|([^{}]+)\}/g, function(_, termo, outra, porque){
+    return '<span class="op"><span class="opw" role="button" tabindex="0" aria-expanded="false">' + termo +
+      '</span><span class="pop">' + (outra ? '<span class="pl">a outra opção</span>' + outra : '') +
+      '<span class="pl">por quê</span>' + porque + '</span></span>';
+  });
+}
+
+
+var NIVEIS = { solida:'sólida', provavel:'provável', possivel:'possível', especulativa:'especulativa' };
+var STATUS = { e:'escolhido', c:'camada', a:'aberto', d:'descartado' };
+var VERSOS = Object.keys(GREGO).map(Number).sort(function(a, b){ return a - b; });
+function opcoes(n){ return OPCOES[n]; }
+var texto = document.getElementById('texto');
+var escolhas = {};
+var CHAVE = BLOCO.chave || ('sermao-' + BLOCO.id + '-escolhas');
+try { escolhas = JSON.parse(localStorage.getItem(CHAVE)) || {}; } catch (e) {}
+function guardar(){ try { localStorage.setItem(CHAVE, JSON.stringify(escolhas)); } catch (e) {} }
+
+function trocar(n, i, dir, foco){
+  var lista = opcoes(n);
+  i = (i + lista.length) % lista.length;
+  var vs = texto.querySelector('.vs[data-n="' + n + '"]');
+  var alt = vs.querySelector('.alt');
+  alt.innerHTML = nota(lista[i].t);
+  var fala = alt.parentNode;
+  fala.classList.remove('entra-d', 'entra-e');
+  if (dir) { void fala.offsetWidth; fala.classList.add(dir > 0 ? 'entra-d' : 'entra-e'); }
+  [].forEach.call(vs.querySelectorAll('.esc button'), function(b, j){
+    b.setAttribute('aria-selected', j === i);
+    b.tabIndex = j === i ? 0 : -1;
+    if (j === i) {
+      if (foco) { b.focus(); }
+      var esc = b.parentNode;
+      esc.scrollLeft = Math.max(0, b.offsetLeft - esc.offsetLeft - (esc.clientWidth - b.offsetWidth) / 2);
+    }
+  });
+  var f = ANALISE[n].forca[lista[i].id];
+  var fp = vs.querySelector('.forca');
+  fp.className = 'forca n-' + f[0];
+  fp.innerHTML = '<b>' + NIVEIS[f[0]] + '</b>' + f[1];
+  vs.dataset.i = i;
+  if (lista[i].id === 'nossa') { delete escolhas[n]; } else { escolhas[n] = lista[i].id; }
+  guardar();
+}
+
+function painel(n){
+  var a = ANALISE[n];
+  return '<details class="anl"><summary>Escolhas e camadas · ' + a.escolhas.length + ' / ' + a.camadas.length + '</summary><div class="in">' +
+    '<h4>Escolhas<small>leituras que se excluem</small></h4><ul>' +
+    a.escolhas.map(function(e){ return '<li><b>' + e.t + '</b><span class="polos">' + e.polos + '</span><span class="peso">' + e.peso + '</span></li>'; }).join('') +
+    '</ul><h4>Camadas<small>o que o grego diz junto</small></h4><ul>' +
+    a.camadas.map(function(c){ return '<li><b>' + c.t + '</b>' + c.d + '</li>'; }).join('') +
+    '</ul></div></details>';
+}
+
+function montar(){
+  var h = '';
+  VERSOS.forEach(function(n, ix){
+    BLOCO.secoes.forEach(function(sc){ if (sc.de === n) { h += '<h2' + (ix ? ' class="sub"' : '') + '>' + sc.t + '</h2>'; } });
+    var lista = opcoes(n);
+    h += '<div class="vs' + ((BLOCO.novas || []).indexOf(n) >= 0 ? ' nova' : '') + '" data-n="' + n + '">' +
+      '<p class="fala"><span class="vn">' + n + '</span><span class="alt"></span></p>' +
+      '<div class="esc" role="tablist" aria-label="Opções do verso ' + n + '">' +
+      lista.map(function(o, j){
+        var f = ANALISE[n].forca[o.id];
+        return '<button type="button" role="tab" data-j="' + j + '"><span class="fd n-' + f[0] + '"></span>' + o.nome + '</button>';
+      }).join('') +
+      '</div><p class="forca"></p>' + painel(n) + '<div class="gr" lang="grc"><span class="gn">' + n + '</span>' + GREGO[n] + '</div></div>';
+  });
+  texto.innerHTML = h;
+  VERSOS.forEach(function(n){
+    var i = opcoes(n).map(function(o){ return o.id; }).indexOf(escolhas[n]);
+    trocar(n, i < 0 ? 0 : i);
+  });
+}
+
+texto.addEventListener('click', function(e){
+  var b = e.target.closest('.esc button');
+  if (!b) return;
+  var vs = b.closest('.vs');
+  var j = +b.dataset.j, atual = +vs.dataset.i;
+  if (j !== atual) { trocar(+vs.dataset.n, j, j > atual ? 1 : -1); }
+});
+texto.addEventListener('keydown', function(e){
+  var b = e.target.closest('.esc button');
+  if (!b || (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft')) return;
+  var vs = b.closest('.vs');
+  var d = e.key === 'ArrowRight' ? 1 : -1;
+  trocar(+vs.dataset.n, +vs.dataset.i + d, d, true);
+  e.preventDefault();
+});
+
+var toque = null, deslizou = false;
+texto.addEventListener('touchstart', function(e){
+  var f = e.target.closest('.fala');
+  toque = f && e.touches.length === 1 ? { vs:f.parentNode, x:e.touches[0].clientX, y:e.touches[0].clientY } : null;
+}, { passive:true });
+texto.addEventListener('touchend', function(e){
+  if (!toque) return;
+  var dx = e.changedTouches[0].clientX - toque.x, dy = e.changedTouches[0].clientY - toque.y;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > 1.5 * Math.abs(dy)) {
+    var d = dx < 0 ? 1 : -1;
+    fechar();
+    trocar(+toque.vs.dataset.n, +toque.vs.dataset.i + d, d);
+    deslizou = true;
+    setTimeout(function(){ deslizou = false; }, 350);
+  }
+  toque = null;
+}, { passive:true });
+texto.addEventListener('click', function(e){
+  if (deslizou) { e.stopPropagation(); e.preventDefault(); }
+}, true);
+
+document.getElementById('b-reset').addEventListener('click', function(){
+  escolhas = {}; guardar(); fechar();
+  VERSOS.forEach(function(n){
+    var vs = texto.querySelector('.vs[data-n="' + n + '"]');
+    if (+vs.dataset.i !== 0) { trocar(n, 0, -1); }
+  });
+});
+
+function ajustar(op){
+  var pop = op.querySelector('.pop');
+  pop.style.left = '0px';
+  var r = pop.getBoundingClientRect();
+  var excesso = r.right - (document.documentElement.clientWidth - 12);
+  if (excesso > 0) { pop.style.left = (-Math.min(excesso, r.left - 12)) + 'px'; }
+}
+function fechar(exceto){
+  [].forEach.call(document.querySelectorAll('.opw[aria-expanded="true"]'), function(w){
+    if (w !== exceto) { w.setAttribute('aria-expanded', 'false'); }
+  });
+}
+texto.addEventListener('click', function(e){
+  var w = e.target.closest('.opw');
+  if (!w) { fechar(); return; }
+  var abrir = w.getAttribute('aria-expanded') !== 'true';
+  fechar(w);
+  w.setAttribute('aria-expanded', abrir);
+  if (abrir) { ajustar(w.parentNode); }
+});
+texto.addEventListener('mouseover', function(e){
+  var op = e.target.closest('.op');
+  if (op && !op.contains(e.relatedTarget)) { ajustar(op); }
+});
+texto.addEventListener('keydown', function(e){
+  var w = e.target.closest('.opw');
+  if (w && (e.key === 'Enter' || e.key === ' ')) { w.click(); e.preventDefault(); }
+});
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') { fechar(); } });
+document.addEventListener('click', function(e){ if (!texto.contains(e.target)) { fechar(); } });
+
+function alternar(botao, classe){
+  var chave = 'bemav-' + classe;
+  function aplicar(on){
+    document.body.classList.toggle(classe, on);
+    botao.setAttribute('aria-pressed', on);
+  }
+  try { var s = localStorage.getItem(chave); if (s !== null) { aplicar(s === '1'); } } catch (e) {}
+  botao.addEventListener('click', function(){
+    var on = !document.body.classList.contains(classe);
+    aplicar(on);
+    if (!on) { fechar(); }
+    try { localStorage.setItem(chave, on ? '1' : '0'); } catch (e) {}
+  });
+}
+alternar(document.getElementById('b-notas'), 'notas');
+alternar(document.getElementById('b-grego'), 'grego');
+alternar(document.getElementById('b-analise'), 'analise');
+
+montar();
+
+var arvVs = document.getElementById('arv-vs'), arvFiltro = document.getElementById('arv-filtro');
+var arvTopo = document.getElementById('arv-topo'), arvTv = document.getElementById('arv-tv'), arvCard = document.getElementById('arv-card');
+var arvLista = document.getElementById('arv-lista'), arvDica = document.getElementById('arv-dica');
+var arvEstado = { k:VERSOS[0], sel:null, filtro:'todos' };
+var COLW = [36, 118, 150, 112, 150], COLG = 16;
+var regua = document.createElement('canvas').getContext('2d');
+var F_G = '500 15px "EB Garamond", Georgia, serif', F_P = 'italic 400 13px "EB Garamond", Georgia, serif', F_L = '500 14.5px "EB Garamond", Georgia, serif';
+
+function esc(t){ return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+function quebra(txt, fonte, w){
+  regua.font = fonte;
+  var linhas = [], atual = '';
+  txt.split(' ').forEach(function(p){
+    var prova = atual ? atual + ' ' + p : p;
+    if (regua.measureText(prova).width > w && atual) { linhas.push(atual); atual = p; } else { atual = prova; }
+  });
+  if (atual) { linhas.push(atual); }
+  return linhas;
+}
+function largura(linhas, fonte){
+  regua.font = fonte;
+  return Math.max.apply(null, linhas.map(function(l){ return regua.measureText(l).width; }));
+}
+function arvDe(k){ return k === 'trecho' ? TRECHO : ARVORE[k]; }
+function ligaDe(k, r){ return k === 'trecho' ? null : (LIGA[k] || {})[r.t] || null; }
+
+function folhas(k){
+  var out = [];
+  (function anda(qs, caminho){
+    qs.forEach(function(q, qi){
+      q.r.forEach(function(r, ri){
+        var id = k + '-' + caminho + qi + '.' + ri;
+        out.push({ id:id, k:k, q:q.q, r:r });
+        if (r.f) { anda(r.f, caminho + qi + '.' + ri + '-'); }
+      });
+    });
+  })(arvDe(k).q, '');
+  return out;
+}
+var CHAVES = ['trecho'].concat(VERSOS);
+var TODAS = CHAVES.reduce(function(a, k){ return a.concat(folhas(k)); }, []);
+
+function montaNos(k){
+  function q2n(q, d, caminho, qi){
+    var partes = q.q.split(' · ');
+    var g = quebra(partes[0], F_G, COLW[d]), pg = partes[1] ? quebra(partes[1], F_P, COLW[d]) : [];
+    var n = { tipo:'q', k:k, qq:q.q, d:d, g:g, pg:pg, h:g.length * 18 + pg.length * 16,
+      wr:Math.max(largura(g, F_G), pg.length ? largura(pg, F_P) : 0), filhos:[] };
+    q.r.forEach(function(r, ri){
+      var id = k + '-' + caminho + qi + '.' + ri;
+      var ln = quebra(r.t, F_L, COLW[d + 1] - 20);
+      var f = { tipo:'f', d:d + 1, r:r, id:id, ln:ln, h:ln.length * 18 + 14, filhos:[] };
+      if (r.f) { f.filhos = r.f.map(function(sq, sqi){ return q2n(sq, d + 2, caminho + qi + '.' + ri + '-', sqi); }); }
+      n.filhos.push(f);
+    });
+    return n;
+  }
+  return { tipo:'raiz', d:0, h:0, filhos:arvDe(k).q.map(function(q, qi){ return q2n(q, 1, '', qi); }) };
+}
+function vao(n){ return n.tipo === 'raiz' || n.tipo === 'f' ? 20 : 11; }
+function medir(n){
+  n.filhos.forEach(medir);
+  var soma = n.filhos.reduce(function(a, c){ return a + c.sub; }, 0) + Math.max(0, n.filhos.length - 1) * vao(n);
+  n.sub = Math.max(n.h, soma); n.soma = soma;
+}
+function posicionar(n, topo){
+  n.topo = topo;
+  if (!n.filhos.length) { n.cy = topo + n.sub / 2; return; }
+  var y = topo + (n.sub - n.soma) / 2;
+  n.filhos.forEach(function(c){ posicionar(c, y); y += c.sub + vao(n); });
+  n.cy = (n.filhos[0].cy + n.filhos[n.filhos.length - 1].cy) / 2;
+}
+function colx(d){ var x = 0; for (var i = 0; i < d; i++) { x += COLW[i] + COLG; } return x; }
+function curva(x1, y1, x2, y2){ var m = (x1 + x2) / 2; return 'M' + x1 + ' ' + y1 + ' C' + m + ' ' + y1 + ' ' + m + ' ' + y2 + ' ' + x2 + ' ' + y2; }
+
+function desenhar(k){
+  var raiz = montaNos(k);
+  medir(raiz); posicionar(raiz, 10);
+  var H = raiz.sub + 20, prof = 0, ligas = [], nos = [];
+  (function anda(n){
+    prof = Math.max(prof, n.d);
+    n.filhos.forEach(function(c){
+      var x1 = n.tipo === 'raiz' ? COLW[0] : n.tipo === 'q' ? colx(n.d) + n.wr + 6 : colx(n.d) + COLW[n.d];
+      var cls = c.tipo === 'f' ? 'lk s-' + c.r.s : 'lk lq';
+      ligas.push('<path class="' + cls + '" d="' + curva(x1, n.tipo === 'raiz' ? c.cy : n.cy, colx(c.d), c.cy) + '"/>');
+      anda(c);
+    });
+    if (n.tipo === 'q') {
+      var y = n.cy - n.h / 2 + 13, temO = !!(ORIGEM[n.k] || {})[n.qq];
+      var t = '<g class="qn' + (temO ? '' : ' sem') + '" data-q="' + esc(n.qq) + '"' + (temO ? ' tabindex="0" role="button" aria-label="' + esc('Por que perguntar: ' + n.qq) + '"' : '') + '>' +
+        '<rect class="qh" x="' + (colx(n.d) - 4) + '" y="' + (n.cy - n.h / 2 - 3) + '" width="' + (n.wr + 8) + '" height="' + (n.h + 6) + '" rx="4"/>' +
+        '<text class="tq" x="' + colx(n.d) + '" y="' + y + '">';
+      n.g.forEach(function(l, i){ t += '<tspan class="tg" x="' + colx(n.d) + '" dy="' + (i ? 18 : 0) + '">' + esc(l) + '</tspan>'; });
+      n.pg.forEach(function(l, i){ t += '<tspan class="tp" x="' + colx(n.d) + '" dy="' + (i || n.g.length ? (i ? 16 : 17) : 0) + '">' + esc(l) + '</tspan>'; });
+      nos.push(t + '</text></g>');
+    }
+    if (n.tipo === 'f') {
+      var x = colx(n.d), y0 = n.cy - n.h / 2, w = COLW[n.d];
+      var g = '<g class="lf s-' + n.r.s + (arvEstado.sel === n.id ? ' sel' : '') + '" data-id="' + n.id + '" tabindex="0" role="button" aria-label="' + esc(STATUS[n.r.s] + ': ' + n.r.t) + '">' +
+        '<rect class="lb" x="' + x + '" y="' + y0 + '" width="' + w + '" height="' + n.h + '" rx="6"/>' +
+        '<rect class="lc" x="' + x + '" y="' + y0 + '" width="3" height="' + n.h + '" rx="1.5"/><text class="tl">';
+      n.ln.forEach(function(l, i){ g += '<tspan x="' + (x + 11) + '" y="' + (y0 + 20 + i * 18) + '">' + esc(l) + '</tspan>'; });
+      nos.push(g + '</text></g>');
+    }
+  })(raiz);
+  var W = colx(prof) + COLW[prof] + 2;
+  var rot = k === 'trecho' ? BLOCO.ref : BLOCO.cap + ':' + k;
+  return '<svg class="arv-svg" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" role="group" aria-label="Árvore de ' + rot + '">' +
+    '<rect class="rz" x="0" y="10" width="' + COLW[0] + '" height="' + (H - 20) + '" rx="8"/>' +
+    '<text class="rzt" transform="translate(' + (COLW[0] / 2 + 5) + ' ' + (H / 2) + ') rotate(-90)" text-anchor="middle">' + rot + '</text>' +
+    ligas.join('') + nos.join('') + '</svg>';
+}
+
+function cartao(id){
+  var f = TODAS.filter(function(x){ return x.id === id; })[0];
+  if (!f) { arvCard.innerHTML = '<p class="cd-vazio">Toque numa pergunta para ver por que ela é feita e as fontes, ou numa folha para ver o motivo e a frase que sai daquele caminho.</p>'; return; }
+  var r = f.r, lg = ligaDe(f.k, r), h = '<div class="no s-' + r.s + '"><span class="st">' + STATUS[r.s] + '</span><span class="cq">' + esc(f.q) + '</span><b>' + r.t + '</b>' + r.p;
+  if (r.n) { h += '<span class="nn">' + r.n + '</span>'; }
+  if (lg) { h += '<span class="fr">' + lg[0] + '</span>'; }
+  var bt = '';
+  if (lg && lg[1]) {
+    var nome = opcoes(f.k).filter(function(o){ return o.id === lg[1]; })[0].nome;
+    bt = '<button type="button" class="cd-bt" data-v="' + f.k + '" data-o="' + lg[1] + '">Usar no verso ' + f.k + ': ' + nome + '</button>';
+  } else if (f.k !== 'trecho') {
+    bt = '<span class="cd-nota">Nenhuma opção da página segue este caminho.</span><button type="button" class="cd-bt" data-v="' + f.k + '">Ver o verso ' + f.k + '</button>';
+  }
+  if (r.vv) { bt = r.vv.map(function(v){ return '<button type="button" class="cd-bt" data-v="' + v + '">' + BLOCO.cap + ':' + v + '</button>'; }).join(''); }
+  arvCard.innerHTML = h + (bt ? '<span class="cd-bts">' + bt + '</span>' : '') + '</div>';
+}
+
+// links das fontes: texto aberto (endereço conferido em 2026-10-02) ou busca, quando a obra não tem texto livre
+var LIVRO_SLUG = { 'Gn':'gn', 'Êx':'ex', 'Lv':'lv', 'Nm':'nm', 'Dt':'dt', 'Js':'js', 'Jz':'jz', 'Rt':'rt', '1Sm':'1sm', '2Sm':'2sm',
+  '1Rs':'1rs', '2Rs':'2rs', '1Cr':'1cr', '2Cr':'2cr', 'Esd':'esd', 'Ne':'ne', 'Et':'et', 'Jó':'job', 'Sl':'sl', 'Pr':'pv', 'Ec':'ec',
+  'Ct':'ct', 'Is':'is', 'Jr':'jr', 'Lm':'lm', 'Ez':'ez', 'Dn':'dn', 'Os':'os', 'Jl':'jl', 'Am':'am', 'Ob':'ob', 'Jn':'jn', 'Mq':'mq',
+  'Na':'na', 'Hc':'hc', 'Sf':'sf', 'Ag':'ag', 'Zc':'zc', 'Ml':'ml', 'Mt':'mt', 'Mc':'mc', 'Lc':'lc', 'Jo':'jo', 'At':'at', 'Rm':'rm',
+  '1Co':'1co', '2Co':'2co', 'Gl':'gl', 'Ef':'ef', 'Fp':'fp', 'Cl':'cl', '1Ts':'1ts', '2Ts':'2ts', '1Tm':'1tm', '2Tm':'2tm', 'Tt':'tt',
+  'Fm':'fm', 'Hb':'hb', 'Tg':'tg', '1Pe':'1pe', '2Pe':'2pe', '1Jo':'1jo', '2Jo':'2jo', '3Jo':'3jo', 'Jd':'jd', 'Ap':'ap' };
+var QUMRAN = 'https://www.deadseascrolls.org.il/explore-the-archive/search#q=';
+var OL = 'https://openlibrary.org/search?q=';
+var FONTES = [
+  ['Agostinho, De consensu', 'https://www.newadvent.org/fathers/1602.htm'],
+  ['Aristóteles, Ética a Nicômaco IV.5', 'https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0054:bekker%20page=1126a'],
+  ['Augusto, Res Gestae', 'https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Augustus/Res_Gestae/home.html'],
+  ['Clemente de Alexandria, Quis dives', 'https://www.newadvent.org/fathers/0207.htm'],
+  ['João Crisóstomo, Homilias sobre Mateus 15', 'https://www.newadvent.org/fathers/200115.htm'],
+  ['m. ʾAbot', 'https://www.sefaria.org/Pirkei_Avot.4.4'],
+  ['b. Sanhedrin 98b', 'https://www.sefaria.org/Sanhedrin.98b'],
+  ['1QM', QUMRAN + "'1QM'", 1], ['4Q171', QUMRAN + "'4Q171'", 1], ['4Q525', QUMRAN + "'4Q525'", 1], ['11Q13', QUMRAN + "'11Q13'", 1],
+  ['R. Guelich, "The Matthean', 'https://scholar.google.com/scholar?q=Guelich+%22Matthean+Beatitudes%22+JBL+1976', 1],
+  ['R. Guelich, JBL', 'https://scholar.google.com/scholar?q=Guelich+%22Matthean+Beatitudes%22+JBL+1976', 1],
+  ['R. Guelich, The Sermon', OL + 'Guelich+The+Sermon+on+the+Mount', 1],
+  ['Davies e Allison', OL + 'Davies+Allison+Critical+and+Exegetical+Commentary+Gospel+according+to+Saint+Matthew', 1],
+  ['U. Luz', OL + 'Luz+Matthew+1-7+Hermeneia', 1],
+  ['J. Dupont', OL + 'Dupont+Les+Beatitudes', 1],
+  ['G. Strecker', OL + 'Strecker+Die+Bergpredigt', 1],
+  ['H. Windisch', OL + 'Windisch+Meaning+of+the+Sermon+on+the+Mount', 1],
+  ['B. Przybylski', OL + 'Przybylski+Righteousness+in+Matthew', 1],
+  ['J. Jeremias', OL + 'Jeremias+New+Testament+Theology', 1],
+  ['Blass, Debrunner e Funk', OL + 'Blass+Debrunner+Funk+Greek+Grammar+of+the+New+Testament', 1],
+  ['J. M. Robinson', OL + 'Critical+Edition+of+Q+Robinson+Hoffmann+Kloppenborg', 1],
+  ['T. Donaldson', OL + 'Donaldson+Jesus+on+the+Mountain', 1],
+  ['D. Allison, The New Moses', OL + 'Allison+The+New+Moses', 1],
+  ['G. Dalman', OL + 'Dalman+Die+Worte+Jesu', 1],
+  ['G. Gutiérrez', OL + 'Gutierrez+Teologia+da+Libertacao', 1],
+  ['H. W. Wolff', OL + 'Wolff+Antropologia+do+Antigo+Testamento', 1],
+  ['S. Kierkegaard', OL + 'Kierkegaard+Purity+of+Heart+Is+to+Will+One+Thing', 1],
+  ['B. Metzger', OL + 'Metzger+Textual+Commentary+Greek+New+Testament', 1],
+  ['João Clímaco', OL + 'John+Climacus+Ladder+of+Divine+Ascent', 1],
+  ['Nestle-Aland 28', OL + 'Novum+Testamentum+Graece+28', 1]
+];
+if (BLOCO.fontes) { FONTES = BLOCO.fontes.concat(FONTES); }
+function linkFonte(r){
+  var m = r.match(/^(\d?[A-ZÊÁÉÍÓÚ][a-zêáéíóúç]*) (\d+)(?::(\d+(?:-\d+)?))?/);
+  if (m && LIVRO_SLUG[m[1]]) {
+    return { u:'https://www.bibliaonline.com.br/acf/' + LIVRO_SLUG[m[1]] + '/' + m[2] + (m[3] ? '/' + m[3] : ''), busca:false };
+  }
+  for (var i = 0; i < FONTES.length; i++) { if (r.indexOf(FONTES[i][0]) === 0) { return { u:FONTES[i][1], busca:!!FONTES[i][2] }; } }
+  return null;
+}
+function fonteHtml(r){
+  var l = linkFonte(r);
+  if (!l) { return esc(r); }
+  return '<a href="' + esc(l.u) + '" target="_blank" rel="noopener"' + (l.busca ? ' class="busca" title="busca: a obra não tem texto livre"' : '') + '>' + esc(r) + '</a>';
+}
+
+function origemHtml(k, q, curto){
+  var o = (ORIGEM[k] || {})[q];
+  if (!o) { return ''; }
+  var h = '<span class="og-p">' + o.p + '</span>';
+  if (curto) { return h; }
+  if (o.t.length) { h += '<span class="og-r"><i>textos</i>' + o.t.map(fonteHtml).join(' · ') + '</span>'; }
+  if (o.e.length) { h += '<span class="og-r"><i>estudos</i>' + o.e.map(fonteHtml).join(' · ') + '</span>'; }
+  return h;
+}
+function cartaoQ(k, q){
+  arvEstado.sel = null;
+  [].forEach.call(arvTv.querySelectorAll('.lf.sel'), function(x){ x.classList.remove('sel'); });
+  arvCard.innerHTML = '<div class="no og"><span class="st">por que esta pergunta</span><b>' + esc(q) + '</b>' + origemHtml(k, q) + '</div>';
+}
+var arvTip = document.getElementById('arv-tip'), arvWrap = document.getElementById('arv-wrap');
+function dica(g){
+  if (!g) { arvTip.hidden = true; return; }
+  arvTip.innerHTML = '<b>' + esc(g.dataset.q) + '</b>' + origemHtml(arvEstado.k, g.dataset.q, false) + '<span class="og-dica">clique na pergunta para abrir as fontes</span>';
+  arvTip.hidden = false;
+  var r = g.getBoundingClientRect(), w = arvWrap.getBoundingClientRect();
+  var x = Math.min(Math.max(0, r.left - w.left), w.width - arvTip.offsetWidth);
+  arvTip.style.left = Math.max(0, x) + 'px';
+  arvTip.style.top = (r.bottom - w.top + 6) + 'px';
+}
+
+function arvMostrar(){
+  var k = arvEstado.k, a = arvDe(k);
+  [].forEach.call(arvVs.children, function(b){
+    var on = b.dataset.k === String(k) && arvEstado.filtro === 'todos';
+    b.setAttribute('aria-selected', on); b.tabIndex = b.dataset.k === String(k) ? 0 : -1;
+  });
+  [].forEach.call(arvFiltro.children, function(b){ b.setAttribute('aria-pressed', b.dataset.s === arvEstado.filtro); });
+  var lista = arvEstado.filtro !== 'todos';
+  arvTopo.hidden = arvTv.hidden = arvCard.hidden = lista; arvLista.hidden = !lista;
+  if (lista) {
+    var grupos = {};
+    TODAS.forEach(function(f){ if (f.r.s === arvEstado.filtro) { (grupos[f.k] = grupos[f.k] || []).push(f); } });
+    arvLista.innerHTML = Object.keys(grupos).sort(function(x, y){ return (x === 'trecho' ? 0 : +x) - (y === 'trecho' ? 0 : +y); }).map(function(g){
+      return '<h4>' + (g === 'trecho' ? 'O trecho' : 'Verso ' + g) + '</h4>' + grupos[g].map(function(f){
+        return '<button type="button" class="li s-' + f.r.s + '" data-id="' + f.id + '"><span class="cq">' + esc(f.q) + '</span><b>' + f.r.t + '</b>' + f.r.p + '</button>';
+      }).join('');
+    }).join('');
+    arvDica.hidden = true;
+    return;
+  }
+  arvTopo.innerHTML = '<p class="tn">' + a.nossa + '</p>' + (k === 'trecho' ? '' : '<p class="g" lang="grc">' + a.raiz + '</p>');
+  arvTv.innerHTML = desenhar(k);
+  arvDica.hidden = arvTv.scrollWidth <= arvTv.clientWidth + 2;
+  if (!arvEstado.sel || arvEstado.sel.split('-')[0] !== String(k)) { arvEstado.sel = null; }
+  cartao(arvEstado.sel);
+}
+
+CHAVES.forEach(function(k){
+  var b = document.createElement('button');
+  b.type = 'button'; b.setAttribute('role', 'tab'); b.dataset.k = k; b.textContent = k === 'trecho' ? 'trecho' : 'verso ' + k;
+  arvVs.appendChild(b);
+});
+[['todos','tudo'],['e','escolhidos'],['c','camadas'],['a','abertos'],['d','descartados']].forEach(function(p){
+  var b = document.createElement('button');
+  b.type = 'button'; b.dataset.s = p[0]; b.className = p[0] === 'todos' ? '' : 's-' + p[0];
+  var n = p[0] === 'todos' ? '' : ' ' + TODAS.filter(function(f){ return f.r.s === p[0]; }).length;
+  b.innerHTML = esc(p[1]) + (n ? '<small>' + n + '</small>' : '');
+  arvFiltro.appendChild(b);
+});
+
+function abrirFolha(id){
+  arvEstado.k = id.split('-')[0] === 'trecho' ? 'trecho' : +id.split('-')[0];
+  arvEstado.sel = id; arvEstado.filtro = 'todos';
+  arvMostrar();
+  var g = arvTv.querySelector('[data-id="' + id + '"]');
+  if (g) {
+    var b = g.getBBox();
+    arvTv.scrollLeft = Math.max(0, b.x - 60);
+  }
+}
+arvVs.addEventListener('click', function(e){
+  var b = e.target.closest('button'); if (!b) return;
+  arvEstado.k = b.dataset.k === 'trecho' ? 'trecho' : +b.dataset.k; arvEstado.sel = null; arvEstado.filtro = 'todos';
+  arvMostrar();
+});
+arvVs.addEventListener('keydown', function(e){
+  if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+  var bs = [].slice.call(arvVs.children), i = bs.indexOf(document.activeElement);
+  if (i < 0) return;
+  i = (i + (e.key === 'ArrowRight' ? 1 : -1) + bs.length) % bs.length;
+  bs[i].click(); bs[i].focus(); e.preventDefault();
+});
+arvFiltro.addEventListener('click', function(e){
+  var b = e.target.closest('button'); if (!b) return;
+  arvEstado.filtro = b.dataset.s; arvMostrar();
+});
+arvLista.addEventListener('click', function(e){
+  var b = e.target.closest('.li'); if (!b) return;
+  abrirFolha(b.dataset.id);
+  document.getElementById('arvore').scrollIntoView({ block:'start' });
+});
+var paira = window.matchMedia('(hover:hover)').matches;
+arvTv.addEventListener('mouseover', function(e){
+  if (!paira) return;
+  var g = e.target.closest('.qn:not(.sem)');
+  if (g && !g.contains(e.relatedTarget)) { dica(g); }
+});
+arvTv.addEventListener('mouseout', function(e){
+  var g = e.target.closest('.qn');
+  if (g && !g.contains(e.relatedTarget)) { dica(null); }
+});
+arvTv.addEventListener('scroll', function(){ dica(null); });
+arvTv.addEventListener('focusin', function(e){ var g = e.target.closest('.qn:not(.sem)'); if (g && paira) { dica(g); } });
+arvTv.addEventListener('focusout', function(){ dica(null); });
+arvTv.addEventListener('click', function(e){
+  var q = e.target.closest('.qn:not(.sem)');
+  if (q) { dica(null); cartaoQ(arvEstado.k, q.dataset.q); return; }
+  var g = e.target.closest('.lf'); if (!g) return;
+  arvEstado.sel = arvEstado.sel === g.dataset.id ? null : g.dataset.id;
+  [].forEach.call(arvTv.querySelectorAll('.lf'), function(x){ x.classList.toggle('sel', x.dataset.id === arvEstado.sel); });
+  cartao(arvEstado.sel);
+});
+arvTv.addEventListener('keydown', function(e){
+  var g = e.target.closest('.lf, .qn:not(.sem)');
+  if (g && (e.key === 'Enter' || e.key === ' ')) { g.dispatchEvent(new MouseEvent('click', { bubbles:true })); e.preventDefault(); }
+});
+arvCard.addEventListener('click', function(e){
+  var b = e.target.closest('.cd-bt'); if (!b) return;
+  var n = +b.dataset.v, vs = texto.querySelector('.vs[data-n="' + n + '"]');
+  if (b.dataset.o) {
+    var j = opcoes(n).map(function(o){ return o.id; }).indexOf(b.dataset.o);
+    if (j !== +vs.dataset.i) { trocar(n, j, j > +vs.dataset.i ? 1 : -1); }
+  }
+  vs.scrollIntoView({ block:'center', behavior:'smooth' });
+  vs.classList.remove('achado'); void vs.offsetWidth; vs.classList.add('achado');
+});
+window.addEventListener('resize', function(){ if (arvEstado.filtro === 'todos') { arvDica.hidden = arvTv.scrollWidth <= arvTv.clientWidth + 2; } });
+(function(){
+  var tx = {}, es = {};
+  Object.keys(ORIGEM).forEach(function(k){ Object.keys(ORIGEM[k]).forEach(function(q){
+    ORIGEM[k][q].t.forEach(function(r){ tx[r] = (tx[r] || 0) + 1; });
+    ORIGEM[k][q].e.forEach(function(r){ es[r] = (es[r] || 0) + 1; });
+  }); });
+  function lista(o){ return '<ul>' + Object.keys(o).sort(function(a, b){ return a.localeCompare(b, 'pt'); }).map(function(r){
+    return '<li>' + fonteHtml(r) + (o[r] > 1 ? ' <small>' + o[r] + ' perguntas</small>' : '') + '</li>'; }).join('') + '</ul>'; }
+  document.getElementById('arv-refs').innerHTML = '<summary>Referências da árvore · ' + Object.keys(es).length + ' estudos, ' + Object.keys(tx).length + ' textos</summary>' +
+    '<div class="in"><p class="rf-nota">Os textos antigos abrem direto: a Bíblia na Almeida Corrigida Fiel, os Padres no New Advent, Aristóteles no Perseus, a Mishná e o Talmude no Sefaria. Estudos modernos não têm texto livre: o link marcado com <span class="busca">⌕</span> procura a obra no catálogo do Open Library ou no Google Scholar.</p><h4>Estudos e obras</h4>' + lista(es) + '<h4>Textos antigos</h4>' + lista(tx) + '</div>';
+})();
+arvMostrar();
+if (document.fonts && document.fonts.ready) { document.fonts.ready.then(function(){ if (arvEstado.filtro === 'todos') { arvMostrar(); } }); }
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('sw.js').catch(function(){});
+  });
+}
+</script>
+</body>
+</html>
