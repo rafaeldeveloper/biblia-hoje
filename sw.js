@@ -1,4 +1,4 @@
-var VERSAO = 'biblia-v15';
+var VERSAO = 'biblia-v16';
 var ESTATICO = VERSAO + '-estatico';
 var PAGINAS = VERSAO + '-paginas';
 
@@ -8,6 +8,7 @@ var CASCA = [
   'biblia-hoje.html',
   'traducao.html',
   'comentario.html',
+  'bem-aventurancas.html',
   'manifest.webmanifest',
   'instalar.js',
   'fontes/fontes.css',
