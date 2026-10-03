@@ -1,4 +1,4 @@
-var VERSAO = 'biblia-v27';
+var VERSAO = 'biblia-v28';
 var ESTATICO = VERSAO + '-estatico';
 var PAGINAS = VERSAO + '-paginas';
 
@@ -22,6 +22,7 @@ var CASCA = [
   'pai-nosso.html',
   'o-jejum.html',
   'o-tesouro.html',
+  'a-preocupacao.html',
   'manifest.webmanifest',
   'instalar.js',
   'fontes/fontes.css',
