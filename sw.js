@@ -1,4 +1,4 @@
-var VERSAO = 'biblia-v20';
+var VERSAO = 'biblia-v21';
 var ESTATICO = VERSAO + '-estatico';
 var PAGINAS = VERSAO + '-paginas';
 
@@ -13,6 +13,7 @@ var CASCA = [
   'a-lei.html',
   'a-raiva.html',
   'o-olhar.html',
+  'o-divorcio.html',
   'manifest.webmanifest',
   'instalar.js',
   'fontes/fontes.css',
